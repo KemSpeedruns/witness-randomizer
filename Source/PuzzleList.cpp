@@ -119,6 +119,7 @@ void PuzzleList::CopyTargetsN()
 	* UTM Panels in General
 	*/
 
+	Special::copyTarget(0x0C373, 0x033D4); // Tutorial Patio Floor -> Tutorial Vault
 	Special::copyTarget(0x033D4, 0x04CA4); // Tutorial Vault -> Tutorial Optional Door 2
 	Special::copyTarget(0x17CFB, 0x0A171); // Tutorial Discard -> Tutorial Optinal Door 1
 	Special::copyTarget(0x17D01, 0x19650); // Town Crate Discard -> Shadows Laser
@@ -129,9 +130,10 @@ void PuzzleList::CopyTargetsN()
 	Special::copyTarget(0x17F9B, 0x17CAB); // Jungle Discard -> Jungle Pop-up wall
 	Special::copyTarget(0x00061, 0x17C2E); // Dots Tutorial -> Bunker Entry Door
 	Special::copyTarget(0x17C2E, 0x09DE0); // Bunker Entry Door -> Bunker Laser
+	
  
 	Special::setPower(0x28B39, true); // Town Red Hex Panel
-	Special::setPower(0x3369D, true); // Lower Elevator Control
+	//Special::setPower(0x3369D, true); // Lower Elevator Control
 	Special::setPower(0x17CA4, true); // Monastary Laser
 	Special::setPower(0x17CAB, true); // Jungle Pop-up Wall
 
