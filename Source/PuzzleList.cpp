@@ -1699,10 +1699,55 @@ void PuzzleList::GenerateDesertH() {
 
 //-------------------------------------Puzzle Pack Mode
 
-void PuzzleList::GenerateRandomPuzzle(int id) 
+void PuzzleList::GenerateRandomPuzzle(int id, int size) 
 {
-	
-	//int symbolList [] = { generator->chooseRandomSymbol(false, false), generator->chooseRandomSymbol(false, false) };
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0)
+	{
+		panelSize = (Random::rand() % 9) + 3;
+	}
+	std::string typeList [] = { "Decoration::Gap", "Decoration::Dot", "Decoration::Triangle", "Decoration::Arrow", "Decoration::Poly", "Decoration::Star", 
+		"Gaps and Dots", "Everything Erasers" };
+	//int typeChoice = Random::rand() % sizeof(typeList);
+	int typeChoice = Random::rand() % 8;
+	//int typeChoice = 4;
+	switch (typeChoice) {
+	case 0:
+		generator->setGridSize(panelSize, panelSize);
+		GenerateSingleMonoColorTypePuzzle(id, Decoration::Gap, 2, panelSize);
+		break;
+	case 1:
+		GenerateSingleMonoColorTypePuzzle(id,Decoration::Dot, 2, panelSize);
+		break;
+	case 2:
+		GenerateSingleMonoColorTypePuzzle(id, Decoration::Triangle, 2, panelSize);
+		break;
+	case 3:
+		GenerateSingleMonoColorTypePuzzle(id, Decoration::Arrow, 2, panelSize);
+		break;
+	case 4:
+		GenerateSingleMonoColorTypePuzzle(id, Decoration::Poly, 5, panelSize);
+		break;
+	case 5:
+		GenerateMonoStarPuzzle(id, panelSize);
+		break;
+	case 6:
+		GenerateGapsAndDots(id, panelSize);
+		break;
+	case 7:
+		if (panelSize >= 4) 
+		{
+			GenerateEverythingPanel(id, 4, Decoration::Eraser, 2);
+		}
+		else 
+		{
+			GenerateEverythingPanel(id, panelSize, Decoration::Eraser, panelSize - 2);
+		}
+		
+		break;
+	}
+
 	/*generator->generate(id, symbolList[0] | Decoration::Color::Black, Random::rand() % 4, symbolList[0] | Decoration::Color::White, Random::rand() % 4,
 		symbolList[1] | Decoration::Color::Black, Random::rand() % 4, symbolList[1] | Decoration::Color::White, Random::rand() % 4);*/
 	//GenerateGapsAndDots(id);
@@ -1777,26 +1822,28 @@ void PuzzleList::GenerateTutorialP()
 	Special::drawSeedAndDifficulty(0x00064, seedIsRNG ? -1 : seed, false);
 	//Special::drawGoodLuckPanel(0x00182);
 	//generator->generate(0x00182, Decoration::Gap, 1);
-	GenerateSingleMonoColorTypePuzzle(0x00293, Decoration::Dot, 2, 0);
-	GenerateSingleMonoColorTypePuzzle(0x00295, Decoration::Triangle | Decoration::Color::Black, 2, 0);
-	GenerateSingleMonoColorTypePuzzle(0x002C2, Decoration::Arrow | Decoration::Color::Black, 2, 0);
-	GenerateSingleMonoColorTypePuzzle(0x0A3B2, Decoration::Poly | Decoration::Color::Black, 5, 0);
-	GenerateMonoStarPuzzle(0x0A3B5, 0);
-	GenerateGapsAndDots(0x0A171, 0);
-	GenerateEverythingPanel(0x0005D, 3, Decoration::Eraser, 1);
-	GenerateEverythingPanel(0x0005E, 4, Decoration::Eraser, 2);
-
-
-	//generator->setGridSize(4, 4);
-	//GenerateGapsAndDots(0x00293, 4);
-	//GenerateSingleMonoColorTypePuzzle(0x00295, Decoration::Dot, 2, 4);
-	//GenerateSingleMonoColorTypePuzzle(0x002C2, Decoration::Arrow | Decoration::Color::Black, 2, 4);
-	//GenerateSingleMonoColorTypePuzzle(0x0A3B2, Decoration::Poly | Decoration::Color::Black, 5, 4);
-	//GenerateSingleMonoColorTypePuzzle(0x0A3B5, Decoration::Triangle | Decoration::Color::Black, 2, 4);
-	//generator->setSymbol(Decoration::Start, 0, 12);
-	//GenerateMonoStarPuzzle(0x0005D, 4);
-	//GenerateEverythingPanel(0x0005E, 6, Decoration::Arrow, 4);
-	//GenerateEverythingPanel(0x0005F, 5, Decoration::Eraser, 3);
+	GenerateRandomPuzzle(0x00293, 4);
+	GenerateRandomPuzzle(0x00295, 4);
+	GenerateRandomPuzzle(0x002C2, 4);
+	GenerateRandomPuzzle(0x0A3B2, 4);
+	//Reason: Control Panel
+	//GenerateRandomPuzzle(0x0A3B5, 4);
+	GenerateRandomPuzzle(0x0A171, 4);
+	GenerateRandomPuzzle(0x04CA4, 4);
+	GenerateRandomPuzzle(0x0005D, 4);
+	GenerateRandomPuzzle(0x0005E, 4);
+	GenerateRandomPuzzle(0x0005F, 4);
+	GenerateRandomPuzzle(0x00060, 4);
+	GenerateRandomPuzzle(0x00061, 4);
+	GenerateRandomPuzzle(0x018AF, 4);
+	GenerateRandomPuzzle(0x0001B, 4);
+	GenerateRandomPuzzle(0x012C9, 4);
+	GenerateRandomPuzzle(0x0001C, 4);
+	GenerateRandomPuzzle(0x0001D, 4);
+	GenerateRandomPuzzle(0x0001E, 4);
+	GenerateRandomPuzzle(0x0001F, 4);
+	GenerateRandomPuzzle(0x00020, 4);
+	GenerateRandomPuzzle(0x00021, 4);
 }
 
 void PuzzleList::GenerateSymmetryP()
