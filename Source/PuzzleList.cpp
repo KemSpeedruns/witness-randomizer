@@ -372,11 +372,7 @@ void PuzzleList::GenerateQuarryN()
 	generator->generate(0x01489, Decoration::Eraser | Decoration::Color::Green, 1, Decoration::Dot, 4);
 	generator->generate(0x0148A, Decoration::Eraser | Decoration::Color::Green, 1, Decoration::Dot, 8);
 	
-	//This one didn't work, so I removed 3 dots
-	//generator->setSymbol(Decoration::Empty, 0, 0);
-	/*generator->setSymbol(Decoration::Start, Random::rand() % 2, Random::rand() % 2);*/
-	//generator->setFlagOnce(Generate::Config::LongPath);
-	//generator->generate(0x014D9, Decoration::Eraser | Decoration::Color::Green, 1, Decoration::Dot, 13);
+	//This one needs false parity to work because it's 4x4 and the math is off.
 	generator->setFlagOnce(Generate::Config::FalseParity);
 	generator->generate(0x014D9, Decoration::Eraser | Decoration::Color::Green, 1, Decoration::Dot, 16);
 
@@ -577,11 +573,11 @@ void PuzzleList::GenerateKeepN()
 	generator->setSymbol(Decoration::Gap_Row, 3, 2);
 	generator->setSymbol(Decoration::Gap_Row, 5, 6);
 	generator->setFlagOnce(Generate::Config::DisableWrite);
-	generator->setFlagOnce(Generate::Config::LongPath);
+	generator->setObstructions({ { 1, 4 },{ 2, 3 },{ 5, 4 },{ 5, 8 } });
 	generator->generate(0x033EA);
 	std::set<Point> path1 = generator->_path;
-	std::vector<std::vector<Point>> sets = { { {7, 8}, {8, 7} }, { { 6, 5 }, {7, 4} }, { {7, 0}, {7, 2}, {6, 1}, {8, 1}, {5, 2}, {5, 4} },
-		{ {2, 7}, {4, 7}, {3, 8}, {3, 6}, {1, 6}, {1, 4} }, { {0, 1}, {1, 0}, {2, 1}, {1, 2} } };
+	std::vector<std::vector<Point>> sets = { { { 7, 8 },{ 8, 7 },{ 7, 6 },{ 6, 7 } },{ { 6, 5 },{ 7, 4 },{ 8, 5 } },{ { 7, 0 },{ 7, 2 },{ 6, 1 },{ 8, 1 },{ 5, 2 } },
+	{ { 2, 7 },{ 4, 7 },{ 3, 8 },{ 3, 6 },{ 1, 6 } },{ { 0, 1 },{ 1, 0 },{ 2, 1 },{ 1, 2 } } };
 	for (std::vector<Point> set : sets) {
 		Point p = pick_random(set);
 		while (!path1.count(p)) p = pick_random(set);
@@ -630,10 +626,12 @@ void PuzzleList::GenerateTownN()
 	generator->generate(0x17F89, Decoration::Gap, 2, Decoration::Stone | Decoration::Black, 11, Decoration::Stone | Decoration::White, 4);
 
 	generator->resetConfig();
-	//These didn't work, so I removed the panel structure. I also removed a stone for the first one.
 	generator->setFlag(Generate::Config::FixBackground);
-	generator->generate(0x0A168, Decoration::Gap, 2, Decoration::Stone | Decoration::Black, 11, Decoration::Stone | Decoration::White, 4, 
+	generator->setFlagOnce(Generate::Config::CombineErasers);
+	generator->setFlagOnce(Generate::Config::PreserveStructure);
+	generator->generate(0x0A168, Decoration::Gap, 2, Decoration::Stone | Decoration::Black, 12, Decoration::Stone | Decoration::White, 4, 
 		Decoration::Eraser | Decoration::White, 2);
+	//These didn't work, so I removed the panel structure.
 	generator->generate(0x33AB2, Decoration::Gap, 2, Decoration::Stone | Decoration::Black, 4, Decoration::Poly, 4);
 
 	//Orange Crate
@@ -811,7 +809,7 @@ void PuzzleList::GenerateMountainN()
 	generator->resetConfig();
 
 	//Purple Bridge //TODO: Figure out why this seems to break tetris pieces.
-	/*generator->setFlagOnce(Generate::Config::PreserveStructure);
+	generator->setFlagOnce(Generate::Config::PreserveStructure);
 	generator->setFlagOnce(Generate::Config::DecorationsOnly);
 	std::set<Point> bpoints1 = { { 6, 3 },{ 5, 4 },{ 7, 4 } };
 	std::set<Point> bpoints2 = { { 6, 5 },{ 5, 6 },{ 6, 7 },{ 7, 6 } };
@@ -821,8 +819,7 @@ void PuzzleList::GenerateMountainN()
 	generator->setObstructions({ { 4, 1 },{ 6, 1 },{ 8, 1 } });
 	generator->blockPos = { { 1, 1 },{ 11, 1 },{ 1, 11 },{ 11, 11 } };
 	generator->setSymbol(Decoration::Gap_Row, 3, 4);
-	generator->generate(0x09E39, Decoration::Stone | Decoration::Color::Black, 1, Decoration::Stone | Decoration::Color::White, 1,
-		Decoration::Poly, 1);*/
+	generator->generate(0x09E39, Decoration::Stone | Decoration::Color::Black, 1, Decoration::Stone | Decoration::Color::White, 1);
 
 
 
@@ -860,7 +857,7 @@ void PuzzleList::GenerateMountainN()
 
 	//Dual Bridge Panels
 	//TODO: Hijack sigma's generation function to put other things on it.
-	//specialCase->generate2Bridge(0x09E86, 0x09ED8);
+	specialCase->generate2Bridge(0x09E86, 0x09ED8);
 
 	//Rainbow
 	generator->resetConfig();
