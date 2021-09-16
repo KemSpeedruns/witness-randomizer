@@ -921,7 +921,7 @@ void PuzzleList::GenerateCavesN()
 	generator->resetConfig();
 
 	//Entrances
-	generator->generate(0x17FA2, Decoration::Triangle | Decoration::Color::Orange, 5);
+	generator->generate(0x17FA2, Decoration::Triangle3 | Decoration::Color::Orange, 5);
 	generator->generate(0x00FF8, Decoration::Stone | Decoration::Color::Black, 4, Decoration::Stone | Decoration::Color::White, 4,
 		Decoration::Gap, 1);
 
@@ -1017,7 +1017,7 @@ void PuzzleList::GenerateCavesN()
 	generator->generate(0x00029, Decoration::Dot, 6);
 
 	//Triangle Exit
-	generator->generate(0x17CF2, Decoration::Triangle | Decoration::Color::Orange, 4, Decoration::Gap, 2);
+	generator->generate(0x17CF2, Decoration::Triangle1 | Decoration::Color::Orange, 4, Decoration::Gap, 2);
 	//Stars Exit
 	generator->generate(0x021D7, Decoration::Star | Decoration::Color::Cyan, 4, Decoration::Star | Decoration::Color::Yellow, 4, Decoration::Gap, 7);
 
@@ -1029,9 +1029,10 @@ void PuzzleList::GenerateCavesN()
 	generator->resetConfig();
 	generator->generate(0x0A16E, Decoration::Poly | Decoration::Color::Green, 4, Decoration::Star | Decoration::Color::Green, 3);
 	//Theater Exit
-	generator->generate(0x039B4, Decoration::Triangle | Decoration::Color::Orange, 7);
+	generator->generate(0x039B4, Decoration::Triangle2 | Decoration::Color::Orange, 3, Decoration::Triangle1 | Decoration::Color::Orange, 4);
 	//Town Exit
-	generator->generate(0x09E85, Decoration::Triangle | Decoration::Color::Orange, 15);
+	generator->generate(0x09E85, Decoration::Triangle1 | Decoration::Color::Orange, 7, Decoration::Triangle2 | Decoration::Color::Orange, 7, 
+		Decoration::Triangle3 | Decoration::Color::Orange, 1);
 }
 
 void PuzzleList::GenerateVaultsN()
@@ -1067,43 +1068,43 @@ void PuzzleList::GenerateTrianglePanelsN()
 	generator->resetConfig();
 
 	//Tutorial Discard
-	generator->generate(0x17CFB, Decoration::Triangle | Decoration::Color::Orange, 1, Decoration::Gap, 5);
+	generator->generate(0x17CFB, Decoration::Triangle1 | Decoration::Color::Orange, 1, Decoration::Gap, 5);
 
 	//Sym Discard
-	generator->generate(0x3C12B, Decoration::Triangle | Decoration::Color::Orange, 1, Decoration::Gap, 4);
+	generator->generate(0x3C12B, Decoration::Triangle2 | Decoration::Color::Orange, 1, Decoration::Gap, 4);
 
 	//Desert Discard
-	generator->generate(0x17CE7, Decoration::Triangle | Decoration::Color::Orange, 1, Decoration::Gap, 2);
+	generator->generate(0x17CE7, Decoration::Triangle1 | Decoration::Color::Orange, 1, Decoration::Gap, 2);
 
 	//Quarry Discard
-	generator->generate(0x17CF0, Decoration::Triangle | Decoration::Color::Orange, 1, Decoration::Gap, 4);
+	generator->generate(0x17CF0, Decoration::Triangle1 | Decoration::Color::Orange, 1, Decoration::Gap, 4);
 
 	//Treehouse Laser Discard
-	generator->generate(0x17FA0, Decoration::Triangle | Decoration::Color::Orange, 1, Decoration::Gap, 6);
+	generator->generate(0x17FA0, Decoration::Triangle1 | Decoration::Color::Orange, 1, Decoration::Gap, 6);
 
 	//Treehouse Green Bridge Discard
-	generator->generate(0x17FA9, Decoration::Triangle | Decoration::Color::Orange, 1, Decoration::Gap, 6);
+	generator->generate(0x17FA9, Decoration::Triangle2 | Decoration::Color::Orange, 1, Decoration::Gap, 6);
 
 	//Keep Discard
-	generator->generate(0x17D27, Decoration::Triangle | Decoration::Color::Orange, 1, Decoration::Gap, 5);
+	generator->generate(0x17D27, Decoration::Triangle2 | Decoration::Color::Orange, 1, Decoration::Gap, 5);
 
 	//Shipwreck Discard
-	generator->generate(0x17D28, Decoration::Triangle | Decoration::Color::Orange, 1, Decoration::Gap, 4);
+	generator->generate(0x17D28, Decoration::Triangle2 | Decoration::Color::Orange, 1, Decoration::Gap, 4);
 
-	//Rooftop Discard
-	generator->generate(0x17C71, Decoration::Triangle | Decoration::Color::Orange, 1, Decoration::Gap, 7);
+	//Town Rooftop Discard
+	generator->generate(0x17C71, Decoration::Triangle1 | Decoration::Color::Orange, 1, Decoration::Gap, 7);
 
-	//Orange Crate Discard
-	generator->generate(0x17D01, Decoration::Triangle | Decoration::Color::Orange, 1, Decoration::Gap, 4);
+	//Town Orange Crate Discard
+	generator->generate(0x17D01, Decoration::Triangle2 | Decoration::Color::Orange, 1, Decoration::Gap, 4);
 
 	//Theater Discard
-	generator->generate(0x17CF7, Decoration::Triangle | Decoration::Color::Orange, 1, Decoration::Gap, 5);
+	generator->generate(0x17CF7, Decoration::Triangle1 | Decoration::Color::Orange, 1, Decoration::Gap, 5);
 
 	//Jungle Discard //TODO: Custom generation function to make other triangles more likely.
-	generator->generate(0x17F9B, Decoration::Triangle | Decoration::Color::Orange, 1);
+	generator->generate(0x17F9B, Decoration::Triangle1 | Decoration::Color::Orange, 1);
 
 	//Mountainside Discard
-	generator->generate(0x17C42, Decoration::Triangle | Decoration::Color::Orange, 1, Decoration::Gap, 7);
+	generator->generate(0x17C42, Decoration::Triangle1 | Decoration::Color::Orange, 1, Decoration::Gap, 7);
 }
 
 //--------------------------HARD MODE-----------------------------
