@@ -470,7 +470,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	hwndExpert = CreateWindow(L"BUTTON", L"Emptiness - Empties out all of the puzzles as much as possible",
 		WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON | BS_MULTILINE,
 		10, 75, 570, 35, hwnd, (HMENU)IDC_DIFFICULTY_EXPERT, hInstance, NULL);
-	hwndExpert = CreateWindow(L"BUTTON", L"Puzzle Pack - NOT DONE YET",
+	hwndExpert = CreateWindow(L"BUTTON", L"Puzzle Pack - Tutorial playable as a showcase (overall not very complete)",
 		WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON | BS_MULTILINE,
 		10, 115, 570, 35, hwnd, (HMENU)IDC_DIFFICULTY_PUZZLE_PACK, hInstance, NULL);
 	if (difficulty == 1) SendMessage(hwndExpert, BM_SETCHECK, BST_CHECKED, 1);
