@@ -376,8 +376,9 @@ void PuzzleList::GenerateQuarryN()
 	//generator->setSymbol(Decoration::Empty, 0, 0);
 	/*generator->setSymbol(Decoration::Start, Random::rand() % 2, Random::rand() % 2);*/
 	//generator->setFlagOnce(Generate::Config::LongPath);
-	generator->generate(0x014D9, Decoration::Eraser | Decoration::Color::Green, 1, Decoration::Dot, 13);
-	//generator->generate(0x014D9, Decoration::Eraser | Decoration::Color::Green, 1, Decoration::Dot, 14);
+	//generator->generate(0x014D9, Decoration::Eraser | Decoration::Color::Green, 1, Decoration::Dot, 13);
+	generator->setFlagOnce(Generate::Config::FalseParity);
+	generator->generate(0x014D9, Decoration::Eraser | Decoration::Color::Green, 1, Decoration::Dot, 16);
 
 	generator->generate(0x014E7, Decoration::Dot, 7);
 	generator->generate(0x014E8, Decoration::Eraser | Decoration::Color::Green, 1, Decoration::Dot, 7);
@@ -665,7 +666,7 @@ void PuzzleList::GenerateTownN()
 
 	//Church Stars //TODO: Figure out what on earth is going on here
 	specialCase->generateColorFilterPuzzle(0x28A0D, { 4, 4 }, { std::make_pair<int, int>(Decoration::Star | 1, 6),
-		/*std::make_pair<int,int>(Decoration::Star | 2, 6),*/ std::make_pair<int,int>(Decoration::Star | 3, 4) }, { 1, 1, 0, 0 });
+		std::make_pair<int,int>(Decoration::Star | 2, 6), std::make_pair<int,int>(Decoration::Star | 3, 4) }, { 1, 1, 0, 0 });
 }
 
 void PuzzleList::GenerateBunkerN()
