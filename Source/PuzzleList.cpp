@@ -665,7 +665,7 @@ void PuzzleList::GenerateTownN()
 
 	//Church Stars //TODO: Figure out what on earth is going on here
 	specialCase->generateColorFilterPuzzle(0x28A0D, { 4, 4 }, { std::make_pair<int, int>(Decoration::Star | 1, 6),
-		std::make_pair<int,int>(Decoration::Star | 2, 6), std::make_pair<int,int>(Decoration::Star | 3, 4) }, { 1, 1, 0, 0 });
+		/*std::make_pair<int,int>(Decoration::Star | 2, 6),*/ std::make_pair<int,int>(Decoration::Star | 3, 4) }, { 1, 1, 0, 0 });
 }
 
 void PuzzleList::GenerateBunkerN()
@@ -1708,7 +1708,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size)
 		panelSize = (Random::rand() % 9) + 3;
 	}
 	std::string typeList [] = { "Decoration::Gap", "Decoration::Dot", "Decoration::Triangle", "Decoration::Arrow", "Decoration::Poly", "Decoration::Star", 
-		"Gaps and Dots", "Everything Erasers" };
+		"Gaps and Dots", "Everything Minus Arrow and Sym" };
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 8;
 	//int typeChoice = 4;
@@ -1738,11 +1738,11 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size)
 	case 7:
 		if (panelSize >= 4) 
 		{
-			GenerateEverythingPanel(id, 4, Decoration::Eraser, 2);
+			GenerateEverythingMinusArrowAndSymPanel(id, 4, 2);
 		}
 		else 
 		{
-			GenerateEverythingPanel(id, panelSize, Decoration::Eraser, panelSize - 2);
+			GenerateEverythingMinusArrowAndSymPanel(id, 3, 1);
 		}
 		
 		break;
@@ -1799,19 +1799,93 @@ void PuzzleList::GenerateGapsAndDots(int id, int size)
 	generator->generate(id, Decoration::Dot, (panelSize * panelSize)/2, Decoration::Gap, (panelSize * panelSize)/2);
 }
 
-//1 mult min of 3. 2 mult min of 4, 3 mult min of 5. Arrows and erasers cannot be on the same panel. Erasers mult max of 2, arrows max mult of 3.
-void PuzzleList::GenerateEverythingPanel(int id, int size, int arrowOrEraser, int multiplier) {
+//1 mult min of size 3. 2 mult min of size 4, mult max of 2
+void PuzzleList::GenerateEverythingMinusArrowAndSymPanel(int id, int size, int multiplier) {
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0 && multiplier == 2) 
+	{
+		panelSize = (Random::rand() % 9) + 3;
+	}
+	else if (panelSize == 0) 
+	{
+		panelSize = 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	generator->generate(id, Decoration::Gap, 1 * multiplier, Decoration::Dot, 1 * multiplier, Decoration::Stone | Decoration::Color::Black, 1 * multiplier,
+		Decoration::Eraser | Decoration::Color::Black, 1 * multiplier, Decoration::Poly | Decoration::Color::Black, 1 * multiplier,
+		Decoration::Poly | Decoration::Negative | Decoration::Color::Black, 1 * multiplier, Decoration::Star | Decoration::Black, 1 * multiplier,
+		Decoration::Triangle | Decoration::Color::Black, 1 * multiplier);
+}
+
+
+//FlipNegXY, Horizontal, ParallelH, and ParallelHFlip size min for 1 mult: 3. FlipXY size min for 1 mult: 5.
+void PuzzleList::GenerateEverythingMinusArrowPanel(int id, int size, int multiplier) {
 	generator->resetConfig();
 	int panelSize = size;
 	if (panelSize == 0) {
 		panelSize = (Random::rand() % 9) + 3;
 	}
+	//int symChoice = Random::rand() % 15;
+	int symChoice = 5;
+	switch (symChoice) 
+	{
+		case 0:
+			generator->setSymmetry(Panel::Symmetry::FlipNegXY);
+			break;
+		case 1:
+			generator->setSymmetry(Panel::Symmetry::FlipXY);
+			break;
+		case 2:
+			generator->setSymmetry(Panel::Symmetry::Horizontal);
+			break;
+		case 3:
+			generator->setSymmetry(Panel::Symmetry::ParallelH);
+			break;
+		case 4:
+			generator->setSymmetry(Panel::Symmetry::ParallelHFlip);
+			break;
+		case 5:
+			generator->setSymmetry(Panel::Symmetry::ParallelV);
+			break;
+		case 6:
+			generator->setSymmetry(Panel::Symmetry::ParallelVFlip);
+			break;
+		case 7:
+			generator->setSymmetry(Panel::Symmetry::PillarHorizontal);
+			break;
+		case 8:
+			generator->setSymmetry(Panel::Symmetry::PillarParallel);
+			break;
+		case 9:
+			generator->setSymmetry(Panel::Symmetry::PillarRotational);
+			break;
+		case 10:
+			generator->setSymmetry(Panel::Symmetry::PillarVertical);
+			break;
+		case 11:
+			generator->setSymmetry(Panel::Symmetry::RotateLeft);
+			break;
+		case 12:
+			generator->setSymmetry(Panel::Symmetry::RotateRight);
+			break;
+		case 13:
+			generator->setSymmetry(Panel::Symmetry::Rotational);
+			break;
+		case 14:
+			generator->setSymmetry(Panel::Symmetry::Vertical);
+			/*generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+			generator->setSymbol(Decoration::Start, panelSize * 2, panelSize * 2);*/
+			
+			break;
+	}
 	generator->pathWidth = 1.0f - (0.05f * panelSize);
 	generator->setGridSize(panelSize, panelSize);
 	generator->generate(id, Decoration::Gap, 1 * multiplier, Decoration::Dot, 1 * multiplier, Decoration::Stone | Decoration::Color::Black, 1 * multiplier,
-		arrowOrEraser | Decoration::Color::Black, 1 * multiplier, Decoration::Poly | Decoration::Color::Black, 1 * multiplier,
+		Decoration::Eraser | Decoration::Color::Black, 1 * multiplier, Decoration::Poly | Decoration::Color::Black, 1 * multiplier,
 		Decoration::Poly | Decoration::Negative | Decoration::Color::Black, 1 * multiplier, Decoration::Star | Decoration::Black, 1 * multiplier,
-		Decoration::Triangle | Decoration::Color::Black, 1 * multiplier);
+		Decoration::Triangle | Decoration::Color::Black, 1 * multiplier, Decoration::Start, 1, Decoration::Exit, 1);
 }
 
 //Currently just a showcase of the different types.
@@ -1822,7 +1896,8 @@ void PuzzleList::GenerateTutorialP()
 	Special::drawSeedAndDifficulty(0x00064, seedIsRNG ? -1 : seed, false);
 	//Special::drawGoodLuckPanel(0x00182);
 	//generator->generate(0x00182, Decoration::Gap, 1);
-	GenerateRandomPuzzle(0x00293, 4);
+	//GenerateRandomPuzzle(0x00293, 4);
+	GenerateEverythingMinusArrowPanel(0x00293, 4, 1);
 	GenerateRandomPuzzle(0x00295, 4);
 	GenerateRandomPuzzle(0x002C2, 4);
 	GenerateRandomPuzzle(0x0A3B2, 4);
