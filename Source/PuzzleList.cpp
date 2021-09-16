@@ -731,8 +731,14 @@ void PuzzleList::GenerateSwampN()
 	generator->generate(0x0097F, Decoration::Poly, 3, Decoration::Gap, 1);
 	generator->generate(0x0098F, Decoration::Poly, 3);
 	generator->generate(0x00990, Decoration::Poly, 4);
-	generator->generate(0x17C0D, Decoration::Poly, 3);
+
+	//Red Shortcut Panels //TODO: Custom gen for vanilla-like behavior.
+	generator->resetConfig();
+	//generator->setFlag(Generate::Config::DisableReset);
 	generator->generate(0x17C0E, Decoration::Poly, 3);
+	//generator->setGridSize(5,5);
+	//generator->write(0x17C0D);
+	generator->generate(0x17C0D, Decoration::Poly, 3);
 
 	//Disconnected Shapes
 	generator->resetConfig();
@@ -996,8 +1002,14 @@ void PuzzleList::GenerateCavesN()
 	generator->resetConfig();
 	//generator->setFlagOnce(Generate::Config::DisableDotIntersection);
 	//generator->setFlagOnce(Generate::Config::LongestPath);
-	generator->generate(0x0A16B, Decoration::Dot, 18);
-	generator->generate(0x0A2CE, Decoration::Dot, 18);
+	generator->generate(0x0A16B, Decoration::Dot, 25, Decoration::Start, 1);
+	//generator->generate(0x0A2CE, Decoration::Dot, 18);
+	generator->setFlag(Generate::Config::DisableWrite);
+	generator->generate(0x0A2CE, Decoration::Dot, 25);
+	generator->place_dots(2, Decoration::Color::Black, false);
+	generator->write(0x0A2CE);
+
+	generator->resetConfig();
 	generator->generate(0x0A2D7, Decoration::Dot, 18);
 	generator->generate(0x0A2DD, Decoration::Dot, 18);
 	generator->generate(0x0A2EA, Decoration::Dot, 18);
@@ -1012,13 +1024,20 @@ void PuzzleList::GenerateCavesN()
 	generator->generate(0x0008C, Decoration::Dot, 4);
 	generator->generate(0x0008A, Decoration::Dot, 6);
 	generator->generate(0x00089, Decoration::Dot, 4);
+
+	generator->resetConfig();
+	generator->setFlag(Generate::Config::DisableReset);
 	generator->generate(0x0006A, Decoration::Dot, 7);
-	generator->generate(0x0006C, Decoration::Dot, 7, Decoration::Gap, 2);
+	generator->place_gaps(2);
+	generator->write(0x0006C);
+
+	generator->resetConfig();
 	generator->generate(0x00027, Decoration::Dot, 6);
 	generator->generate(0x00028, Decoration::Dot, 5);
 	generator->generate(0x00029, Decoration::Dot, 6);
 
 	//Triangle Exit
+	generator->resetConfig();
 	generator->generate(0x17CF2, Decoration::Triangle1 | Decoration::Color::Orange, 4, Decoration::Gap, 2);
 	//Stars Exit
 	generator->generate(0x021D7, Decoration::Star | Decoration::Color::Cyan, 4, Decoration::Star | Decoration::Color::Yellow, 4, Decoration::Gap, 7);
