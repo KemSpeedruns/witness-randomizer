@@ -512,8 +512,10 @@ void PuzzleList::GenerateTreehouseN()
 	generator->generate(0x17DAA, Decoration::Star | Decoration::Color::Orange, 4, Decoration::Stone | Decoration::Color::White, 2, Decoration::Stone | Decoration::Color::Black, 2);
 	generator->generate(0x17D97, Decoration::Star | Decoration::Color::White, 4, Decoration::Stone | Decoration::Color::Orange, 2, Decoration::Stone | Decoration::Color::Black, 2);
 	generator->generate(0x17BDF, Decoration::Star | Decoration::Color::Green, 4, Decoration::Stone | Decoration::Color::Orange, 2, Decoration::Stone | Decoration::Color::Magenta, 2);
+	generator->setFlag(Generate::Config::DisableReset);
 	generator->generate(0x17D91, Decoration::Star | Decoration::Color::Magenta, 6, Decoration::Stone | Decoration::Color::Orange, 4, Decoration::Stone | Decoration::Color::Green, 4);
-	generator->generate(0x17DC6, Decoration::Star | Decoration::Color::Magenta, 6, Decoration::Stone | Decoration::Color::Orange, 4, Decoration::Stone | Decoration::Color::Green, 4, Decoration::Gap, 2);
+	generator->place_gaps(2);
+	generator->write(0x17DC6);
 	//PURPLE BRIDGE 2
 	generator->generate(0x17DB3, Decoration::Star | Decoration::Color::White, 2, Decoration::Stone | Decoration::Color::Black, 4, Decoration::Stone | Decoration::Color::White, 4);
 	generator->generate(0x17DB5, Decoration::Star | Decoration::Color::Orange, 2, Decoration::Stone | Decoration::Color::Black, 4, Decoration::Stone | Decoration::Color::White, 4);
