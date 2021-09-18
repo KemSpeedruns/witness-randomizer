@@ -1002,17 +1002,21 @@ void PuzzleList::GenerateCavesN()
 	generator->resetConfig();
 	//generator->setFlagOnce(Generate::Config::DisableDotIntersection);
 	//generator->setFlagOnce(Generate::Config::LongestPath);
-	generator->generate(0x0A16B, Decoration::Dot, 25, Decoration::Start, 1);
-	//generator->generate(0x0A2CE, Decoration::Dot, 18);
-	generator->setFlag(Generate::Config::DisableWrite);
-	generator->generate(0x0A2CE, Decoration::Dot, 25);
-	generator->place_dots(2, Decoration::Color::Black, false);
-	generator->write(0x0A2CE);
-
+	//generator->blockPos = { {7,0}, {1,8}, {0,7}, {8,1} };
+	generator->generate(0x0A16B, Decoration::Dot_Intersection, 25, Decoration::Start, 1);
+	/*generator->setSymbol(Decoration::Dot_Column, 0 + (Random::rand()%5)*2, 1 + (Random::rand() % 4 ) * 2);
+	generator->setSymbol(Decoration::Dot_Row, 1 + (Random::rand() % 4) * 2, 0 + (Random::rand() % 5) * 2);*/
+	generator->generate(0x0A2CE, Decoration::Dot_Intersection, 25, Decoration::Start, 1);
+	/*generator->setSymbol(Decoration::Dot_Column, 0 + (Random::rand() % 5) * 2, 1 + (Random::rand() % 4) * 2);
+	generator->setSymbol(Decoration::Dot_Row, 1 + (Random::rand() % 4) * 2, 0 + (Random::rand() % 5) * 2);*/
+	generator->generate(0x0A2D7, Decoration::Dot_Intersection, 25, Decoration::Start, 1);
+	/*generator->setSymbol(Decoration::Dot_Column, 0 + (Random::rand() % 5) * 2, 1 + (Random::rand() % 4) * 2);
+	generator->setSymbol(Decoration::Dot_Column, 0 + (Random::rand() % 5) * 2, 1 + (Random::rand() % 4) * 2);
+	generator->setSymbol(Decoration::Dot_Row, 1 + (Random::rand() % 4) * 2, 0 + (Random::rand() % 5) * 2);*/
+	generator->generate(0x0A2DD, Decoration::Dot_Intersection, 25, Decoration::Start, 1);
+	/*generator->setSymbol(Decoration::Dot_Column, 0 + (Random::rand() % 5) * 2, 1 + (Random::rand() % 4) * 2);*/
+	generator->generate(0x0A2EA, Decoration::Dot_Intersection, 25, Decoration::Start, 1);
 	generator->resetConfig();
-	generator->generate(0x0A2D7, Decoration::Dot, 18);
-	generator->generate(0x0A2DD, Decoration::Dot, 18);
-	generator->generate(0x0A2EA, Decoration::Dot, 18);
 	generator->generate(0x17FB9, Decoration::Dot, 6);
 	
 
