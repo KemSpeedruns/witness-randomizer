@@ -1,14 +1,16 @@
 # Witness Random Puzzle Generator (Dawgup's Version)
 
-### [Click Here to Download Dawgup's Randomizer (ver 1.1.7.4)](https://github.com/KemSpeedruns/witness-randomizer/releases)
+### [Click Here to Download Dawgup's Randomizer (ver 1.1.7.10)](https://github.com/KemSpeedruns/witness-randomizer/releases)
 
 The Witness Random Puzzle Generator takes most of the puzzles in Jonathan Blow's "The Witness" and makes them into new, randomly generated puzzles. The mod requires the game in order to function. No game files will be altered, as the randomizer works enterly in RAM. This mod uses WinAPI, so it is only compatible with Microsoft Windows.
 
 This project uses the code from sigma's puzzle randomizer at https://github.com/sigma144/witness-randomizer for a slightly different purpose than he orginially intended. Credit to sigma for doing the work to make generating puzzles in-game possible. His mod is very fun and I would highly recommend it.
 
-This mod has two different versions currently. 
-The first is Emptiness. In this mode, every panel (except for the ones I can't touch yet) either have no symbols, or have symbols that mean nothing (for an example of this, look at tutorial pillar and try some incorrect solutions). 
-The second is Base Game Randomizer. In this mode, every panel (except for the ones I can't touch yet) have a symbol count that matches the count in the base game. The size of the panel is also the same.
+This mod has three different versions currently. 
+The first is Base Game Randomizer. In this mode, every panel (except for the ones I can't touch yet) have a symbol count that matches the count in the base game. The size of the panel is also the same.
+The second is Emptiness. In this mode, every panel (except for the ones I can't touch yet) either have no symbols, or have symbols that mean nothing (for an example of this, look at tutorial pillar and try some incorrect solutions).
+The third is Puzzle Pack. When completed, it will generate completely random puzzles.
+
 
 **How to use the Witness Random Puzzle Generator:**
 
