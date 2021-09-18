@@ -668,7 +668,8 @@ void PuzzleList::GenerateBunkerN()
 	generator->resetConfig();
 	generator->generate(0x17C2E, Decoration::Stone | Decoration::Color::White, 2, Decoration::Stone | Decoration::Color::Black, 2);
 
-	//TODO: Attempt to randomize the rest of bunker by changing the color of the alreadly-placed stones.
+	//TODO: Attempt to randomize the rest of bunker by changing the color of the alreadly-placed stones. Placing objects on squares is impossible, but edges are ok.
+	//generator->generate(0x09F7D, Decoration::Gap, 1);
 }
 
 void PuzzleList::GenerateJungleN()
@@ -827,8 +828,6 @@ void PuzzleList::GenerateMountainN()
 	generator->setSymbol(Decoration::Gap_Row, 3, 4);
 	generator->generate(0x09E39, Decoration::Stone | Decoration::Color::Black, 1, Decoration::Stone | Decoration::Color::White, 1);
 
-
-
 	//Orange
 	generator->resetConfig();
 	generator->generate(0x09E73, Decoration::Dot, 2, Decoration::Stone | Decoration::Color::Black, 3, Decoration::Stone | Decoration::Color::White, 3);
@@ -862,12 +861,11 @@ void PuzzleList::GenerateMountainN()
 	generator->generate(0x09F6E, Decoration::Dot, 5);
 
 	//Dual Bridge Panels
-	//specialCase->generate2Bridge(0x09E86, 0x09ED8);
 	generator->resetConfig();
 	generator->setFlag(Generate::Config::DecorationsOnly);
 	generator->setFlag(Generate::Config::ShortPath);
 	generator->setFlag(Generate::Config::DisableReset);
-	generator->generate(0x09E86, Decoration::Star | Decoration::Color::Red, 4, Decoration::Stone | Decoration::Color::Black, 1, 
+	generator->generate(0x09E86, Decoration::Star | Decoration::Color::Orange, 4, Decoration::Stone | Decoration::Color::Black, 1, 
 		Decoration::Stone | Decoration::Color::White, 1);
 	generator->write(0x09ED8);
 
@@ -882,13 +880,12 @@ void PuzzleList::GenerateMountainN()
 		{ Decoration::Star | Decoration::Color::Cyan, 1 },{ Decoration::Star | Decoration::Color::Magenta, 1 },
 		{ Decoration::Poly | Decoration::Color::Cyan, 1 } });
 
-	//Not generating this yet. Will work by changing the color of the stones
 	generator->blockPos = { {1,3},{1,7},{1,9},{3,1},{3,5},{3,7},{3,9},{5,1},{5,9},{7,3},{7,7},{9,3},{9,7} };
-	generator->generate(0x09FD8, Decoration::Stone | Decoration::Color::Black, 3, Decoration::Stone | Decoration::Color::White, 4, 
-		Decoration::Stone | Decoration::Color::Red, 5);
-	generator->resetConfig();
+	generator->generate(0x09FD8, Decoration::Stone | Decoration::Color::Magenta, 3, Decoration::Stone | Decoration::Color::Blue, 4, 
+		Decoration::Stone | Decoration::Color::Yellow, 5);
 
 	//Multipanel
+	generator->resetConfig();
 	specialCase->generateMultiPuzzle({ 0x09FCC, 0x09FCE, 0x09FCF, 0x09FD0, 0x09FD1, 0x09FD2 }, {
 		{ { Decoration::Dot_Intersection, 1 } },
 		{ { Decoration::Stone | Decoration::Color::Black, 1 },{ Decoration::Stone | Decoration::Color::White, 1 } },
