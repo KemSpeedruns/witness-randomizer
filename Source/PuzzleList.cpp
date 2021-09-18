@@ -196,13 +196,14 @@ void PuzzleList::GenerateTutorialN()
 
 	//Mazes
 	generator->setFlag(Generate::Config::FullGaps);
-	generator->generateMaze(0x00293);
-	generator->generateMaze(0x00295, 1, 1);
-	generator->generateMaze(0x002C2);
+	generator->setFlag(Generate::Config::ShortPath);
+	generator->generate(0x00293, Decoration::Gap, 14);
+	generator->generate(0x00295, Decoration::Gap, 30);
+	generator->generate(0x002C2, Decoration::Gap, 78);
 
 	//2 starts maze
 	generator->resetConfig();
-	generator->generateMaze(0x0A3B2);
+	generator->generate(0x0A3B2, Decoration::Gap, 30);
 
 	//2 exits maze
 	generator->generateMaze(0x0A3B5);
