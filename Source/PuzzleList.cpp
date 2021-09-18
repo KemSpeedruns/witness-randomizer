@@ -865,7 +865,7 @@ void PuzzleList::GenerateMountainN()
 	generator->setFlag(Generate::Config::DecorationsOnly);
 	generator->setFlag(Generate::Config::ShortPath);
 	generator->setFlag(Generate::Config::DisableReset);
-	generator->blockPos = { {1,1},{3,1},{5,1},{7,1},{9,1},{11,1},{1,3},{3,3},{5,3},{7,3},{9,3},{11,3} };
+	generator->blockPos = { {1,9},{3,9},{5,9},{7,9},{9,9},{11,9},{1,7},{3,7},{5,7},{7,7},{9,7},{11,7} };
 	generator->generate(0x09E86, Decoration::Star | Decoration::Color::Orange, 4, Decoration::Stone | Decoration::Color::Black, 1, 
 		Decoration::Stone | Decoration::Color::White, 1);
 	generator->write(0x09ED8);
