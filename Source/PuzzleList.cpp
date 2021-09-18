@@ -677,7 +677,10 @@ void PuzzleList::GenerateJungleN()
 	generator->resetConfig();
 
 	//Jungle Wall //TODO: Figure out how to work with gaps for first dot puzzle
+	/*generator->setFlagOnce(Generate::Config::DisableWrite);
+	generator->generate(0x0026D, Decoration::Gap, 1);*/
 	specialCase->generateSoundDotPuzzle(0x0026D, { 2, 2 }, { DOT_SMALL, DOT_LARGE }, true);
+	/*generator->place_gaps(1);*/
 	specialCase->generateSoundDotPuzzle(0x0026E, { 2, 2 }, { DOT_SMALL, DOT_LARGE }, true);
 	specialCase->generateSoundDotPuzzle(0x0026F, { 4, 4 }, { DOT_MEDIUM, DOT_MEDIUM, DOT_SMALL, DOT_MEDIUM, DOT_LARGE }, false);
 	specialCase->generateSoundDotPuzzle(0x00C3F, { 4, 4 }, { DOT_SMALL, DOT_MEDIUM, DOT_SMALL, DOT_LARGE }, true);
@@ -705,6 +708,7 @@ void PuzzleList::GenerateSwampN()
 	generator->setFlag(Generate::Config::SmallShapes);
 	//These two didn't work so I made it bigger
 	generator->setGridSize(2,3);
+	//generator->setFlag(Generate::Config::ShortPath);
 	generator->generate(0x00390, Decoration::Poly, 2, Decoration::Gap, 2);
 	generator->generate(0x010CA, Decoration::Poly, 2, Decoration::Gap, 1);
 
@@ -810,7 +814,7 @@ void PuzzleList::GenerateMountainN()
 	generator->setLoadingData(L"Mountain", 39);
 	generator->resetConfig();
 
-	//Purple Bridge //TODO: Figure out why this seems to break tetris pieces.
+	//Purple Bridge //TODO: Custom gen to allow for tetris piece
 	generator->setFlagOnce(Generate::Config::PreserveStructure);
 	generator->setFlagOnce(Generate::Config::DecorationsOnly);
 	std::set<Point> bpoints1 = { { 6, 3 },{ 5, 4 },{ 7, 4 } };
@@ -858,8 +862,14 @@ void PuzzleList::GenerateMountainN()
 	generator->generate(0x09F6E, Decoration::Dot, 5);
 
 	//Dual Bridge Panels
-	//TODO: Hijack sigma's generation function to put other things on it.
-	specialCase->generate2Bridge(0x09E86, 0x09ED8);
+	//specialCase->generate2Bridge(0x09E86, 0x09ED8);
+	generator->resetConfig();
+	generator->setFlag(Generate::Config::DecorationsOnly);
+	generator->setFlag(Generate::Config::ShortPath);
+	generator->setFlag(Generate::Config::DisableReset);
+	generator->generate(0x09E86, Decoration::Star | Decoration::Color::Red, 4, Decoration::Stone | Decoration::Color::Black, 1, 
+		Decoration::Stone | Decoration::Color::White, 1);
+	generator->write(0x09ED8);
 
 	//Rainbow
 	generator->resetConfig();
@@ -873,13 +883,9 @@ void PuzzleList::GenerateMountainN()
 		{ Decoration::Poly | Decoration::Color::Cyan, 1 } });
 
 	//Not generating this yet. Will work by changing the color of the stones
-	/*generator->setFlagOnce(Generate::Config::Write2Color);
-	generator->setSymbol(Decoration::Start, 10, 0);
-	generator->setSymbol(Decoration::Start, 0, 10);
-	generator->setSymbol(Decoration::Exit, 0, 0);
-	generator->setSymbol(Decoration::Exit, 10, 10);
-	generator->setSymmetry(Panel::Symmetry::Rotational);
-	generator->generate(0x09FD8, Decoration::Dot_Intersection | Decoration::Color::Blue, 4, Decoration::Dot_Intersection | Decoration::Color::Orange, 4);*/
+	generator->blockPos = { {1,3},{1,7},{1,9},{3,1},{3,5},{3,7},{3,9},{5,1},{5,9},{7,3},{7,7},{9,3},{9,7} };
+	generator->generate(0x09FD8, Decoration::Stone | Decoration::Color::Black, 3, Decoration::Stone | Decoration::Color::White, 4, 
+		Decoration::Stone | Decoration::Color::Red, 5);
 	generator->resetConfig();
 
 	//Multipanel
@@ -893,6 +899,7 @@ void PuzzleList::GenerateMountainN()
 
 
 	//Metapuzzle
+	//TODO: Hijack
 	specialCase->generateMountainFloor({ 0x09EFF, 0x09F01, 0x09FC1, 0x09F8E }, 0x09FDA);
 
 	//Pillar Room
@@ -934,7 +941,6 @@ void PuzzleList::GenerateCavesN()
 	generator->setFlag(Generate::Config::DisconnectShapes);
 	generator->generate(0x009A4, Decoration::Poly, 3);
 	generator->generate(0x00A72, Decoration::Poly, 2, Decoration::Poly | Decoration::Negative, 1);
-	
 
 	//Right Near
 	generator->resetConfig();
@@ -1083,7 +1089,7 @@ void PuzzleList::GenerateVaultsN()
 
 void PuzzleList::GenerateTrianglePanelsN()
 {
-	generator->setLoadingData(L"Triangles", 12);
+	generator->setLoadingData(L"Triangles", 13);
 	generator->resetConfig();
 
 	//Tutorial Discard
@@ -1119,7 +1125,7 @@ void PuzzleList::GenerateTrianglePanelsN()
 	//Theater Discard
 	generator->generate(0x17CF7, Decoration::Triangle1 | Decoration::Color::Orange, 1, Decoration::Gap, 5);
 
-	//Jungle Discard //TODO: Custom generation function to make other triangles more likely.
+	//Jungle Discard
 	generator->generate(0x17F9B, Decoration::Triangle1 | Decoration::Color::Orange, 1);
 
 	//Mountainside Discard
