@@ -1919,7 +1919,7 @@ void PuzzleList::GenerateTutorialP()
 	//Special::drawGoodLuckPanel(0x00182);
 	//generator->generate(0x00182, Decoration::Gap, 1);
 	//GenerateRandomPuzzle(0x00293, 4);
-	GenerateEverythingMinusArrowPanel(0x00293, 4, 1);
+	GenerateRandomPuzzle(0x00293, 4);
 	GenerateRandomPuzzle(0x00295, 4);
 	GenerateRandomPuzzle(0x002C2, 4);
 	GenerateRandomPuzzle(0x0A3B2, 4);
