@@ -381,19 +381,14 @@ void PuzzleList::GenerateQuarryN()
 	generator->generate(0x014E8, Decoration::Eraser | Decoration::Color::Green, 1, Decoration::Dot, 7);
 
 	//Mill Upper Row
-
-	//This didn't work so I removed a stone
-	generator->generate(0x00557, Decoration::Stone | Decoration::Color::White, 1, Decoration::Stone | Decoration::Color::Black, 1,
+	generator->setFlagOnce(Generate::Config::ShortPath);
+	generator->generate(0x00557, Decoration::Stone | Decoration::Color::White, 1, Decoration::Stone | Decoration::Color::Black, 2,
 		Decoration::Eraser | Decoration::Color::Green, 1);
-
 	generator->generate(0x005F1, Decoration::Stone | Decoration::Color::White, 2, Decoration::Stone | Decoration::Color::Black, 2,
 		Decoration::Eraser | Decoration::Color::Green, 1);
-
-	//This didn't work so I removed a stone 
-	generator->generate(0x00620, Decoration::Stone | Decoration::Color::White, 6, Decoration::Stone | Decoration::Color::Black, 1,
+	generator->setFlagOnce(Generate::Config::ShortPath);
+	generator->generate(0x00620, Decoration::Stone | Decoration::Color::White, 7, Decoration::Stone | Decoration::Color::Black, 1,
 		Decoration::Eraser | Decoration::Color::Green, 1);
-
-
 	generator->generate(0x009F5, Decoration::Stone | Decoration::Color::White, 6, Decoration::Stone | Decoration::Color::Black, 2,
 		Decoration::Eraser | Decoration::Color::Green, 1);
 	generator->generate(0x0146C, Decoration::Stone | Decoration::Color::White, 8, Decoration::Stone | Decoration::Color::Black, 4,
