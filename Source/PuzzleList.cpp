@@ -881,7 +881,7 @@ void PuzzleList::GenerateMountainN()
 		{ Decoration::Poly | Decoration::Color::Cyan, 1 } });
 
 	generator->blockPos = { {1,3},{1,7},{1,9},{3,1},{3,5},{3,7},{3,9},{5,1},{5,9},{7,3},{7,7},{9,3},{9,7} };
-	generator->generate(0x09FD8, Decoration::Stone | Decoration::Color::Magenta, 3, Decoration::Stone | Decoration::Color::Blue, 4, 
+	generator->generate(0x09FD8, Decoration::Stone | Decoration::Color::Magenta, 3, Decoration::Stone | Decoration::Color::Cyan, 4, 
 		Decoration::Stone | Decoration::Color::Yellow, 5);
 
 	//Multipanel
@@ -974,9 +974,9 @@ void PuzzleList::GenerateCavesN()
 	generator->setFlagOnce(Generate::Config::AlternateColors);
 	generator->generate(0x00B71, Decoration::Stone | Decoration::Color::Black, 3, Decoration::Stone | Decoration::Color::White, 3,
 		Decoration::Star | Decoration::Color::Black, 2, Decoration::Eraser | Decoration::Color::White, 1);
-	generator->resetConfig();
 
 	//Perspective
+	generator->resetConfig();
 	generator->setFlag(Generate::Config::DecorationsOnly);
 	std::vector<std::vector<Point>> obstructions = { { { 5, 0 },{ 5, 2 },{ 5, 4 } },{ { 5, 6 },{ 5, 8 },{ 5, 10 } },{ { 0, 5 },{ 2, 5 },{ 4, 5 } },{ { 6, 5 },{ 8, 5 },{ 10, 5 } } };
 	generator->setObstructions(obstructions);
