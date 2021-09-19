@@ -21,6 +21,7 @@ The third is Puzzle Pack. When completed, it will generate completely random puz
 6. Enjoy your randomly created puzzles! Puzzles will revert to normal after closing the game.
 
 **Current Release Activation Triggers**
+
 Base Game Randomizer:
 1. Tutorial Patio Floor opens Tutorial Vault
 2. Tutorial Vault opens Tutorial Optional Door 2
