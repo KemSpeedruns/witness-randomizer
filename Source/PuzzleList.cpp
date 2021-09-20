@@ -64,10 +64,12 @@ void PuzzleList::GenerateAllP() {
 	GenerateVaultsP();
 	GenerateTrianglePanelsP();
 	GenerateOrchardP();
+	GenerateDesertP();
 	GenerateKeepP();
+	GenerateJungleP();
 	GenerateMountainP();
 	GenerateCavesP();
-	GenerateDesertP();
+	GenerateShadowsP();
 	SetWindowText(_handle, L"Done!");
 }
 
@@ -148,8 +150,9 @@ void PuzzleList::CopyTargetsH()
 void PuzzleList::CopyTargetsP() {
 	Special::copyTarget(0x033D4, 0x04CA4); // Tutorial Vault -> Tutorial Optional Door 2
 	Special::copyTarget(0x17CFB, 0x0A171); // Tutorial Discard -> Tutorial Optinal Door 1
+	Special::copyTarget(0x17F9B, 0x17CAB); // Jungle Discard -> Jungle Pop-up Wall
 
-	//To fix issues caused by previous versions of simga's. Don't know if it still applies now. Don't want to find out.
+	//To fix issues caused by previous versions of sigma's. Don't know if it still applies now. Don't want to find out.
 	Special::setPower(0x009AB, true); //Swamp underwater
 	Special::setPower(0x28998, true); //Town Yellow Door
 }
@@ -1998,8 +2001,17 @@ void PuzzleList::GenerateJungleP()
 {
 	generator->setLoadingData(L"Jungle", 6);
 	generator->resetConfig();
-
-
+	//TODO: Figure out how to overide jungle panels
+	//Jungle Wall
+	specialCase->generateSoundDotPuzzle(0x0026D, { 4, 4 }, { DOT_SMALL, DOT_LARGE }, true);
+	specialCase->generateSoundDotPuzzle(0x0026E, { 4, 4 }, { DOT_SMALL, DOT_LARGE }, true);
+	specialCase->generateSoundDotPuzzle(0x0026F, { 4, 4 }, { DOT_MEDIUM, DOT_MEDIUM, DOT_SMALL, DOT_MEDIUM, DOT_LARGE }, false);
+	if (Random::rand() % 2) specialCase->generateSoundDotPuzzle(0x00C3F, { 4, 4 }, { DOT_SMALL, DOT_MEDIUM, DOT_SMALL, DOT_LARGE }, true);
+	else specialCase->generateSoundDotPuzzle(0x00C3F, { 4, 4 }, { DOT_LARGE, DOT_MEDIUM, DOT_MEDIUM, DOT_SMALL, DOT_LARGE }, true);
+	if (Random::rand() % 2) specialCase->generateSoundDotPuzzle(0x00C41, { 4, 4 }, { DOT_SMALL, DOT_SMALL, DOT_LARGE, DOT_MEDIUM, DOT_LARGE }, true);
+	else specialCase->generateSoundDotPuzzle(0x00C41, { 4, 4 }, { DOT_MEDIUM, DOT_MEDIUM, DOT_SMALL, DOT_MEDIUM, DOT_LARGE }, true);
+	if (Random::rand() % 2) specialCase->generateSoundDotPuzzle(0x014B2, { 4, 4 }, { DOT_SMALL, DOT_LARGE, DOT_SMALL, DOT_LARGE, DOT_MEDIUM }, true);
+	else specialCase->generateSoundDotPuzzle(0x014B2, { 4, 4 }, { DOT_LARGE, DOT_MEDIUM, DOT_SMALL, DOT_LARGE, DOT_SMALL }, true);
 }
 
 void PuzzleList::GenerateSwampP()
@@ -2043,4 +2055,12 @@ void PuzzleList::GenerateTrianglePanelsP()
 	generator->resetConfig();
 
 	
+}
+
+void PuzzleList::GenerateShadowsP()
+{
+	generator->setLoadingData(L"Shadows", 1);
+	generator->resetConfig();
+	//TODO: Figure out how to override shadows panels.
+
 }
