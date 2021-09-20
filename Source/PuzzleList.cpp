@@ -74,19 +74,6 @@ void PuzzleList::GenerateAllP() {
 void PuzzleList::CopyTargetsN()
 {
 	/*
-	* Target list for future
-	* Optional Doors
-	* Shadows Laser
-	* Bunker Laser
-	* Bunker Entry Door
-	* Jungle Pop-up Wall
-	* Monastary Laser
-	* Monastary Laser Shortcut
-	* Town Env Set
-	* Town Star Door
-	* Town Lattice Door Thing
-	* UTM Elevator
-	* 
 	* Target pool for future
 	* Tutorial Discard
 	* Tutorial Vault
@@ -99,11 +86,9 @@ void PuzzleList::CopyTargetsN()
 	* Treehouse Green Bridge Last Panel
 	* Treehouse Green Bridge Discard
 	* Treehouse Laser Discard
-	* Keep Purple Pressure Plates
 	* Shipwreck Discard
 	* Shipwreck Vault
 	* Theater Discard
-	* One Theater Exit
 	* Town Orange Crate
 	* Town Star Door
 	* Town RGB
@@ -121,19 +106,20 @@ void PuzzleList::CopyTargetsN()
 
 	Special::copyTarget(0x0C373, 0x033D4); // Tutorial Patio Floor -> Tutorial Vault
 	Special::copyTarget(0x033D4, 0x04CA4); // Tutorial Vault -> Tutorial Optional Door 2
-	Special::copyTarget(0x17CFB, 0x0A171); // Tutorial Discard -> Tutorial Optinal Door 1
+	Special::copyTarget(0x17CFB, 0x0A171); // Tutorial Discard -> Tutorial Optional Door 1
 	Special::copyTarget(0x17D01, 0x19650); // Town Crate Discard -> Shadows Laser
 	Special::copyTarget(0x00021, 0x28A0D); // Stones Tutorial -> Town Church Star Door
+	Special::copyTarget(0x00A5B, 0x28A79); // Sym Laser Yellow 3 -> Lower Town Stairs
+	Special::copyTarget(0x17D6C, 0x28B39); // Treehouse First Purple 5 -> Town Red Hexagonal Panel
 	Special::copyTarget(0x28A0D, 0x28A69); // Town Church Stars -> Town Lattice
-	Special::copyTarget(0x17D27, 0x03713); // Keep Discard Panel -> Monastary Shortcut
 	Special::copyTarget(0x17C71, 0x17CA4); // Town Rooftop Discard -> Monastary Laser
-	Special::copyTarget(0x17F9B, 0x17CAB); // Jungle Discard -> Jungle Pop-up wall
-	Special::copyTarget(0x00061, 0x17C2E); // Dots Tutorial -> Bunker Entry Door
+	Special::copyTarget(0x17D27, 0x17CAB); // Keep Discard Panel -> Jungle Pop-up Wall
+	Special::copyTarget(0x17F9B, 0x17CAB); // Jungle Discard -> Jungle Pop-up Wall
+	Special::copyTarget(0x032FF, 0x17C2E); // Orchard 5 -> Bunker Entry Door
 	Special::copyTarget(0x17C2E, 0x09DE0); // Bunker Entry Door -> Bunker Laser
-	
+	Special::copyTarget(0x00061, 0x09E85); // Dots Tutorial -> Town UTM Shortcut
  
 	Special::setPower(0x28B39, true); // Town Red Hex Panel
-	//Special::setPower(0x3369D, true); // Lower Elevator Control
 	Special::setPower(0x17CA4, true); // Monastary Laser
 	Special::setPower(0x17CAB, true); // Jungle Pop-up Wall
 
@@ -1793,6 +1779,7 @@ void PuzzleList::GenerateSingleMonoColorTypePuzzle(int id, int type, int sparsen
 	}
 	generator->pathWidth = 1.0f - (0.05f * panelSize);
 	generator->setGridSize(panelSize, panelSize);
+	generator->setSymmetry(Panel::Symmetry::None);
 	generator->generate(id, type, (panelSize * panelSize) / sparseness);
 }
 
@@ -1808,6 +1795,7 @@ void PuzzleList::GenerateMonoStarPuzzle(int id, int size)
 	generator->pathWidth = 1.0f - (0.05f * panelSize);
 	generator->setGridSize(panelSize, panelSize);
 	int countList [] = { 4, 8, 12, 14, 16, 18 };
+	generator->setSymmetry(Panel::Symmetry::None);
 	generator->generate(id, Decoration::Star | Decoration::Color::Black, countList[panelSize-3]);
 }
 	
@@ -1823,6 +1811,7 @@ void PuzzleList::GenerateGapsAndDots(int id, int size)
 	generator->pathWidth = 1.0f - (0.05f * panelSize);
 	generator->setGridSize(panelSize, panelSize);
 	//generator->generate(id, Decoration::Dot, Random::rand() % ((size*size)/2), Decoration::Gap, Random::rand() % ((size * size) / 2));
+	generator->setSymmetry(Panel::Symmetry::None);
 	generator->generate(id, Decoration::Dot, (panelSize * panelSize)/2, Decoration::Gap, (panelSize * panelSize)/2);
 }
 
@@ -1840,6 +1829,8 @@ void PuzzleList::GenerateEverythingMinusArrowAndSymPanel(int id, int size, int m
 	}
 	generator->pathWidth = 1.0f - (0.05f * panelSize);
 	generator->setGridSize(panelSize, panelSize);
+	generator->setFlag(Generate::Config::CombineErasers);
+	generator->setSymmetry(Panel::Symmetry::None);
 	generator->generate(id, Decoration::Gap, 1 * multiplier, Decoration::Dot, 1 * multiplier, Decoration::Stone | Decoration::Color::Black, 1 * multiplier,
 		Decoration::Eraser | Decoration::Color::Black, 1 * multiplier, Decoration::Poly | Decoration::Color::Black, 1 * multiplier,
 		Decoration::Poly | Decoration::Negative | Decoration::Color::Black, 1 * multiplier, Decoration::Star | Decoration::Black, 1 * multiplier,
@@ -1918,7 +1909,7 @@ void PuzzleList::GenerateEverythingMinusArrowPanel(int id, int size, int multipl
 //Currently just a showcase of the different types.
 void PuzzleList::GenerateTutorialP()
 {
-	generator->setLoadingData(L"Tutorial", 23);
+	generator->setLoadingData(L"Tutorial", 20);
 	generator->resetConfig();
 	Special::drawSeedAndDifficulty(0x00064, seedIsRNG ? -1 : seed, false);
 	//generator->generate(0x00182, Decoration::Gap, 1);
