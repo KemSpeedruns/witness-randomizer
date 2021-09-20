@@ -2052,7 +2052,13 @@ void PuzzleList::GenerateVaultsP()
 {
 	generator->setLoadingData(L"Vaults", 5);
 	generator->resetConfig();
-	
+	//GenerateRandomPuzzle(0x033D4, 4);
+	GenerateRandomPuzzle(0x0CC7B, 4);
+	//GenerateRandomPuzzle(0x002A6, 4);
+	generator->resetConfig();
+	specialCase->generateSoundDotReflectionPuzzle(0x00AFB, { 6, 6 }, { DOT_MEDIUM, DOT_LARGE, DOT_MEDIUM, DOT_SMALL }, { DOT_LARGE, DOT_SMALL, DOT_MEDIUM }, 5, false);
+	generator->resetConfig();
+	specialCase->generateJungleVault(0x15ADD, false);
 }
 
 void PuzzleList::GenerateTrianglePanelsP()
