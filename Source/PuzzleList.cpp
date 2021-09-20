@@ -1991,7 +1991,23 @@ void PuzzleList::GenerateBunkerP()
 {
 	generator->setLoadingData(L"Bunker", 1);
 	generator->resetConfig();
-	
+	GenerateRandomPuzzle(0x17C2E, 4);
+	// The rest of bunker is dot puzzles only.
+	generator->resetConfig();
+	generator->generate(0x09F7D, Decoration::Dot, 4);
+	generator->generate(0x09FDC, Decoration::Dot, 4);
+	generator->generate(0x09FF7, Decoration::Dot, 4);
+	generator->generate(0x09F82, Decoration::Dot, 4);
+	generator->generate(0x09FF8, Decoration::Dot, 8);
+	generator->generate(0x09D9F, Decoration::Dot, 4);
+	generator->generate(0x09DA1, Decoration::Dot, 8);
+	generator->generate(0x09DA2, Decoration::Dot, 8);
+	generator->generate(0x09DAF, Decoration::Dot, 10);
+	generator->generate(0x0A010, Decoration::Dot, 8);
+	generator->generate(0x0A01B, Decoration::Dot, 8);
+	generator->generate(0x0A01F, Decoration::Dot, 8);
+	generator->generate(0x17E63, Decoration::Dot, 4);
+	generator->generate(0x17E67, Decoration::Dot, 4);
 }
 
 void PuzzleList::GenerateJungleP()
