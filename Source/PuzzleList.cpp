@@ -1989,7 +1989,7 @@ void PuzzleList::GenerateTownP()
 
 void PuzzleList::GenerateBunkerP()
 {
-	generator->setLoadingData(L"Bunker", 1);
+	generator->setLoadingData(L"Bunker", 15);
 	generator->resetConfig();
 	GenerateRandomPuzzle(0x17C2E, 4);
 	// The rest of bunker is dot puzzles only.
