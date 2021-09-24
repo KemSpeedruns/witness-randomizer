@@ -152,6 +152,8 @@ void PuzzleList::CopyTargetsP() {
 	Special::copyTarget(0x17CFB, 0x0A171); // Tutorial Discard -> Tutorial Optinal Door 1
 	Special::copyTarget(0x17F9B, 0x17CAB); // Jungle Discard -> Jungle Pop-up Wall
 
+	Special::clearTarget(0x0360E); //Front Laser
+
 	//To fix issues caused by previous versions of sigma's. Don't know if it still applies now. Don't want to find out.
 	Special::setPower(0x009AB, true); //Swamp underwater
 	Special::setPower(0x28998, true); //Town Yellow Door
@@ -1707,7 +1709,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size)
 	{
 		panelSize = (Random::rand() % 9) + 3;
 	}
-	std::string typeList [] = { "Decoration::Gap", "Decoration::Dot", "Decoration::Triangle", "Decoration::Arrow", "Decoration::Poly", "Decoration::Star", 
+	std::string typeList [] = { "Gaps", "Dots", "Triangles", "Arrows", "Polys", "Stars", 
 		"Gaps and Dots", "Everything Minus Arrow and Sym" };
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 8;
@@ -1755,7 +1757,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size)
 
 //Works for Gaps (but I wouldn't recommend it), Dots, Poly, Triangle, and Arrows
 //Min sparseness values:
-//Gaps, Dots, Triangles, and Arrows: 2, Poly: 4 for easy, 5 for hard, Arrow: 
+//Gaps and Dots: 1, Triangles, and Arrows: 2, Poly: 4
 void PuzzleList::GenerateSingleMonoColorTypePuzzle(int id, int type, int sparseness, int size) 
 {
 	generator->resetConfig();
@@ -1802,7 +1804,7 @@ void PuzzleList::GenerateGapsAndDots(int id, int size)
 	generator->generate(id, Decoration::Dot, (panelSize * panelSize)/2, Decoration::Gap, (panelSize * panelSize)/2);
 }
 
-//1 mult min of size 3. 2 mult min of size 4, mult max of 2
+//1 mult min of size 3. 2 mult min of size 4, mult max of 3
 void PuzzleList::GenerateEverythingMinusArrowAndSymPanel(int id, int size, int multiplier) {
 	generator->resetConfig();
 	int panelSize = size;
@@ -1816,7 +1818,7 @@ void PuzzleList::GenerateEverythingMinusArrowAndSymPanel(int id, int size, int m
 	}
 	generator->pathWidth = 1.0f - (0.05f * panelSize);
 	generator->setGridSize(panelSize, panelSize);
-	generator->setFlag(Generate::Config::CombineErasers);
+	//generator->setFlag(Generate::Config::CombineErasers);
 	generator->setSymmetry(Panel::Symmetry::None);
 	generator->generate(id, Decoration::Gap, 1 * multiplier, Decoration::Dot, 1 * multiplier, Decoration::Stone | Decoration::Color::Black, 1 * multiplier,
 		Decoration::Eraser | Decoration::Color::Black, 1 * multiplier, Decoration::Poly | Decoration::Color::Black, 1 * multiplier,
@@ -1825,7 +1827,7 @@ void PuzzleList::GenerateEverythingMinusArrowAndSymPanel(int id, int size, int m
 }
 
 
-//FlipNegXY, Horizontal, ParallelH, and ParallelHFlip size min for 1 mult: 3. FlipXY size min for 1 mult: 5.
+//FlipNegXY, Horizontal, ParallelH, ParallelHFlip, and ParallelV size min for 1 mult: 3. FlipXY size min for 1 mult: 5.
 void PuzzleList::GenerateEverythingMinusArrowPanel(int id, int size, int multiplier) {
 	generator->resetConfig();
 	int panelSize = size;
@@ -1833,7 +1835,7 @@ void PuzzleList::GenerateEverythingMinusArrowPanel(int id, int size, int multipl
 		panelSize = (Random::rand() % 9) + 3;
 	}
 	//int symChoice = Random::rand() % 15;
-	int symChoice = 5;
+	int symChoice = 6;
 	switch (symChoice) 
 	{
 		case 0:
@@ -1900,8 +1902,8 @@ void PuzzleList::GenerateTutorialP()
 	generator->resetConfig();
 	Special::drawSeedAndDifficulty(0x00064, seedIsRNG ? -1 : seed, false);
 	//generator->generate(0x00182, Decoration::Gap, 1);
+	//GenerateEverythingMinusArrowAndSymPanel(0x00293, 5, 3);
 	//GenerateRandomPuzzle(0x00293, 4);
-	GenerateRandomPuzzle(0x00293, 4);
 	GenerateRandomPuzzle(0x00295, 4);
 	GenerateRandomPuzzle(0x002C2, 4);
 	GenerateRandomPuzzle(0x0A3B2, 4);
@@ -1968,9 +1970,10 @@ void PuzzleList::GenerateTreehouseP()
 
 void PuzzleList::GenerateKeepP()
 {
-	generator->setLoadingData(L"Keep", 5);
+	generator->setLoadingData(L"Keep", 1);
 	generator->resetConfig();
-	
+	//Back Laser
+	GenerateRandomPuzzle(0x03317, 4);
 }
 
 void PuzzleList::GenerateTownP()
