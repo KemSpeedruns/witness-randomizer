@@ -2065,8 +2065,18 @@ void PuzzleList::GenerateTrianglePanelsP()
 {
 	generator->setLoadingData(L"Triangles", 12);
 	generator->resetConfig();
-
-	
+	GenerateRandomPuzzle(0x17CFB, 4);
+	GenerateRandomPuzzle(0x3C12B, 4);
+	GenerateRandomPuzzle(0x17CE7, 4);
+	GenerateRandomPuzzle(0x17CF0, 4);
+	GenerateRandomPuzzle(0x17FA0, 4);
+	GenerateRandomPuzzle(0x17FA9, 4);
+	GenerateRandomPuzzle(0x17F9B, 4);
+	GenerateRandomPuzzle(0x17C71, 4);
+	GenerateRandomPuzzle(0x17D01, 4);
+	GenerateRandomPuzzle(0x17CF7, 4);
+	GenerateRandomPuzzle(0x17C42, 4);
+	GenerateRandomPuzzle(0x17F93, 4);
 }
 
 void PuzzleList::GenerateShadowsP()
