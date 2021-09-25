@@ -1755,6 +1755,10 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size)
 	//GenerateGapsAndDots(id);
 }
 
+void::PuzzleList::GenerateSpecificSingleCount(int id, int type, int count) {
+
+}
+
 //Works for Gaps (but I wouldn't recommend it), Dots, Poly, Triangle, and Arrows
 //Min sparseness values:
 //Gaps and Dots: 1, Triangles, and Arrows: 2, Poly: 4
@@ -1910,7 +1914,7 @@ void PuzzleList::GenerateTutorialP()
 	generator->resetConfig();
 	Special::drawSeedAndDifficulty(0x00064, seedIsRNG ? -1 : seed, false);
 	//generator->generate(0x00182, Decoration::Gap, 1);
-	GenerateEverythingMinusArrowAndSymPanel(0x00293, 4, 2);
+	//GenerateEverythingMinusArrowAndSymPanel(0x00293, 4, 2);
 	//GenerateRandomPuzzle(0x00293, 4);
 	GenerateRandomPuzzle(0x00295, 4);
 	GenerateRandomPuzzle(0x002C2, 4);
