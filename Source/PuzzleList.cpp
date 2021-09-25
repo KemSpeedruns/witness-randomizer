@@ -1709,8 +1709,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size)
 	{
 		panelSize = (Random::rand() % 9) + 3;
 	}
-	std::string typeList [] = { "Gaps", "Dots", "Triangles", "Arrows", "Polys", "Stars", 
-		"Gaps and Dots", "Everything Minus Arrow and Sym" };
+	std::string typeList [] = { "Gaps", "Dots", "Full Dots", "Stars", "Polys", "Triangles", "Arrows", "Gaps and Dots", "Everything Minus Arrow and Sym" };
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 8;
 	//int typeChoice = 4;
@@ -1723,21 +1722,30 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size)
 		GenerateSingleMonoColorTypePuzzle(id,Decoration::Dot, 2, panelSize);
 		break;
 	case 2:
-		GenerateSingleMonoColorTypePuzzle(id, Decoration::Triangle|Decoration::Color::Black, 2, panelSize);
+		if (panelSize % 2 == 1) {
+			GenerateFullDotsPuzzle(id, panelSize);
+		}
+		else {
+			GenerateFullDotsPuzzle(id, panelSize-1);
+		}
 		break;
 	case 3:
-		GenerateSingleMonoColorTypePuzzle(id, Decoration::Arrow, 2, panelSize);
+		GenerateMonoStarPuzzle(id, panelSize);
 		break;
 	case 4:
 		GenerateSingleMonoColorTypePuzzle(id, Decoration::Poly|Decoration::Color::Black, 5, panelSize);
 		break;
 	case 5:
-		GenerateMonoStarPuzzle(id, panelSize);
+		GenerateSingleMonoColorTypePuzzle(id, Decoration::Triangle | Decoration::Color::Black, 2, panelSize);
 		break;
 	case 6:
+		GenerateSingleMonoColorTypePuzzle(id, Decoration::Arrow, 2, panelSize);
+		break;
+		
+	case 7:
 		GenerateGapsAndDots(id, panelSize);
 		break;
-	case 7:
+	case 8:
 		if (panelSize >= 4) 
 		{
 			GenerateEverythingMinusArrowAndSymPanel(id, 4, 2);
@@ -1755,8 +1763,25 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size)
 	//GenerateGapsAndDots(id);
 }
 
-void::PuzzleList::GenerateSpecificSingleCount(int id, int type, int count) {
-
+//randSE = random start and exit
+void::PuzzleList::GenerateSpecificSingleCount(int id, int size,  int type, int count, bool randSE) {
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0)
+	{
+		panelSize = (Random::rand() % 9) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	generator->setSymmetry(Panel::Symmetry::None);
+	if (randSE) {
+		generator->generate(id, type, count, Decoration::Start, 1, Decoration::Exit, 1);
+	}
+	else {
+		generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+		generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
+		generator->generate(id, type, count);
+	}
 }
 
 //Works for Gaps (but I wouldn't recommend it), Dots, Poly, Triangle, and Arrows
@@ -1776,6 +1801,21 @@ void PuzzleList::GenerateSingleMonoColorTypePuzzle(int id, int type, int sparsen
 	generator->setSymbol(Decoration::Start, 0 , panelSize*2);
 	generator->setSymbol(Decoration::Exit, panelSize*2, 0);
 	generator->generate(id, type, (panelSize * panelSize) / sparseness);
+}
+
+//Only odd sizes allowed
+void PuzzleList::GenerateFullDotsPuzzle(int id, int size) {
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0)
+	{
+		panelSize = ((Random::rand() % 5)*2) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	generator->setSymmetry(Panel::Symmetry::None);
+	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
+	generator->generate(id, Decoration::Dot_Intersection, (panelSize + 1) * (panelSize + 1), Decoration::Start, panelSize);
 }
 
 //Max size: 8
@@ -1814,7 +1854,7 @@ void PuzzleList::GenerateGapsAndDots(int id, int size)
 	generator->generate(id, Decoration::Dot, (panelSize * panelSize)/2, Decoration::Gap, (panelSize * panelSize)/2);
 }
 
-//1 mult min of size 3. 2 mult min of size 4, mult max of 3
+//1 mult min of size 3. 2 mult min of size 4, mult max of 3 (so far)
 void PuzzleList::GenerateEverythingMinusArrowAndSymPanel(int id, int size, int multiplier) {
 	generator->resetConfig();
 	int panelSize = size;
@@ -1914,7 +1954,11 @@ void PuzzleList::GenerateTutorialP()
 	generator->resetConfig();
 	Special::drawSeedAndDifficulty(0x00064, seedIsRNG ? -1 : seed, false);
 	//generator->generate(0x00182, Decoration::Gap, 1);
-	//GenerateEverythingMinusArrowAndSymPanel(0x00293, 4, 2);
+	GenerateFullDotsPuzzle(0x00293, 5);
+	/*generator->resetConfig();
+	generator->setGridSize(5,5);
+	generator->setFlagOnce(Generate::Config::LongestPath);
+	generator->generate(0x00293, Decoration::Dot_Intersection, 25);*/
 	//GenerateRandomPuzzle(0x00293, 4);
 	GenerateRandomPuzzle(0x00295, 4);
 	GenerateRandomPuzzle(0x002C2, 4);
