@@ -1723,13 +1723,13 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size)
 		GenerateSingleMonoColorTypePuzzle(id,Decoration::Dot, 2, panelSize);
 		break;
 	case 2:
-		GenerateSingleMonoColorTypePuzzle(id, Decoration::Triangle, 2, panelSize);
+		GenerateSingleMonoColorTypePuzzle(id, Decoration::Triangle|Decoration::Color::Black, 2, panelSize);
 		break;
 	case 3:
 		GenerateSingleMonoColorTypePuzzle(id, Decoration::Arrow, 2, panelSize);
 		break;
 	case 4:
-		GenerateSingleMonoColorTypePuzzle(id, Decoration::Poly, 5, panelSize);
+		GenerateSingleMonoColorTypePuzzle(id, Decoration::Poly|Decoration::Color::Black, 5, panelSize);
 		break;
 	case 5:
 		GenerateMonoStarPuzzle(id, panelSize);
