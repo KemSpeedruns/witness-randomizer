@@ -1769,6 +1769,8 @@ void PuzzleList::GenerateSingleMonoColorTypePuzzle(int id, int type, int sparsen
 	generator->pathWidth = 1.0f - (0.05f * panelSize);
 	generator->setGridSize(panelSize, panelSize);
 	generator->setSymmetry(Panel::Symmetry::None);
+	generator->setSymbol(Decoration::Start, 0 , panelSize*2);
+	generator->setSymbol(Decoration::Exit, panelSize*2, 0);
 	generator->generate(id, type, (panelSize * panelSize) / sparseness);
 }
 
@@ -1818,7 +1820,7 @@ void PuzzleList::GenerateEverythingMinusArrowAndSymPanel(int id, int size, int m
 	}
 	generator->pathWidth = 1.0f - (0.05f * panelSize);
 	generator->setGridSize(panelSize, panelSize);
-	//generator->setFlag(Generate::Config::CombineErasers);
+	generator->setFlag(Generate::Config::CombineErasers);
 	generator->setSymmetry(Panel::Symmetry::None);
 	generator->generate(id, Decoration::Gap, 1 * multiplier, Decoration::Dot, 1 * multiplier, Decoration::Stone | Decoration::Color::Black, 1 * multiplier,
 		Decoration::Eraser | Decoration::Color::Black, 1 * multiplier, Decoration::Poly | Decoration::Color::Black, 1 * multiplier,
@@ -1903,7 +1905,7 @@ void PuzzleList::GenerateTutorialP()
 	Special::drawSeedAndDifficulty(0x00064, seedIsRNG ? -1 : seed, false);
 	//generator->generate(0x00182, Decoration::Gap, 1);
 	//GenerateEverythingMinusArrowAndSymPanel(0x00293, 5, 3);
-	//GenerateRandomPuzzle(0x00293, 4);
+	GenerateRandomPuzzle(0x00293, 4);
 	GenerateRandomPuzzle(0x00295, 4);
 	GenerateRandomPuzzle(0x002C2, 4);
 	GenerateRandomPuzzle(0x0A3B2, 4);
