@@ -1716,10 +1716,10 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size)
 	switch (typeChoice) {
 	case 0:
 		generator->setGridSize(panelSize, panelSize);
-		GenerateSingleMonoColorTypePuzzle(id, Decoration::Gap, 2, panelSize);
+		GenerateSingleMonoColorTypePuzzle(id, Decoration::Gap, 1, panelSize);
 		break;
 	case 1:
-		GenerateSingleMonoColorTypePuzzle(id,Decoration::Dot, 2, panelSize);
+		GenerateSingleMonoColorTypePuzzle(id,Decoration::Dot, 1, panelSize);
 		break;
 	case 2:
 		if (panelSize % 2 == 1) {
@@ -2012,8 +2012,63 @@ void PuzzleList::GenerateQuarryP()
 {
 	generator->setLoadingData(L"Quarry", 39);
 	generator->resetConfig();
+	//Quarry Entry Doors
+	GenerateRandomPuzzle(0x09E57, 4);
+	GenerateRandomPuzzle(0x17C09, 4);
 
-	
+	//Mill Entry Doors
+	GenerateRandomPuzzle(0x01E5A, 4);
+	GenerateRandomPuzzle(0x01E59, 4);
+
+	//Mill Lower Row
+	GenerateRandomPuzzle(0x00E0C, 4);
+	GenerateRandomPuzzle(0x01489, 4);
+	GenerateRandomPuzzle(0x0148A, 4);
+	GenerateRandomPuzzle(0x014D9, 4);
+	GenerateRandomPuzzle(0x014E7, 4);
+	GenerateRandomPuzzle(0x014E8, 4);
+
+	//Mill Upper Row
+	GenerateRandomPuzzle(0x00557, 4);
+	GenerateRandomPuzzle(0x005F1, 4);
+	GenerateRandomPuzzle(0x00620, 4);
+	GenerateRandomPuzzle(0x009F5, 4);
+	GenerateRandomPuzzle(0x0146C, 4);
+	GenerateRandomPuzzle(0x3C12D, 4);
+	GenerateRandomPuzzle(0x03686, 4);
+	GenerateRandomPuzzle(0x014E9, 4);
+
+	//Mill Control Room
+	GenerateRandomPuzzle(0x0367C, 4);
+	GenerateRandomPuzzle(0x3C125, 4);
+
+	//Mill Stairs
+	GenerateRandomPuzzle(0x03677, 4);
+
+	//Boathouse Ramp Activation
+	GenerateRandomPuzzle(0x034D4, 4);
+	GenerateRandomPuzzle(0x021D5, 4);
+
+	//Boathouse Lower Row
+	GenerateRandomPuzzle(0x021B3, 4);
+	GenerateRandomPuzzle(0x021B4, 4);
+	GenerateRandomPuzzle(0x021B0, 4);
+	GenerateRandomPuzzle(0x021AF, 4);
+	GenerateRandomPuzzle(0x021AE, 4);
+
+	// Boathouse Upper Row
+	GenerateRandomPuzzle(0x021B5, 4);
+	GenerateRandomPuzzle(0x021B6, 4);
+	GenerateRandomPuzzle(0x021B7, 4);
+	GenerateRandomPuzzle(0x021BB, 4);
+	GenerateRandomPuzzle(0x09DB5, 4);
+	GenerateRandomPuzzle(0x09DB1, 4);
+	GenerateRandomPuzzle(0x3C124, 4);
+	GenerateRandomPuzzle(0x09DB3, 4);
+	GenerateRandomPuzzle(0x09DB4, 4);
+	GenerateRandomPuzzle(0x0A3CB, 4);
+	GenerateRandomPuzzle(0x0A3CC, 4);
+	GenerateRandomPuzzle(0x0A3D0, 4);
 }
 
 void PuzzleList::GenerateTreehouseP()
