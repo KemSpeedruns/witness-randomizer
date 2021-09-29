@@ -1739,7 +1739,9 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size)
 		GenerateSingleMonoColorTypePuzzle(id, Decoration::Triangle | Decoration::Color::Black, 2, panelSize);
 		break;
 	case 6:
-		GenerateSingleMonoColorTypePuzzle(id, Decoration::Arrow, 2, panelSize);
+		//Temporarily changing to gaps for rapid testing
+		//GenerateSingleMonoColorTypePuzzle(id, Decoration::Arrow, 2, panelSize);
+		GenerateSingleMonoColorTypePuzzle(id, Decoration::Gap, 2, panelSize);
 		break;
 		
 	case 7:
@@ -1963,8 +1965,6 @@ void PuzzleList::GenerateTutorialP()
 	GenerateRandomPuzzle(0x00295, 4);
 	GenerateRandomPuzzle(0x002C2, 4);
 	GenerateRandomPuzzle(0x0A3B2, 4);
-	//Reason: Control Panel
-	//GenerateRandomPuzzle(0x0A3B5, 4);
 	GenerateRandomPuzzle(0x0A171, 4);
 	GenerateRandomPuzzle(0x04CA4, 4);
 	GenerateRandomPuzzle(0x0005D, 4);
@@ -2075,8 +2075,79 @@ void PuzzleList::GenerateTreehouseP()
 {
 	generator->setLoadingData(L"Treehouse", 57);
 	generator->resetConfig();
+	//Starting Doors
+	GenerateRandomPuzzle(0x0288C, 4);
+	GenerateRandomPuzzle(0x02886, 4);
 
-	
+	//Yellow Bridge
+	GenerateRandomPuzzle(0x17D72, 4);
+	GenerateRandomPuzzle(0x17D8F, 4);
+	GenerateRandomPuzzle(0x17D74, 4);
+	GenerateRandomPuzzle(0x17DAC, 4);
+	GenerateRandomPuzzle(0x17D9E, 4);
+	GenerateRandomPuzzle(0x17DB9, 4);
+	GenerateRandomPuzzle(0x17D9C, 4);
+	GenerateRandomPuzzle(0x17DC2, 4);
+	GenerateRandomPuzzle(0x17DC4, 4);
+
+	//Door 3
+	GenerateRandomPuzzle(0x0A182, 4);
+
+	//Right Orange Bridge
+	GenerateRandomPuzzle(0x17D88, 4);
+	GenerateRandomPuzzle(0x17DB4, 4);
+	GenerateRandomPuzzle(0x17D8C, 4);
+	GenerateRandomPuzzle(0x17CE3, 4);
+	GenerateRandomPuzzle(0x17DCD, 4);
+	GenerateRandomPuzzle(0x17DB2, 4);
+	GenerateRandomPuzzle(0x17DCC, 4);
+	GenerateRandomPuzzle(0x17DCA, 4);
+	GenerateRandomPuzzle(0x17D8E, 4);
+	GenerateRandomPuzzle(0x17DB7, 4);
+	GenerateRandomPuzzle(0x17DB1, 4);
+	GenerateRandomPuzzle(0x17DA2, 4);
+
+	//Purple 1
+	GenerateRandomPuzzle(0x17DC8, 4);
+	GenerateRandomPuzzle(0x17DC7, 4);
+	GenerateRandomPuzzle(0x17CE4, 4);
+	GenerateRandomPuzzle(0x17D2D, 4);
+	GenerateRandomPuzzle(0x17D6C, 4);
+
+	//Purple 2
+	GenerateRandomPuzzle(0x17D9B, 4);
+	GenerateRandomPuzzle(0x17D99, 4);
+	GenerateRandomPuzzle(0x17DAA, 4);
+	GenerateRandomPuzzle(0x17D97, 4);
+	GenerateRandomPuzzle(0x17BDF, 4);
+	GenerateRandomPuzzle(0x17D91, 4);
+	GenerateRandomPuzzle(0x17DC6, 4);
+
+	//Left Orange Bridge
+	GenerateRandomPuzzle(0x17DB3, 4);
+	GenerateRandomPuzzle(0x17DB5, 4);
+	GenerateRandomPuzzle(0x17DB6, 4);
+	GenerateRandomPuzzle(0x17DC0, 4);
+	GenerateRandomPuzzle(0x17DD7, 4);
+	GenerateRandomPuzzle(0x17DD9, 4);
+	GenerateRandomPuzzle(0x17DB8, 4);
+	GenerateRandomPuzzle(0x17DDC, 4);
+	GenerateRandomPuzzle(0x17DD1, 4);
+	GenerateRandomPuzzle(0x17DDE, 4);
+	GenerateRandomPuzzle(0x17DE3, 4);
+	GenerateRandomPuzzle(0x17DEC, 4);
+	GenerateRandomPuzzle(0x17DAE, 4);
+	GenerateRandomPuzzle(0x17DB0, 4);
+	GenerateRandomPuzzle(0x17DDB, 4);
+
+	//Green Bridge
+	GenerateRandomPuzzle(0x17E3C, 4);
+	GenerateRandomPuzzle(0x17E4D, 4);
+	GenerateRandomPuzzle(0x17E4F, 4);
+	GenerateRandomPuzzle(0x17E52, 4);
+	GenerateRandomPuzzle(0x17E5B, 4);
+	GenerateRandomPuzzle(0x17E5F, 4);
+	GenerateRandomPuzzle(0x17E61, 4);
 }
 
 void PuzzleList::GenerateKeepP()
