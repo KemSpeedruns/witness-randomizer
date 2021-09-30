@@ -1956,12 +1956,12 @@ void PuzzleList::GenerateTutorialP()
 	generator->resetConfig();
 	Special::drawSeedAndDifficulty(0x00064, seedIsRNG ? -1 : seed, false);
 	//generator->generate(0x00182, Decoration::Gap, 1);
-	GenerateFullDotsPuzzle(0x00293, 5);
+	//GenerateFullDotsPuzzle(0x00293, 5);
 	/*generator->resetConfig();
 	generator->setGridSize(5,5);
 	generator->setFlagOnce(Generate::Config::LongestPath);
 	generator->generate(0x00293, Decoration::Dot_Intersection, 25);*/
-	//GenerateRandomPuzzle(0x00293, 4);
+	GenerateRandomPuzzle(0x00293, 4);
 	GenerateRandomPuzzle(0x00295, 4);
 	GenerateRandomPuzzle(0x002C2, 4);
 	GenerateRandomPuzzle(0x0A3B2, 4);
@@ -2237,7 +2237,7 @@ void PuzzleList::GenerateVaultsP()
 {
 	generator->setLoadingData(L"Vaults", 5);
 	generator->resetConfig();
-	//GenerateRandomPuzzle(0x033D4, 4);
+	GenerateRandomPuzzle(0x033D4, 4);
 	GenerateRandomPuzzle(0x0CC7B, 4);
 	//GenerateRandomPuzzle(0x002A6, 4);
 	generator->resetConfig();
