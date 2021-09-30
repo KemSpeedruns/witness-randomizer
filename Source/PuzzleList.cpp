@@ -2160,9 +2160,47 @@ void PuzzleList::GenerateKeepP()
 
 void PuzzleList::GenerateTownP()
 {
-	generator->setLoadingData(L"Town", 20);
+	generator->setLoadingData(L"Town", 23);
 	generator->resetConfig();
+	//Town 25 Dots
+	GenerateRandomPuzzle(0x2899C, 4);
+	GenerateRandomPuzzle(0x28A33, 4);
+	GenerateRandomPuzzle(0x28ABF, 4);
+	GenerateRandomPuzzle(0x28AC0, 4);
+	GenerateRandomPuzzle(0x28AC1, 4);
+	GenerateRandomPuzzle(0x28AD9, 4);
 
+	//Church Stars
+	GenerateRandomPuzzle(0x28A0D, 4);
+
+	//Yellow Door
+	GenerateRandomPuzzle(0x28998, 4);
+
+	//Soundproof Room
+	specialCase->generateSoundDotPuzzle(0x034E3, { 4, 4 }, { DOT_SMALL, DOT_MEDIUM, DOT_LARGE, DOT_LARGE }, false);
+
+	//RGB
+	GenerateRandomPuzzle(0x03C0C, 4);
+	GenerateRandomPuzzle(0x03C08, 4);
+
+	//Town Blues
+	/*GenerateRandomPuzzle(0x28AC7, 4);
+	GenerateRandomPuzzle(0x28AC8, 4);
+	GenerateRandomPuzzle(0x28ACA, 4);
+	GenerateRandomPuzzle(0x28ACB, 4);
+	GenerateRandomPuzzle(0x28ACC, 4);*/
+
+	//Envorimental Set
+	/*GenerateRandomPuzzle(0x28AE3, 4);
+	GenerateRandomPuzzle(0x28938, 4);*/
+
+	//Cinema
+	GenerateRandomPuzzle(0x17F89, 4);
+	GenerateRandomPuzzle(0x0A168, 4);
+	GenerateRandomPuzzle(0x33AB2, 4);
+
+	//Orange Crate
+	GenerateRandomPuzzle(0x0A0C8, 4);
 }
 
 void PuzzleList::GenerateBunkerP()
