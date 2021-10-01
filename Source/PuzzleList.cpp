@@ -2247,8 +2247,74 @@ void PuzzleList::GenerateSwampP()
 {
 	generator->setLoadingData(L"Swamp", 49);
 	generator->resetConfig();
+	//Swamp Tutorial Set
+	GenerateRandomPuzzle(0x00469,4);
+	GenerateRandomPuzzle(0x00472,4);
+	GenerateRandomPuzzle(0x00262,4);
+	GenerateRandomPuzzle(0x00474,4);
+	GenerateRandomPuzzle(0x00553,4);
+	GenerateRandomPuzzle(0x0056F,4);
+	GenerateRandomPuzzle(0x00390,4);
+	GenerateRandomPuzzle(0x010CA,4);
+	GenerateRandomPuzzle(0x00983,4);
+	GenerateRandomPuzzle(0x00984,4);
+	GenerateRandomPuzzle(0x00986,4);
+	GenerateRandomPuzzle(0x00985,4);
+	GenerateRandomPuzzle(0x00987,4);
+	GenerateRandomPuzzle(0x181A9,4);
 
+	//Red Panels
+	GenerateRandomPuzzle(0x00982, 4);
+	GenerateRandomPuzzle(0x0097F, 4);
+	GenerateRandomPuzzle(0x0098F, 4);
+	GenerateRandomPuzzle(0x00990, 4);
+	GenerateRandomPuzzle(0x17C0D, 4);
+	GenerateRandomPuzzle(0x17C0E, 4);
+
+	//Discontinous Tutorial Panels
+	GenerateRandomPuzzle(0x00999, 4);
+	GenerateRandomPuzzle(0x0099D, 4);
+	GenerateRandomPuzzle(0x009A0, 4);
+	GenerateRandomPuzzle(0x009A1, 4);
 	
+	//Rotation Tutorial Panels
+	GenerateRandomPuzzle(0x00007, 4);
+	GenerateRandomPuzzle(0x00008, 4);
+	GenerateRandomPuzzle(0x00009, 4);
+	GenerateRandomPuzzle(0x0000A, 4);
+
+	//Rotation Advanced Panels
+	GenerateRandomPuzzle(0x003B2, 4);
+	GenerateRandomPuzzle(0x00A1E, 4);
+	GenerateRandomPuzzle(0x00C2E, 4);
+	GenerateRandomPuzzle(0x00E3A, 4);
+	
+	//Purple Underwater
+	GenerateRandomPuzzle(0x009A6, 4);
+
+	//Blue Underwater
+	GenerateRandomPuzzle(0x009AB, 4);
+	GenerateRandomPuzzle(0x009AD, 4);
+	GenerateRandomPuzzle(0x009AE, 4);
+	GenerateRandomPuzzle(0x009AF, 4);
+	GenerateRandomPuzzle(0x00006, 4);
+
+	//Teal Underwater
+	GenerateRandomPuzzle(0x00002, 4);
+	GenerateRandomPuzzle(0x00004, 4);
+	GenerateRandomPuzzle(0x00005, 4);
+	GenerateRandomPuzzle(0x013E6, 4);
+	GenerateRandomPuzzle(0x00596, 4);	
+
+	//Red Underwater
+	GenerateRandomPuzzle(0x00001, 4);
+	GenerateRandomPuzzle(0x014D2, 4);
+	GenerateRandomPuzzle(0x014D4, 4);
+	GenerateRandomPuzzle(0x014D1, 4);
+
+	//Laser Shortcut
+	GenerateRandomPuzzle(0x17C05, 4);
+	GenerateRandomPuzzle(0x17C02, 4);
 }
 
 void PuzzleList::GenerateMountainP()
