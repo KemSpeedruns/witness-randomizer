@@ -110,7 +110,6 @@ void PuzzleList::CopyTargetsN()
 	Special::copyTarget(0x033D4, 0x04CA4); // Tutorial Vault -> Tutorial Optional Door 2
 	Special::copyTarget(0x17CFB, 0x0A171); // Tutorial Discard -> Tutorial Optional Door 1
 	Special::copyTarget(0x17D01, 0x19650); // Town Crate Discard -> Shadows Laser
-	Special::copyTarget(0x00021, 0x28A0D); // Stones Tutorial -> Town Church Star Door
 	Special::copyTarget(0x00A5B, 0x28A79); // Sym Laser Yellow 3 -> Lower Town Stairs
 	Special::copyTarget(0x17D6C, 0x28B39); // Treehouse First Purple 5 -> Town Red Hexagonal Panel
 	Special::copyTarget(0x28A0D, 0x28A69); // Town Church Stars -> Town Lattice
@@ -148,13 +147,26 @@ void PuzzleList::CopyTargetsH()
 }
 
 void PuzzleList::CopyTargetsP() {
+	Special::copyTarget(0x0C373, 0x033D4); // Tutorial Patio Floor -> Tutorial Vault
 	Special::copyTarget(0x033D4, 0x04CA4); // Tutorial Vault -> Tutorial Optional Door 2
-	Special::copyTarget(0x17CFB, 0x0A171); // Tutorial Discard -> Tutorial Optinal Door 1
+	Special::copyTarget(0x17CFB, 0x0A171); // Tutorial Discard -> Tutorial Optional Door 1
+	Special::copyTarget(0x17D01, 0x19650); // Town Crate Discard -> Shadows Laser
+	Special::copyTarget(0x00A5B, 0x28A79); // Sym Laser Yellow 3 -> Lower Town Stairs
+	Special::copyTarget(0x17D6C, 0x28B39); // Treehouse First Purple 5 -> Town Red Hexagonal Panel
+	Special::copyTarget(0x28A0D, 0x28A69); // Town Church Stars -> Town Lattice
+	Special::copyTarget(0x17C71, 0x17CA4); // Town Rooftop Discard -> Monastary Laser
+	Special::copyTarget(0x17D27, 0x17CAB); // Keep Discard Panel -> Jungle Pop-up Wall
 	Special::copyTarget(0x17F9B, 0x17CAB); // Jungle Discard -> Jungle Pop-up Wall
+	Special::copyTarget(0x00061, 0x09E85); // Dots Tutorial -> Town UTM Shortcut
 
-	Special::clearTarget(0x0360E); //Front Laser
+	Special::setPower(0x28B39, true); // Town Red Hex Panel
+	Special::setPower(0x17CA4, true); // Monastary Laser
+	Special::setPower(0x17CAB, true); // Jungle Pop-up Wall
 
-	//To fix issues caused by previous versions of sigma's. Don't know if it still applies now. Don't want to find out.
+	Special::clearTarget(0x28A69); // Town Lattice
+	Special::clearTarget(0x0360E); // Keep Front Laser
+
+	//To fix issues caused by previous versions of simga's. Don't know if it still applies now. Don't want to find out.
 	Special::setPower(0x009AB, true); //Swamp underwater
 	Special::setPower(0x28998, true); //Town Yellow Door
 }
@@ -1836,7 +1848,6 @@ void PuzzleList::GenerateMonoStarPuzzle(int id, int size)
 	generator->generate(id, Decoration::Star | Decoration::Color::Black, countList[panelSize-3]);
 }
 	
-
 void PuzzleList::GenerateGapsAndDots(int id, int size)
 {
 	generator->resetConfig();
@@ -1854,6 +1865,7 @@ void PuzzleList::GenerateGapsAndDots(int id, int size)
 	generator->generate(id, Decoration::Dot, (panelSize * panelSize)/2, Decoration::Gap, (panelSize * panelSize)/2);
 }
 
+//Currently is only set up for size 4.
 void PuzzleList::GenerateSymGapsPuzzle(int id, int size) {
 	generator->resetConfig();
 	int panelSize = size;
@@ -1904,7 +1916,6 @@ void PuzzleList::GenerateEverythingMinusArrowAndSymPanel(int id, int size, int m
 		Decoration::Poly | Decoration::Negative | Decoration::Color::Black, 1 * multiplier, Decoration::Star | Decoration::Black, 1 * multiplier,
 		Decoration::Triangle | Decoration::Color::Black, 1 * multiplier);
 }
-
 
 //FlipNegXY, Horizontal, ParallelH, ParallelHFlip, and ParallelV size min for 1 mult: 3. FlipXY size min for 1 mult: 5.
 void PuzzleList::GenerateEverythingMinusArrowPanel(int id, int size, int multiplier) {
@@ -1974,7 +1985,6 @@ void PuzzleList::GenerateEverythingMinusArrowPanel(int id, int size, int multipl
 		Decoration::Triangle | Decoration::Color::Black, 1 * multiplier, Decoration::Start, 1, Decoration::Exit, 1);
 }
 
-//Currently just a showcase of the different types.
 void PuzzleList::GenerateTutorialP()
 {
 	generator->setLoadingData(L"Tutorial", 20);
@@ -2053,6 +2063,11 @@ void PuzzleList::GenerateSymmetryP()
 	GenerateSymGapsPuzzle(0x00070, 4);
 	GenerateSymGapsPuzzle(0x00071, 4);
 	GenerateSymGapsPuzzle(0x00076, 4);
+
+	//Door 2
+	generator->resetConfig();
+	generator->setFlagOnce(Generate::Config::FullGaps);
+	generator->generate(0x000B0, Decoration::Gap, 1, Decoration::Dot, 4);
 	
 	//Laser Puzzle
 	generator->resetConfig();
@@ -2228,8 +2243,43 @@ void PuzzleList::GenerateTreehouseP()
 
 void PuzzleList::GenerateKeepP()
 {
-	generator->setLoadingData(L"Keep", 1);
+	generator->setLoadingData(L"Keep", 5);
 	generator->resetConfig();
+	//Yellow
+	//I couldn't do this one myself, So I dedcided to just leave it at sigma's.
+	generator->setSymbol(Decoration::Gap_Column, 8, 3);
+	generator->setSymbol(Decoration::Gap_Column, 4, 5);
+	generator->setSymbol(Decoration::Gap_Row, 3, 0);
+	generator->setSymbol(Decoration::Gap_Row, 3, 2);
+	generator->setSymbol(Decoration::Gap_Row, 5, 6);
+	generator->setFlagOnce(Generate::Config::DisableWrite);
+	generator->setObstructions({ { 1, 4 },{ 2, 3 },{ 5, 4 },{ 5, 8 } });
+	generator->generate(0x033EA);
+	std::set<Point> path1 = generator->_path;
+	std::vector<std::vector<Point>> sets = { { { 7, 8 },{ 8, 7 },{ 7, 6 },{ 6, 7 } },{ { 6, 5 },{ 7, 4 },{ 8, 5 } },{ { 7, 0 },{ 7, 2 },{ 6, 1 },{ 8, 1 },{ 5, 2 } },
+	{ { 2, 7 },{ 4, 7 },{ 3, 8 },{ 3, 6 },{ 1, 6 } },{ { 0, 1 },{ 1, 0 },{ 2, 1 },{ 1, 2 } } };
+	for (std::vector<Point> set : sets) {
+		Point p = pick_random(set);
+		while (!path1.count(p)) p = pick_random(set);
+		generator->set(p, p.first % 2 == 0 ? Decoration::Dot_Column : Decoration::Dot_Row);
+	}
+	generator->write(0x033EA);
+
+	//Purple
+	generator->resetConfig();
+	generator->setObstructions({ { 3, 2 } , { 8, 5 } });
+	generator->generate(0x01BE9, Decoration::Stone | Decoration::Black, 4, Decoration::Stone | Decoration::White, 4);
+
+	//Green
+	generator->resetConfig();
+	generator->setObstructions({ { 5, 8 } });
+	generator->generate(0x01CD3, Decoration::Poly, 2);
+
+	//Blue
+	generator->resetConfig();
+	generator->setSymmetry(Panel::Symmetry::Rotational);
+	generator->generate(0x01D3F, Decoration::Poly | Decoration::Can_Rotate, 2);
+
 	//Back Laser
 	GenerateRandomPuzzle(0x03317, 4);
 }
@@ -2260,12 +2310,11 @@ void PuzzleList::GenerateTownP()
 	GenerateRandomPuzzle(0x03C08, 4);
 
 	//Town Blues
-	//TODO: Town Blues
-	/*GenerateRandomPuzzle(0x28AC7, 4);
-	GenerateRandomPuzzle(0x28AC8, 4);
-	GenerateRandomPuzzle(0x28ACA, 4);
-	GenerateRandomPuzzle(0x28ACB, 4);
-	GenerateRandomPuzzle(0x28ACC, 4);*/
+	GenerateSymGapsPuzzle(0x28AC7, 4);
+	GenerateSymGapsPuzzle(0x28AC8, 4);
+	GenerateSymGapsPuzzle(0x28ACA, 4);
+	GenerateSymGapsPuzzle(0x28ACB, 4);
+	GenerateSymGapsPuzzle(0x28ACC, 4);
 
 	//Cinema
 	GenerateRandomPuzzle(0x17F89, 4);
@@ -2576,7 +2625,10 @@ void PuzzleList::GenerateCavesP()
 	GenerateRandomPuzzle(0x0006A, 4);
 	GenerateRandomPuzzle(0x0006C, 4);
 
-	//TODO: Invis Shortcut
+	//Invis Sym
+	GenerateSymGapsPuzzle(0x00027, 4);
+	GenerateSymGapsPuzzle(0x00028, 4);
+	GenerateSymGapsPuzzle(0x00029, 4);
 
 	//Mountainside Shortcuts
 	GenerateRandomPuzzle(0x021D7, 4);
@@ -2600,8 +2652,7 @@ void PuzzleList::GenerateVaultsP()
 	generator->resetConfig();
 	GenerateRandomPuzzle(0x033D4, 4);
 	GenerateRandomPuzzle(0x0CC7B, 4);
-	//TODO: Mountain Vault
-	//GenerateRandomPuzzle(0x002A6, 4);
+	GenerateSymGapsPuzzle(0x002A6, 4);
 	generator->resetConfig();
 	specialCase->generateSoundDotReflectionPuzzle(0x00AFB, { 6, 6 }, { DOT_MEDIUM, DOT_LARGE, DOT_MEDIUM, DOT_SMALL }, { DOT_LARGE, DOT_SMALL, DOT_MEDIUM }, 5, false);
 	generator->resetConfig();
