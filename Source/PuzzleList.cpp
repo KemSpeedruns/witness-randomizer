@@ -1854,6 +1854,33 @@ void PuzzleList::GenerateGapsAndDots(int id, int size)
 	generator->generate(id, Decoration::Dot, (panelSize * panelSize)/2, Decoration::Gap, (panelSize * panelSize)/2);
 }
 
+void PuzzleList::GenerateSymGapsPuzzle(int id, int size) {
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0)
+	{
+		panelSize = ((Random::rand() % 5) * 2) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	//List of working types on 4x4: 
+	//Conditionless: FlipNegXY, Horizontal, Rotational, Vertical
+	//With Set Start Points: 
+	Panel::Symmetry symList4[] = { Panel::Symmetry::FlipNegXY, Panel::Symmetry::Horizontal, Panel::Symmetry::Rotational, Panel::Symmetry::Vertical };
+	int symChoice = Random::rand() % 4;
+	generator->setSymmetry(symList4[symChoice]);
+	/*generator->setSymbol(Decoration::Start, 0, 0);
+	generator->setSymbol(Decoration::Start, panelSize * 2, 0);
+	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+	generator->setSymbol(Decoration::Start, panelSize * 2, panelSize * 2);
+	generator->setSymbol(Decoration::Exit, panelSize, 0);
+	generator->setSymbol(Decoration::Exit, 0, panelSize);
+	generator->setSymbol(Decoration::Exit, panelSize, panelSize * 2);
+	generator->setSymbol(Decoration::Exit, panelSize * 2, panelSize);
+	generator->generate(id, Decoration::Gap, (panelSize * panelSize)/2);*/
+	generator->generate(id, Decoration::Gap, (panelSize * panelSize)/2, Decoration::Start, 1, Decoration::Exit, 1);
+}
+
 //1 mult min of size 3. 2 mult min of size 4, mult max of 3 (so far)
 void PuzzleList::GenerateEverythingMinusArrowAndSymPanel(int id, int size, int multiplier) {
 	generator->resetConfig();
@@ -1986,6 +2013,57 @@ void PuzzleList::GenerateSymmetryP()
 	generator->setLoadingData(L"Symmetry", 30);
 	generator->resetConfig();
 	//TODO: All of sym
+	//Vertical Symmetry
+	GenerateSymGapsPuzzle(0x00086, 4);
+	GenerateSymGapsPuzzle(0x00087, 4);
+	GenerateSymGapsPuzzle(0x00059, 4);
+	GenerateSymGapsPuzzle(0x00062, 4);
+	GenerateSymGapsPuzzle(0x0005C, 4);
+	
+	//Rotational Symmetry
+	GenerateSymGapsPuzzle(0x0008D, 4);
+	GenerateSymGapsPuzzle(0x00081, 4);
+	GenerateSymGapsPuzzle(0x00083, 4);
+
+	//Melting Set
+	GenerateSymGapsPuzzle(0x00084, 4);
+	GenerateSymGapsPuzzle(0x00082, 4);
+	GenerateSymGapsPuzzle(0x0343A, 4);
+
+	//Black Dots
+	GenerateSymGapsPuzzle(0x00022, 4);
+	GenerateSymGapsPuzzle(0x00023, 4);
+	GenerateSymGapsPuzzle(0x00024, 4);
+	GenerateSymGapsPuzzle(0x00025, 4);
+	GenerateSymGapsPuzzle(0x00026, 4);
+	
+	//Colored Dots
+	GenerateSymGapsPuzzle(0x0007C, 4);
+	GenerateSymGapsPuzzle(0x0007E, 4);
+	GenerateSymGapsPuzzle(0x00075, 4);
+	GenerateSymGapsPuzzle(0x00073, 4);
+	GenerateSymGapsPuzzle(0x00077, 4);
+	GenerateSymGapsPuzzle(0x00079, 4);
+	
+	//Fading Lines
+	GenerateSymGapsPuzzle(0x00065, 4);
+	GenerateSymGapsPuzzle(0x0006D, 4);
+	GenerateSymGapsPuzzle(0x00072, 4);
+	GenerateSymGapsPuzzle(0x0006F, 4);
+	GenerateSymGapsPuzzle(0x00070, 4);
+	GenerateSymGapsPuzzle(0x00071, 4);
+	GenerateSymGapsPuzzle(0x00076, 4);
+	
+	//Laser Puzzle
+	generator->resetConfig();
+	generator->setFlag(Generate::Config::PreserveStructure);
+	specialCase->generateReflectionDotPuzzle(generator, 0x00A52, 0x00A61, { {Decoration::Dot, 5 },
+		  {Decoration::Gap, 4} }, Panel::Symmetry::Vertical, false);
+	generator->setFlagOnce(Generate::Config::ShortPath);
+	specialCase->generateReflectionDotPuzzle(generator, 0x00A57, 0x00A64, { {Decoration::Dot, 6 },
+		  {Decoration::Gap, 1} }, Panel::Symmetry::Vertical, false);
+	specialCase->generateReflectionDotPuzzle(generator, 0x00A5B, 0x00A68, { {Decoration::Dot, 8 },
+		}, Panel::Symmetry::Rotational, false);
 }
 
 void PuzzleList::GenerateOrchardP()

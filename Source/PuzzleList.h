@@ -91,6 +91,7 @@ public:
 	void GenerateMonoStarPuzzle(int id, int size);
 	void GenerateEverythingMinusArrowAndSymPanel(int id, int size, int multiplier);
 	void GenerateEverythingMinusArrowPanel(int id, int size, int multiplier);
+	void GenerateSymGapsPuzzle(int id, int size);
 	void GenerateTutorialP();
 	void GenerateSymmetryP();
 	void GenerateQuarryP();
