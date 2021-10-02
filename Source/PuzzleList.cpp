@@ -956,7 +956,7 @@ void PuzzleList::GenerateCavesN()
 	generator->generate(0x00B71, Decoration::Stone | Decoration::Color::Black, 3, Decoration::Stone | Decoration::Color::White, 3,
 		Decoration::Star | Decoration::Color::Black, 2, Decoration::Eraser | Decoration::Color::White, 1);
 
-	//Perspective
+	//Beam
 	generator->resetConfig();
 	generator->setFlag(Generate::Config::DecorationsOnly);
 	std::vector<std::vector<Point>> obstructions = { { { 5, 0 },{ 5, 2 },{ 5, 4 } },{ { 5, 6 },{ 5, 8 },{ 5, 10 } },{ { 0, 5 },{ 2, 5 },{ 4, 5 } },{ { 6, 5 },{ 8, 5 },{ 10, 5 } } };
@@ -1987,7 +1987,7 @@ void PuzzleList::GenerateSymmetryP()
 {
 	generator->setLoadingData(L"Symmetry", 30);
 	generator->resetConfig();
-	
+	//TODO: All of sym
 }
 
 void PuzzleList::GenerateOrchardP()
@@ -2184,15 +2184,12 @@ void PuzzleList::GenerateTownP()
 	GenerateRandomPuzzle(0x03C08, 4);
 
 	//Town Blues
+	//TODO: Town Blues
 	/*GenerateRandomPuzzle(0x28AC7, 4);
 	GenerateRandomPuzzle(0x28AC8, 4);
 	GenerateRandomPuzzle(0x28ACA, 4);
 	GenerateRandomPuzzle(0x28ACB, 4);
 	GenerateRandomPuzzle(0x28ACC, 4);*/
-
-	//Envorimental Set
-	/*GenerateRandomPuzzle(0x28AE3, 4);
-	GenerateRandomPuzzle(0x28938, 4);*/
 
 	//Cinema
 	GenerateRandomPuzzle(0x17F89, 4);
@@ -2429,7 +2426,96 @@ void PuzzleList::GenerateCavesP()
 {
 	generator->setLoadingData(L"Caves", 51);
 	generator->resetConfig();
+	//UTM Entrance Panels
+	GenerateRandomPuzzle(0x17FA2, 4);
+	GenerateRandomPuzzle(0x00FF8, 4);
 
+	//Blue Area
+	//Left
+	GenerateRandomPuzzle(0x008B8, 4);
+	GenerateRandomPuzzle(0x00973, 4);
+	GenerateRandomPuzzle(0x0097B, 4);
+	GenerateRandomPuzzle(0x0097D, 4);
+	GenerateRandomPuzzle(0x0097E, 4);
+
+	//Discontinous
+	GenerateRandomPuzzle(0x009A4, 4);
+		
+	//Cave-in
+	GenerateRandomPuzzle(0x00A72, 4);
+
+	//Right Far
+	GenerateRandomPuzzle(0x00994, 4);
+	GenerateRandomPuzzle(0x334D5, 4);
+	GenerateRandomPuzzle(0x00995, 4);
+	GenerateRandomPuzzle(0x00996, 4);
+	GenerateRandomPuzzle(0x00998, 4);
+
+	//Right Near
+	GenerateRandomPuzzle(0x00190, 4);
+	GenerateRandomPuzzle(0x00558, 4);
+	GenerateRandomPuzzle(0x00567, 4);
+	GenerateRandomPuzzle(0x006FE, 4);
+
+	//Derivative Puzzle Area
+	GenerateRandomPuzzle(0x32962, 4);
+	GenerateRandomPuzzle(0x32966, 4);
+	GenerateRandomPuzzle(0x01A31, 4);
+	GenerateRandomPuzzle(0x00B71, 4);
+
+	//Beam
+	generator->resetConfig();
+	generator->setFlag(Generate::Config::DecorationsOnly);
+	std::vector<std::vector<Point>> obstructions = { { { 5, 0 },{ 5, 2 },{ 5, 4 } },{ { 5, 6 },{ 5, 8 },{ 5, 10 } },{ { 0, 5 },{ 2, 5 },{ 4, 5 } },{ { 6, 5 },{ 8, 5 },{ 10, 5 } } };
+	generator->setObstructions(obstructions);
+	generator->blockPos = { { 5, 5 } };
+	generator->setFlag(Generate::Config::SmallShapes);
+	generator->generate(0x288EA, Decoration::Poly | Decoration::Can_Rotate, 4);
+	generator->setObstructions(obstructions);
+	generator->blockPos = { { 5, 5 } };
+	generator->generate(0x288FC, Decoration::Poly, 1, Decoration::Poly | Decoration::Can_Rotate, 1,
+		Decoration::Stone | Decoration::Color::Black, 1, Decoration::Stone | Decoration::Color::White, 1);
+	generator->setObstructions(obstructions);
+	generator->blockPos = { { 5, 5 } };
+	generator->generate(0x289E7, Decoration::Stone | Decoration::Color::Black, 4, Decoration::Stone | Decoration::Color::White, 4);
+	generator->setObstructions(obstructions);
+	generator->blockPos = { { 5, 5 } };
+	generator->generate(0x288AA, Decoration::Poly, 1, Decoration::Stone | Decoration::Color::Black, 2, Decoration::Stone | Decoration::Color::White, 2);
+
+	//Green Dots
+	GenerateRandomPuzzle(0x0A16B, 4);
+	GenerateRandomPuzzle(0x0A2CE, 4);
+	GenerateRandomPuzzle(0x0A2D7, 4);
+	GenerateRandomPuzzle(0x0A2DD, 4);
+	GenerateRandomPuzzle(0x0A2EA, 4);
+	GenerateRandomPuzzle(0x17FB9, 4);
+
+	//Invis Dots
+	GenerateRandomPuzzle(0x0008F, 4);
+	GenerateRandomPuzzle(0x0006B, 4);
+	GenerateRandomPuzzle(0x0008B, 4);
+	GenerateRandomPuzzle(0x0008C, 4);
+	GenerateRandomPuzzle(0x0008A, 4);
+	GenerateRandomPuzzle(0x00089, 4);
+	GenerateRandomPuzzle(0x0006A, 4);
+	GenerateRandomPuzzle(0x0006C, 4);
+
+	//TODO: Invis Shortcut
+
+	//Mountainside Shortcuts
+	GenerateRandomPuzzle(0x021D7, 4);
+	GenerateRandomPuzzle(0x17CF2, 4);
+
+	//Challenge Pillar
+	generator->resetConfig();
+	generator->generate(0x09DD5, Decoration::Triangle, 9);
+
+	//Challenge Entrance
+	GenerateRandomPuzzle(0x0A16E, 4);
+
+	//Town Area Shortcuts
+	GenerateRandomPuzzle(0x039B4, 4);
+	GenerateRandomPuzzle(0x09E85, 4);
 }
 
 void PuzzleList::GenerateVaultsP()
@@ -2438,6 +2524,7 @@ void PuzzleList::GenerateVaultsP()
 	generator->resetConfig();
 	GenerateRandomPuzzle(0x033D4, 4);
 	GenerateRandomPuzzle(0x0CC7B, 4);
+	//TODO: Mountain Vault
 	//GenerateRandomPuzzle(0x002A6, 4);
 	generator->resetConfig();
 	specialCase->generateSoundDotReflectionPuzzle(0x00AFB, { 6, 6 }, { DOT_MEDIUM, DOT_LARGE, DOT_MEDIUM, DOT_SMALL }, { DOT_LARGE, DOT_SMALL, DOT_MEDIUM }, 5, false);
