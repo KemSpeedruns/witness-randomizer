@@ -1709,9 +1709,9 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size)
 	{
 		panelSize = (Random::rand() % 9) + 3;
 	}
-	std::string typeList [] = { "Gaps", "Dots", "Full Dots", "Stars", "Polys", "Triangles", "Arrows", "Gaps and Dots", "Everything Minus Arrow and Sym" };
+	std::string typeList [] = { "Gaps", "Maze", "Dots", "Full Dots", "Stars", "Polys", "Triangles", "Arrows", "Gaps and Dots", "Everything Minus Arrow and Sym" };
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	int typeChoice = Random::rand() % 8;
+	int typeChoice = Random::rand() % 10;
 	//int typeChoice = 4;
 	switch (typeChoice) {
 	case 0:
@@ -1719,35 +1719,34 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size)
 		GenerateSingleMonoColorTypePuzzle(id, Decoration::Gap, 1, panelSize);
 		break;
 	case 1:
-		GenerateSingleMonoColorTypePuzzle(id,Decoration::Dot, 1, panelSize);
+		generator->setGridSize(panelSize, panelSize);
+		generator->generateMaze(id,1,1);
 		break;
 	case 2:
-		if (panelSize % 2 == 1) {
-			GenerateFullDotsPuzzle(id, panelSize);
-		}
-		else {
-			GenerateFullDotsPuzzle(id, panelSize-1);
-		}
+		GenerateSingleMonoColorTypePuzzle(id,Decoration::Dot, 1, panelSize);
 		break;
 	case 3:
-		GenerateMonoStarPuzzle(id, panelSize);
+		GenerateFullDotsPuzzle(id, panelSize);
 		break;
 	case 4:
-		GenerateSingleMonoColorTypePuzzle(id, Decoration::Poly|Decoration::Color::Black, 5, panelSize);
+		GenerateMonoStarPuzzle(id, panelSize);
 		break;
 	case 5:
-		GenerateSingleMonoColorTypePuzzle(id, Decoration::Triangle | Decoration::Color::Black, 2, panelSize);
+		GenerateSingleMonoColorTypePuzzle(id, Decoration::Poly|Decoration::Color::Black, 5, panelSize);
 		break;
 	case 6:
-		//Temporarily changing to gaps for rapid testing
-		//GenerateSingleMonoColorTypePuzzle(id, Decoration::Arrow, 2, panelSize);
-		GenerateSingleMonoColorTypePuzzle(id, Decoration::Gap, 2, panelSize);
+		GenerateSingleMonoColorTypePuzzle(id, Decoration::Triangle | Decoration::Color::Black, 2, panelSize);
 		break;
-		
 	case 7:
-		GenerateGapsAndDots(id, panelSize);
+		//Temporarily change to gaps for rapid testing
+		GenerateSingleMonoColorTypePuzzle(id, Decoration::Arrow, 2, panelSize);
+		//GenerateSingleMonoColorTypePuzzle(id, Decoration::Gap, 2, panelSize);
 		break;
 	case 8:
+		GenerateGapsAndDots(id, panelSize);
+		break;
+	case 9:
+		//GenerateEverythingMinusArrowAndSymPanel(id, 4, 2);
 		if (panelSize >= 4) 
 		{
 			GenerateEverythingMinusArrowAndSymPanel(id, 4, 2);
@@ -1756,7 +1755,6 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size)
 		{
 			GenerateEverythingMinusArrowAndSymPanel(id, 3, 1);
 		}
-		
 		break;
 	}
 
