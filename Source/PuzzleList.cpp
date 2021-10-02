@@ -2319,14 +2319,110 @@ void PuzzleList::GenerateSwampP()
 
 void PuzzleList::GenerateMountainP()
 {
-	//std::wstring text = L"Mountain Perspective";
-	//SetWindowText(_handle, text.c_str());
-	
+	std::wstring text = L"Mountain Perspective";
+	SetWindowText(_handle, text.c_str());
+	specialCase->generateMountaintop(0x17C34, { { Decoration::Stone | Decoration::Color::Black, 2 },{ Decoration::Stone | Decoration::Color::White, 2, }, });
 
 	generator->setLoadingData(L"Mountain", 39);
 	generator->resetConfig();
 
-	
+	//Purple Path
+	generator->setFlagOnce(Generate::Config::PreserveStructure);
+	generator->setFlagOnce(Generate::Config::DecorationsOnly);
+	std::set<Point> bpoints1 = { { 6, 3 },{ 5, 4 },{ 7, 4 } };
+	std::set<Point> bpoints2 = { { 6, 5 },{ 5, 6 },{ 6, 7 },{ 7, 6 } };
+	std::set<Point> bpoints3 = { { 3, 6 },{ 4, 7 } };
+	if (Random::rand() % 2 == 0) generator->hitPoints = { generator->pick_random(bpoints1), generator->pick_random(bpoints2), generator->pick_random(bpoints3) };
+	else generator->hitPoints = { generator->pick_random(bpoints3), generator->pick_random(bpoints2), generator->pick_random(bpoints1) };
+	generator->setObstructions({ { 4, 1 },{ 6, 1 },{ 8, 1 } });
+	generator->blockPos = { { 1, 1 },{ 11, 1 },{ 1, 11 },{ 11, 11 } };
+	generator->setSymbol(Decoration::Gap_Row, 3, 4);
+	generator->generate(0x09E39, Decoration::Stone | Decoration::Color::Black, 1, Decoration::Stone | Decoration::Color::White, 1);
+
+	//Orange
+	GenerateRandomPuzzle(0x09E73, 4);
+	GenerateRandomPuzzle(0x09E75, 4);
+	GenerateRandomPuzzle(0x09E78, 4);
+	GenerateRandomPuzzle(0x09E79, 4);
+	GenerateRandomPuzzle(0x09E6C, 4);
+	GenerateRandomPuzzle(0x09E6F, 4);
+	GenerateRandomPuzzle(0x09E6B, 4);
+
+	//Blue
+	generator->resetConfig();
+	generator->setObstructions({ { 4, 3 },{ 5, 4 },{ 5, 6 },{ 5, 8 },{ 5, 10 },{ 6, 9 },{ 7, 10 } });
+	generator->generate(0x33AF5, Decoration::Stone | Decoration::Color::Black, 5, Decoration::Stone | Decoration::Color::White, 3);
+	if (Random::rand() % 2 == 0) generator->setObstructions({ { 5, 4 },{ 5, 6 },{ 5, 8 },{ 5, 10 },{ 9, 4 },{ 9, 6 },{ 9, 8 },{ 9, 10 },{ 7, 0 },{ 7, 2 } });
+	else generator->setObstructions({ { 3, 4 },{ 3, 6 },{ 3, 8 },{ 3, 10 },{ 7, 4 },{ 7, 6 },{ 7, 8 },{ 7, 10 },{ 5, 0 },{ 5, 2 },{ 9, 0 },{ 9, 2 } });
+	generator->generate(0x33AF7, Decoration::Stone | Decoration::Color::Black, 6, Decoration::Stone | Decoration::Color::White, 6);
+	generator->setObstructions({ { 0, 1 },{ 0, 3 },{ 0, 5 },{ 0, 7 },{ 9, 4 },{ 1, 4 },{ 1, 6 },{ 1, 8 },{ 2, 7 },{ 2, 9 },{ 3, 8 },{ 3, 10 },{ 4, 9 },{ 5, 8 },{ 5, 10 },
+		{ 6, 7 },{ 6, 9 },{ 7, 6 },{ 7, 8 },{ 7, 10 },{ 8, 5 },{ 8, 7 },{ 8, 9 },{ 9, 2 },{ 9, 4 },{ 9, 6 },{ 9, 8 },{ 10, 1 },{ 10, 3 },{ 10, 5 } });
+	generator->generate(0x09F6E, Decoration::Dot, 5);
+
+	//Purple
+	GenerateRandomPuzzle(0x09EAD, 4);
+	GenerateRandomPuzzle(0x09EAF, 4);
+
+	//Green
+	GenerateRandomPuzzle(0x09E7A, 4);
+	GenerateRandomPuzzle(0x09E71, 4);
+	GenerateRandomPuzzle(0x09E72, 4);
+	GenerateRandomPuzzle(0x09E69, 4);
+	GenerateRandomPuzzle(0x09E7B, 4);
+
+	//Rainbow
+	GenerateRandomPuzzle(0x09FD3, 4);
+	GenerateRandomPuzzle(0x09FD4, 4);
+	GenerateRandomPuzzle(0x09FD6, 4);
+	GenerateRandomPuzzle(0x09FD7, 4);
+	generator->resetConfig();
+	generator->blockPos = { {1,3},{1,7},{1,9},{3,1},{3,5},{3,7},{3,9},{5,1},{5,9},{7,3},{7,7},{9,3},{9,7} };
+	generator->generate(0x09FD8, Decoration::Stone | Decoration::Color::Magenta, 3, Decoration::Stone | Decoration::Color::Cyan, 4,
+		Decoration::Stone | Decoration::Color::Yellow, 5);
+
+	//Multipanel
+	generator->resetConfig();
+	specialCase->generateMultiPuzzle({ 0x09FCC, 0x09FCE, 0x09FCF, 0x09FD0, 0x09FD1, 0x09FD2 }, {
+		{ { Decoration::Dot_Intersection, 1 } },
+		{ { Decoration::Stone | Decoration::Color::Black, 1 },{ Decoration::Stone | Decoration::Color::White, 1 } },
+		{ { Decoration::Poly, 2 } },
+		{ { Decoration::Star | Decoration::Color::Magenta, 2 },{ Decoration::Star | Decoration::Color::Green, 2 } },
+		{ { Decoration::Stone | Decoration::Color::White, 3 },{ Decoration::Stone | Decoration::Color::Black, 1 } },
+		{ { Decoration::Poly, 1 } } }, false);
+
+	//Dual Bridges
+	generator->resetConfig();
+	generator->setFlag(Generate::Config::DecorationsOnly);
+	generator->setFlag(Generate::Config::ShortPath);
+	generator->setFlag(Generate::Config::DisableReset);
+	generator->blockPos = { {1,9},{3,9},{5,9},{7,9},{9,9},{11,9},{1,7},{3,7},{5,7},{7,7},{9,7},{11,7} };
+	generator->generate(0x09E86, Decoration::Star | Decoration::Color::Orange, 4, Decoration::Stone | Decoration::Color::Black, 1,
+		Decoration::Stone | Decoration::Color::White, 1);
+	generator->write(0x09ED8);
+
+	//Metapuzzle
+	specialCase->generateMountainFloor({ 0x09EFF, 0x09F01, 0x09FC1, 0x09F8E }, 0x09FDA);
+
+	//Pillar Room
+	generator->resetConfig();
+	generator->generate(0x0383D, Decoration::Dot_Intersection, 18, Decoration::Gap, 2);
+	generator->setFlag(Generate::Config::WriteColors);
+	generator->setFlag(Generate::Config::DecorationsOnly);
+	generator->generate(0x0383A, Decoration::Star | Decoration::Color::Orange, 6);
+	generator->generate(0x0383F, Decoration::Stone | Decoration::Color::Black, 6, Decoration::Stone | Decoration::Color::White, 4);
+	generator->removeFlag(Generate::Config::DecorationsOnly);
+	generator->generate(0x09E56, Decoration::Star | Decoration::Color::Orange, 2, Decoration::Dot, 3, Decoration::Gap, 2);
+	generator->removeFlag(Generate::Config::WriteColors);
+	generator->setFlagOnce(Generate::Config::DecorationsOnly);
+	generator->generate(0x03859, Decoration::Poly, 2);
+	generator->generate(0x09E5A, Decoration::Dot_Intersection, 30, Decoration::Gap, 7);
+	generator->setFlagOnce(Generate::Config::WriteColors);
+	generator->setSymmetry(Panel::Symmetry::PillarRotational);
+	generator->setFlagOnce(Generate::Config::DecorationsOnly);
+	generator->generate(0x339BB, Decoration::Star | Decoration::Color::Orange, 2, Decoration::Stone | Decoration::Color::Black, 3,
+		Decoration::Stone | Decoration::Color::White, 3);
+	generator->setSymmetry(Panel::Symmetry::PillarParallel);
+	generator->generate(0x33961, Decoration::Dot, 6);
 }
 
 void PuzzleList::GenerateCavesP()
@@ -2334,7 +2430,6 @@ void PuzzleList::GenerateCavesP()
 	generator->setLoadingData(L"Caves", 51);
 	generator->resetConfig();
 
-	
 }
 
 void PuzzleList::GenerateVaultsP()
