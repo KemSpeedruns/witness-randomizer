@@ -1762,7 +1762,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size)
 		break;
 	case 10:
 		//GenerateEverythingMinusArrowAndSymPanel(id, 4, 2);
-		if (panelSize >= 4) 
+		if (panelSize >= 4)
 		{
 			GenerateEverythingMinusArrowAndSymPanel(id, 4, 2);
 		}
