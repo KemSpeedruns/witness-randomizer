@@ -1721,9 +1721,9 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size)
 	{
 		panelSize = (Random::rand() % 9) + 3;
 	}
-	std::string typeList [] = { "Gaps", "Maze", "Dots", "Full Dots", "Stars", "Polys", "Triangles", "Arrows", "Gaps and Dots", "Everything Minus Arrow and Sym" };
+	std::string typeList [] = { "Gaps", "Maze", "Dots", "Full Dots", "Stars", "Polys", "Triangles", "Arrows", "Gaps and Dots", "Sym and Gaps", "Everything Minus Arrow and Sym" };
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	int typeChoice = Random::rand() % 10;
+	int typeChoice = Random::rand() % 11;
 	//int typeChoice = 4;
 	switch (typeChoice) {
 	case 0:
@@ -1758,6 +1758,9 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size)
 		GenerateGapsAndDots(id, panelSize);
 		break;
 	case 9:
+		GenerateSymGapsPuzzle(id, panelSize);
+		break;
+	case 10:
 		//GenerateEverythingMinusArrowAndSymPanel(id, 4, 2);
 		if (panelSize >= 4) 
 		{
@@ -1812,10 +1815,10 @@ void PuzzleList::GenerateSingleMonoColorTypePuzzle(int id, int type, int sparsen
 	generator->setSymmetry(Panel::Symmetry::None);
 	generator->setSymbol(Decoration::Start, 0 , panelSize*2);
 	generator->setSymbol(Decoration::Exit, panelSize*2, 0);
-	generator->generate(id, type, (panelSize * panelSize) / sparseness);
+	int maxSymbolCount = (panelSize * panelSize) / sparseness;
+	generator->generate(id, type, Random::rand() % (maxSymbolCount) + 1);
 }
 
-//Only odd sizes allowed
 void PuzzleList::GenerateFullDotsPuzzle(int id, int size) {
 	generator->resetConfig();
 	int panelSize = size;
@@ -1845,7 +1848,7 @@ void PuzzleList::GenerateMonoStarPuzzle(int id, int size)
 	generator->setSymmetry(Panel::Symmetry::None);
 	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
 	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
-	generator->generate(id, Decoration::Star | Decoration::Color::Black, countList[panelSize-3]);
+	generator->generate(id, Decoration::Star | Decoration::Color::Black, (Random::rand() % (countList[(panelSize-3)]/2 + 1)) * 2);
 }
 	
 void PuzzleList::GenerateGapsAndDots(int id, int size)
@@ -1862,7 +1865,7 @@ void PuzzleList::GenerateGapsAndDots(int id, int size)
 	generator->setSymmetry(Panel::Symmetry::None);
 	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
 	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
-	generator->generate(id, Decoration::Dot, (panelSize * panelSize)/2, Decoration::Gap, (panelSize * panelSize)/2);
+	generator->generate(id, Decoration::Dot, Random::rand() % ((panelSize * panelSize)/2) + 1, Decoration::Gap, Random::rand() % ((panelSize * panelSize) / 2) + 1);
 }
 
 //Currently is only set up for size 4.
@@ -1890,14 +1893,14 @@ void PuzzleList::GenerateSymGapsPuzzle(int id, int size) {
 	generator->setSymbol(Decoration::Exit, panelSize, panelSize * 2);
 	generator->setSymbol(Decoration::Exit, panelSize * 2, panelSize);
 	generator->generate(id, Decoration::Gap, (panelSize * panelSize)/2);*/
-	generator->generate(id, Decoration::Gap, (panelSize * panelSize)/2, Decoration::Start, 1, Decoration::Exit, 1);
+	generator->generate(id, Decoration::Gap, Random::rand() % ((panelSize * panelSize) / 2) + 1, Decoration::Start, 1, Decoration::Exit, 1);
 }
 
 //1 mult min of size 3. 2 mult min of size 4, mult max of 3 (so far)
-void PuzzleList::GenerateEverythingMinusArrowAndSymPanel(int id, int size, int multiplier) {
+void PuzzleList::GenerateEverythingMinusArrowAndSymPanel(int id, int size, int maxMultiplier) {
 	generator->resetConfig();
 	int panelSize = size;
-	if (panelSize == 0 && multiplier == 2) 
+	if (panelSize == 0 && maxMultiplier == 2)
 	{
 		panelSize = (Random::rand() % 9) + 3;
 	}
@@ -1905,16 +1908,22 @@ void PuzzleList::GenerateEverythingMinusArrowAndSymPanel(int id, int size, int m
 	{
 		panelSize = 3;
 	}
+	int panelMultiplier = 0;
+	if (maxMultiplier == 1) {
+		panelMultiplier = 1;
+	}
+	else {
+		panelMultiplier = (Random::rand() % 2) + 1;
+	}
 	generator->pathWidth = 1.0f - (0.05f * panelSize);
 	generator->setGridSize(panelSize, panelSize);
 	generator->setFlag(Generate::Config::CombineErasers);
 	generator->setSymmetry(Panel::Symmetry::None);
 	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
 	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
-	generator->generate(id, Decoration::Gap, 1 * multiplier, Decoration::Dot, 1 * multiplier, Decoration::Stone | Decoration::Color::Black, 1 * multiplier,
-		Decoration::Eraser | Decoration::Color::Black, 1 * multiplier, Decoration::Poly | Decoration::Color::Black, 1 * multiplier,
-		Decoration::Poly | Decoration::Negative | Decoration::Color::Black, 1 * multiplier, Decoration::Star | Decoration::Black, 1 * multiplier,
-		Decoration::Triangle | Decoration::Color::Black, 1 * multiplier);
+	generator->generate(id, Decoration::Gap, 1 * panelMultiplier, Decoration::Dot, 1 * panelMultiplier, Decoration::Stone | Decoration::Color::Black, 1 * panelMultiplier,
+		Decoration::Eraser | Decoration::Color::Black, 1 * panelMultiplier, Decoration::Poly | Decoration::Color::Black, 1 * panelMultiplier,
+		Decoration::Star | Decoration::Black, 1 * panelMultiplier, Decoration::Triangle | Decoration::Color::Black, 1 * panelMultiplier);
 }
 
 //FlipNegXY, Horizontal, ParallelH, ParallelHFlip, and ParallelV size min for 1 mult: 3. FlipXY size min for 1 mult: 5.
@@ -1991,7 +2000,7 @@ void PuzzleList::GenerateTutorialP()
 	generator->resetConfig();
 	Special::drawSeedAndDifficulty(0x00064, seedIsRNG ? -1 : seed, false);
 	//generator->generate(0x00182, Decoration::Gap, 1);
-	//GenerateFullDotsPuzzle(0x00293, 5);
+	/*GenerateGapsAndDots(0x00293, 4);*/
 	/*generator->resetConfig();
 	generator->setGridSize(5,5);
 	generator->setFlagOnce(Generate::Config::LongestPath);
