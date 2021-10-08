@@ -83,14 +83,14 @@ public:
 
 	//-------------------------Puzzle Pack difficulty--------------------------
 
-	void GenerateRandomPuzzle(int id, int size);
+	void GenerateRandomPuzzle(int id, int size, int firstColor);
 	void GenerateSpecificSingleCount(int id, int size, int type, int count, bool randSE);
 	void GenerateSingleMonoColorTypePuzzle(int id, int type, int sparseness, int size);
 	void GenerateFullDotsPuzzle(int id, int size);
 	void GenerateGapsAndDots(int id, int size);
-	void GenerateMonoStarPuzzle(int id, int size);
-	void GenerateEverythingMinusArrowAndSymPanel(int id, int size, int multiplier);
-	void GenerateEverythingMinusArrowPanel(int id, int size, int multiplier);
+	void GenerateMonoStarPuzzle(int id, int size, int color);
+	void GenerateEverythingMinusSymPanel(int id, int size, int multiplier);
+	void GenerateEverythingPanel(int id, int size, int multiplier);
 	void GenerateSymGapsPuzzle(int id, int size);
 	void GenerateTutorialP();
 	void GenerateSymmetryP();
