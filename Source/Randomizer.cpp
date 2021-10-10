@@ -42,6 +42,9 @@ void Randomizer::GeneratePuzzlePack(HWND loadingHandle) {
 	puzzles->setSeed(seed, seedIsRNG);
 	puzzles->GenerateAllP();
 	Panel::SavePanels(seed, false);
+	MessageBox(GetActiveWindow(), L"Known Puzzle Pack Issues:\r\n\r\n"
+		L"- Some puzzles with multiple exits are unrandomized. This is becuase I haven't made multiple exit puzzles yet.\r\n\r\n"
+		L"- Some triangles appear as a different color then they actually are! This will be fixed in a future patch. For now, assume all colors are mono-color.\r\n\r\n", L"Welcome", MB_OK);
 }
 
 template <class T>

@@ -6,7 +6,7 @@
 #define MAJOR 1
 #define MINOR 1
 #define PATCH 7
-#define BUILD 12
+#define BUILD 13
 
 #define VERSION_STR     TO_STRING(MAJOR) L"." TO_STRING(MINOR) L"." TO_STRING(PATCH) L"." TO_STRING(BUILD)
 #define VERSION			MAJOR, MINOR, PATCH
