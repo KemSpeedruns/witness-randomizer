@@ -1721,56 +1721,78 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor)
 	{
 		panelSize = (Random::rand() % 9) + 3;
 	}
-	std::string typeList [] = { "Gaps", "Maze", "Dots", "Full Dots", "Stars", "Polys", "Rotating Polys", "Triangles", "Gaps and Dots", "Sym and Gaps", "Everything Minus Sym" };
+	std::string typeList [] = { "Gaps", "Dots", "Stars", "Polys", "Triangles", "Gaps and Dots", "Sym and Gaps", "Everything Minus Sym" };
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	int typeChoice = Random::rand() % 10;
+	int typeChoice = Random::rand() % 8;
 	//int typeChoice = 4;
+	int subChoice = 0;
 	switch (typeChoice) {
 	case 0:
-		generator->setGridSize(panelSize, panelSize);
-		GenerateSingleMonoColorTypePuzzle(id, Decoration::Gap, 1, panelSize);
+		subChoice = Random::rand() % 2;
+		if (subChoice == 0) {
+			generator->setGridSize(panelSize, panelSize);
+			GenerateSingleMonoColorTypePuzzle(id, Decoration::Gap, 1, panelSize);
+		}
+		else {
+			generator->setGridSize(panelSize, panelSize);
+			generator->generateMaze(id, 1, 1);
+		}
 		break;
 	case 1:
-		generator->setGridSize(panelSize, panelSize);
-		generator->generateMaze(id,1,1);
+		subChoice = Random::rand() % 2;
+		if (subChoice == 0) {
+			GenerateSingleMonoColorTypePuzzle(id, Decoration::Dot, 1, panelSize);
+		}
+		else {
+			GenerateFullDotsPuzzle(id, panelSize);
+		}
 		break;
 	case 2:
-		GenerateSingleMonoColorTypePuzzle(id,Decoration::Dot, 1, panelSize);
-		break;
-	case 3:
-		GenerateFullDotsPuzzle(id, panelSize);
-		break;
-	case 4:
 		GenerateMonoStarPuzzle(id, panelSize, firstColor);
 		break;
-	case 5:
-		GenerateSingleMonoColorTypePuzzle(id, Decoration::Poly | firstColor, 5, panelSize);
+	case 3:
+		subChoice = Random::rand() % 4;
+		if (subChoice == 0) {
+			GenerateSingleMonoColorTypePuzzle(id, Decoration::Poly | firstColor, 5, panelSize);
+		}
+		else if (subChoice == 1) {
+			GenerateSingleMonoColorTypePuzzle(id, Decoration::Poly | Decoration::Can_Rotate | firstColor, 5, panelSize);
+		}
+		else if (subChoice == 2) {
+			GenerateSingleMonoColorDisconnect(id, Decoration::Poly | firstColor, 5, panelSize);
+		}
+		else {
+			GenerateSingleMonoColorDisconnect(id, Decoration::Poly | Decoration::Can_Rotate | firstColor, 5, panelSize);
+		}
 		break;
-	case 6:
-		GenerateSingleMonoColorTypePuzzle(id, Decoration::Poly | Decoration::Can_Rotate | firstColor, 5, panelSize);
-		break;
-	case 7:
+	case 4:
 		GenerateSingleMonoColorTypePuzzle(id, Decoration::Triangle | firstColor, 2, panelSize);
 		break;
-		
-	case 8:
+	case 5:
 		GenerateGapsAndDots(id, panelSize);
 		break;
-		
-	case 9:
+	case 6:
 		GenerateSymGapsPuzzle(id, panelSize);
 		break;
-	case 10:
+	case 7:
 		//GenerateEverythingMinusArrowAndSymPanel(id, 4, 2);
 		if (panelSize >= 4)
 		{
 			GenerateEverythingMinusSymPanel(id, 4, 2, firstColor);
 		}
-		else 
+		else
 		{
 			GenerateEverythingMinusSymPanel(id, 3, 1, firstColor);
 		}
 		break;
+	//case 8:
+		
+	//case 9:
+		
+	//case 10:
+		
+	//case 11:
+		
 	}
 
 	/*generator->generate(id, symbolList[0] | Decoration::Color::Black, Random::rand() % 4, symbolList[0] | Decoration::Color::White, Random::rand() % 4,
@@ -1843,6 +1865,22 @@ void PuzzleList::GenerateSingleMonoColorTypePuzzle(int id, int type, int sparsen
 	generator->setSymbol(Decoration::Exit, panelSize*2, 0);
 	int maxSymbolCount = (panelSize * panelSize) / sparseness;
 	generator->generate(id, type, (Random::rand() % maxSymbolCount) + 1);
+}
+
+void PuzzleList::GenerateSingleMonoColorDisconnect(int id, int type, int sparseness, int size) {
+	generator->setFlagOnce(Generate::Config::DisconnectShapes);
+	int panelSize = size;
+	if (panelSize == 0)
+	{
+		panelSize = (Random::rand() % 9) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	generator->setSymmetry(Panel::Symmetry::None);
+	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
+	int maxSymbolCount = (panelSize * panelSize) / sparseness;
+	generator->generate(id, type, (Random::rand() % (maxSymbolCount-1)) + 2);
 }
 
 void PuzzleList::GenerateFullDotsPuzzle(int id, int size) {
