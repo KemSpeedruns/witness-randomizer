@@ -1721,7 +1721,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor)
 	{
 		panelSize = (Random::rand() % 9) + 3;
 	}
-	std::string typeList [] = { "Gaps", "Dots", "Stars", "Polys", "Triangles", "Gaps and Dots", "Sym and Gaps", "Everything Minus Sym" };
+	std::string typeList [] = { "Gaps", "Dots", "Stars", "Polys", "Triangles", "Gaps + Dots", "Sym + Gap", "Gap + Dot + Stone + Eraser + Poly + Star + Triangle" };
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 8;
 	//int typeChoice = 4;
@@ -1748,7 +1748,14 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor)
 		}
 		break;
 	case 2:
-		GenerateMonoStarPuzzle(id, panelSize, firstColor);
+		subChoice = Random::rand() % 2;
+		if (subChoice == 0) {
+			GenerateMonoStarPuzzle(id, panelSize, firstColor);
+		}
+		else {
+			specialCase->generateColorFilterPuzzle(id, { 4, 4 }, { std::make_pair<int, int>(Decoration::Star | 1, 6),
+			std::make_pair<int,int>(Decoration::Star | 2, 6), std::make_pair<int,int>(Decoration::Star | 3, 4) }, { 1, 1, 0, 0 });
+		}
 		break;
 	case 3:
 		subChoice = Random::rand() % 4;
