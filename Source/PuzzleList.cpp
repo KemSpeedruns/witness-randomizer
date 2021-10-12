@@ -1721,7 +1721,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor)
 	{
 		panelSize = (Random::rand() % 9) + 3;
 	}
-	std::string typeList [] = { "Gaps", "Dots", "Stars", "Polys", "Triangles", "Stones", "Gaps + Dots", "Gaps + Sym", "Gap + Dot + Stone + Eraser + Poly + Star + Triangle" };
+	std::string typeList [] = { "Gaps", "Dots", "Stones", "Stars", "Polys", "Triangles", "Gaps + Dots", "Gaps + Sym", "Gap + Dot + Stone + Eraser + Poly + Star + Triangle" };
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 9;
 	//int typeChoice = 5;
@@ -1751,9 +1751,12 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor)
 		GenerateEraserPanel(id, 4, 1);
 		break;*/
 	case 2:
-		GenerateMonoStarPuzzle(id, panelSize, firstColor);
+		GenerateDualTypePuzzle(id, 4, Decoration::Stone | Decoration::Color::Black, 2, Decoration::Stone | Decoration::Color::White, 2);
 		break;
 	case 3:
+		GenerateMonoStarPuzzle(id, panelSize, firstColor);
+		break;
+	case 4:
 		subChoice = Random::rand() % 4;
 		if (subChoice == 0) {
 			GenerateSingleTypeMonoColorPuzzle(id, Decoration::Poly | firstColor, 5, panelSize);
@@ -1768,7 +1771,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor)
 			GenerateSingleMonoColorDisconnect(id, Decoration::Poly | Decoration::Can_Rotate | firstColor, 5, panelSize);
 		}
 		break;
-	case 4:
+	case 5:
 		//GenerateSingleMonoColorTypePuzzle(id, Decoration::Triangle | firstColor, 2, panelSize);
 		subChoice = Random::rand() % 4;
 		switch (subChoice) {
@@ -1785,9 +1788,6 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor)
 			GenerateSingleTypeMonoColorPuzzle(id, Decoration::Triangle3 | firstColor, 2, panelSize);
 			break;
 		}
-		break;
-	case 5:
-		GenerateDualTypePuzzle(id, 4, Decoration::Stone | Decoration::Color::Black, 2, Decoration::Stone | Decoration::Color::White, 2);
 		break;
 	case 6:
 		GenerateGapsAndDots(id, panelSize);
@@ -1943,6 +1943,23 @@ void PuzzleList::GenerateMonoStarPuzzle(int id, int size, int color)
 	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
 	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
 	generator->generate(id, Decoration::Star | color, ((Random::rand() % ((countList[panelSize-3]/2) - 1)) + 1) * 2);
+}
+
+void PuzzleList::GenerateDualStarPuzzle(int id, int size, int firstColor, int secondColor) {
+	//TODO: Test Counts
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0)
+	{
+		panelSize = (Random::rand() % 6) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	int countList[] = { 4, 8, 12, 14, 16, 18 };
+	generator->setSymmetry(Panel::Symmetry::None);
+	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
+	generator->generate(id, Decoration::Star | firstColor, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2, Decoration::Star | secondColor, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2);
 }
 	
 void PuzzleList::GenerateGapsAndDots(int id, int size)
@@ -2463,20 +2480,20 @@ void PuzzleList::GenerateBunkerP()
 	// The rest of bunker is dot puzzles only.
 	generator->resetConfig();
 	generator->setFlag(Generate::Config::WriteDotColor);
-	generator->generate(0x09F7D, Decoration::Dot, 4);
-	generator->generate(0x09FDC, Decoration::Dot, 4);
-	generator->generate(0x09FF7, Decoration::Dot, 4);
-	generator->generate(0x09F82, Decoration::Dot, 4);
-	generator->generate(0x09FF8, Decoration::Dot, 8);
-	generator->generate(0x09D9F, Decoration::Dot, 4);
-	generator->generate(0x09DA1, Decoration::Dot, 8);
-	generator->generate(0x09DA2, Decoration::Dot, 8);
-	generator->generate(0x09DAF, Decoration::Dot, 10);
-	generator->generate(0x0A010, Decoration::Dot, 8);
-	generator->generate(0x0A01B, Decoration::Dot, 8);
-	generator->generate(0x0A01F, Decoration::Dot, 8);
-	generator->generate(0x17E63, Decoration::Dot, 4);
-	generator->generate(0x17E67, Decoration::Dot, 4);
+	generator->generate(0x09F7D, Decoration::Dot, (Random::rand() % 9)+1);
+	generator->generate(0x09FDC, Decoration::Dot, (Random::rand() % 9) + 1);
+	generator->generate(0x09FF7, Decoration::Dot, (Random::rand() % 9) + 1);
+	generator->generate(0x09F82, Decoration::Dot, (Random::rand() % 9) + 1);
+	generator->generate(0x09FF8, Decoration::Dot, (Random::rand() % 16) + 1);
+	generator->generate(0x09D9F, Decoration::Dot, (Random::rand() % 9) + 1);
+	generator->generate(0x09DA1, Decoration::Dot, (Random::rand() % 16) + 1);
+	generator->generate(0x09DA2, Decoration::Dot, (Random::rand() % 16) + 1);
+	generator->generate(0x09DAF, Decoration::Dot, (Random::rand() % 20) + 1);
+	generator->generate(0x0A010, Decoration::Dot, (Random::rand() % 16) + 1);
+	generator->generate(0x0A01B, Decoration::Dot, (Random::rand() % 16) + 1);
+	generator->generate(0x0A01F, Decoration::Dot, (Random::rand() % 16) + 1);
+	generator->generate(0x17E63, Decoration::Dot, (Random::rand() % 9) + 1);
+	generator->generate(0x17E67, Decoration::Dot, (Random::rand() % 9) + 1);
 }
 
 void PuzzleList::GenerateJungleP()

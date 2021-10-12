@@ -90,6 +90,7 @@ public:
 	void GenerateFullDotsPuzzle(int id, int size);
 	void GenerateGapsAndDots(int id, int size);
 	void GenerateMonoStarPuzzle(int id, int size, int color);
+	void GenerateDualStarPuzzle(int id, int size, int firstColor, int secondColor);
 	void GenerateSingleMonoColorDisconnect(int id, int type, int sparseness, int size);
 	void GenerateEraserPanel(int id, int size, int sparseness);
 	void GenerateDualTypePuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness);
