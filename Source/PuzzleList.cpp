@@ -1722,10 +1722,10 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		panelSize = (Random::rand() % 9) + 3;
 	}
 	std::string typeList [] = { "Gaps", "Dots", "Stones", "Stars", "Polys", "Triangles", "Gaps + Dots", "Gaps + Sym", "Stones + Stars", 
-		"Gap + Dot + Stone + Eraser + Poly + Star + Triangle" };
+		"Stars + Polys", "Gap + Dot + Stone + Eraser + Poly + Star + Triangle" };
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	int typeChoice = Random::rand() % 10;
-	//int typeChoice = 8;
+	int typeChoice = Random::rand() % 11;
+	//int typeChoice = 9;
 	int subChoice = 0;
 	switch (typeChoice) {
 	case 0:
@@ -1802,6 +1802,9 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		GenerateDualTypePuzzle(id, panelSize, Decoration::Stone | firstColor, 2, Decoration::Star | firstColor, 3);
 		break;
 	case 9:
+		GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, 3, Decoration::Poly | firstColor, 5);
+		break;
+	case 10:
 		//GenerateEverythingMinusArrowAndSymPanel(id, 4, 2);
 		if (panelSize >= 4)
 		{
