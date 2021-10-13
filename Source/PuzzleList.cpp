@@ -1725,7 +1725,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Stars + Polys", "Gap + Dot + Stone + Eraser + Poly + Star + Triangle" };
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 11;
-	//int typeChoice = 9;
+	//int typeChoice = 4;
 	int subChoice = 0;
 	switch (typeChoice) {
 	case 0:
@@ -1759,9 +1759,10 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		break;
 	case 4:
 		subChoice = Random::rand() % 4;
+		//subChoice = 0;
 		switch (subChoice) {
 		case 0:
-			GenerateSingleTypePuzzle(id, Decoration::Poly | firstColor, 5, panelSize);
+			GenerateSingleTypePuzzle(id, Decoration::Poly | firstColor, 4, panelSize);
 			break;
 		case 1:
 			GenerateSingleTypePuzzle(id, Decoration::Poly | Decoration::Can_Rotate | firstColor, 5, panelSize);
@@ -2156,8 +2157,7 @@ void PuzzleList::GenerateTutorialP()
 	generator->generate(0x00293, Decoration::Dot_Intersection, 25);*/
 	
 	//GenerateEraserPanel(0x00293, 4, 1);
-
-	//generator->generate(0x00293, Decoration::Eraser, 2);
+	//generator->generate(0x00293, Decoration::Poly, 5);
 	GenerateRandomPuzzle(0x00293, 4, Decoration::Color::Black, Decoration::Color::White);
 	GenerateRandomPuzzle(0x00295, 4, Decoration::Color::Black, Decoration::Color::White);
 	GenerateRandomPuzzle(0x002C2, 4, Decoration::Color::Black, Decoration::Color::White);
