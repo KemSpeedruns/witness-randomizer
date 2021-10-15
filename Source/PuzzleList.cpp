@@ -1725,7 +1725,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Stars + Polys", "Gap + Dot + Stone + Eraser + Poly + Star + Triangle" };
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 11;
-	//int typeChoice = 4;
+	//int typeChoice = 9;
 	int subChoice = 0;
 	switch (typeChoice) {
 	case 0:
@@ -1759,19 +1759,19 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		break;
 	case 4:
 		subChoice = Random::rand() % 4;
-		//subChoice = 0;
+		//subChoice = 3;
 		switch (subChoice) {
 		case 0:
 			GenerateSingleTypePuzzle(id, Decoration::Poly | firstColor, 4, panelSize);
 			break;
 		case 1:
-			GenerateSingleTypePuzzle(id, Decoration::Poly | Decoration::Can_Rotate | firstColor, 5, panelSize);
+			GenerateSingleTypePuzzle(id, Decoration::Poly | Decoration::Can_Rotate | firstColor, 4, panelSize);
 			break;
 		case 2:
-			GenerateSingleMonoColorDisconnect(id, Decoration::Poly | firstColor, 5, panelSize);
+			GenerateSingleMonoColorDisconnect(id, Decoration::Poly | firstColor, 4, panelSize);
 			break;
 		case 3:
-			GenerateSingleMonoColorDisconnect(id, Decoration::Poly | Decoration::Can_Rotate | firstColor, 5, panelSize);
+			GenerateSingleMonoColorDisconnect(id, Decoration::Poly | Decoration::Can_Rotate | firstColor, 4, panelSize);
 			break;
 		}
 		break;
@@ -1803,7 +1803,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		GenerateDualTypePuzzle(id, panelSize, Decoration::Stone | firstColor, 2, Decoration::Star | firstColor, 3);
 		break;
 	case 9:
-		GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, 3, Decoration::Poly | firstColor, 5);
+		GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, 3, Decoration::Poly | firstColor, 4);
 		break;
 	case 10:
 		//GenerateEverythingMinusArrowAndSymPanel(id, 4, 2);
