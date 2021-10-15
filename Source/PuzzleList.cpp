@@ -1725,7 +1725,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Stars + Polys", "Gap + Dot + Stone + Eraser + Poly + Star + Triangle" };
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	//int typeChoice = Random::rand() % 12;
-	//int typeChoice = 7;
+	int typeChoice = 7;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1803,7 +1803,16 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		GenerateDualTypePuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness, Decoration::Dot, DotAndGapSparseness);
 		break;
 	case 7:
-		GenerateDualTypePuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness, Decoration::Poly | firstColor, polySparseness);
+		subChoice = Random::rand() % 2;
+		//subChoice = 1;
+		switch (subChoice) {
+		case 0:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness, Decoration::Poly | firstColor, polySparseness);
+			break;
+		case 1:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness);
+			break;
+		}
 		break;
 	case 8:
 		GenerateSymGapsPuzzle(id, panelSize);
