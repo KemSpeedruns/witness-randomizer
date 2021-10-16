@@ -1722,10 +1722,10 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		panelSize = (Random::rand() % 9) + 3;
 	}
 	std::string typeList [] = { "Gaps", "Dots", "Stones", "Stars", "Polys", "Triangles", "Gaps + Dots", "Gaps + Polys", "Gaps + Triangles", "Gaps + Sym", 
-		"Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stars + Polys" };
+		"Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stars + Polys", "Stars + Triangles" };
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	int typeChoice = Random::rand() % 14;
-	//int typeChoice = 11;
+	int typeChoice = Random::rand() % 15;
+	//int typeChoice = 14;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1879,6 +1879,28 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 				Decoration::Poly | Decoration:: Can_Rotate | firstColor, polySparseness);
 			break;
 		}*/
+		break;
+	case 14:
+		//TODO: Numbered triangles
+		GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Triangle | firstColor, baseSparseness);
+		//subChoice = Random::rand() % 4;
+		//subChoice = 3;
+		//switch (subChoice) {
+		//case 0:
+		//	GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Triangle | firstColor, baseSparseness);
+		//	break;
+		//case 1:
+		//	//issue
+		//	GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Triangle1 | firstColor, baseSparseness);
+		//	break;
+		//case 2:
+		//	//issue
+		//	GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Triangle2 | firstColor, baseSparseness);
+		//	break;
+		//case 3:
+		//	GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Triangle3 | firstColor, baseSparseness);
+		//	break;
+		//}
 		break;
 	}
 
