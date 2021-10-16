@@ -1835,7 +1835,16 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		GenerateSymGapsPuzzle(id, panelSize);
 		break;
 	case 10:
-		GenerateDualTypePuzzle(id, panelSize, Decoration::Dot, DotAndGapSparseness, Decoration::Poly | firstColor, polySparseness);
+		subChoice = Random::rand() % 2;
+		//subChoice = 1;
+		switch (subChoice) {
+		case 0:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Dot, DotAndGapSparseness, Decoration::Poly | firstColor, polySparseness);
+			break;
+		case 1:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Dot, DotAndGapSparseness, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness);
+			break;
+		}
 		break;
 	case 11:
 		GenerateDualTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness, Decoration::Star | firstColor, mixedStarSparseness);
