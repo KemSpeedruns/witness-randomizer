@@ -1893,7 +1893,19 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Triangle | firstColor, baseSparseness);
 		break;
 	case 15:
-		GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness, Decoration::Triangle | firstColor, baseSparseness);
+		subChoice = Random::rand() % 3;
+		//subChoice = 3;
+		switch (subChoice) {
+		case 0:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness, Decoration::Triangle | firstColor, baseSparseness);
+			break;
+		case 1:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness, Decoration::Triangle1 | firstColor, baseSparseness);
+			break;
+		case 2:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness, Decoration::Triangle2 | firstColor, baseSparseness);
+			break;
+		}
 		break;
 	}
 }
