@@ -1722,10 +1722,10 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		panelSize = (Random::rand() % 9) + 3;
 	}
 	std::string typeList [] = { "Gaps", "Dots", "Stones", "Stars", "Polys", "Triangles", "Gaps + Dots", "Gaps + Polys", "Gaps + Triangles", "Gaps + Sym", 
-		"Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stars + Polys", "Stars + Triangles" };
+		"Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stars + Polys", "Stars + Triangles", "Polys + Triangles"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	int typeChoice = Random::rand() % 15;
-	//int typeChoice = 14;
+	int typeChoice = Random::rand() % 16;
+	//int typeChoice = 15;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1737,14 +1737,18 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 	
 	switch (typeChoice) {
 	case 0:
+		//TODO: Multi start puzzle
+		//TODO: Multi exit puzzle
 		subChoice = Random::rand() % 2;
-		if (subChoice == 0) {
-			generator->setGridSize(panelSize, panelSize);
+		//subChoice = 2;
+		generator->setGridSize(panelSize, panelSize);
+		switch (subChoice) {
+		case 0:
 			GenerateSingleTypePuzzle(id, Decoration::Gap, DotAndGapSparseness, panelSize);
-		}
-		else {
-			generator->setGridSize(panelSize, panelSize);
+			break;
+		case 1:
 			generator->generateMaze(id, 1, 1);
+			break;
 		}
 		break;
 	case 1:
@@ -1763,6 +1767,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		GenerateMonoStarPuzzle(id, panelSize, firstColor);
 		break;
 	case 4:
+		//TODO: Small shapes
+		//TODO: Big shapes
 		subChoice = Random::rand() % 4;
 		//subChoice = 3;
 		switch (subChoice) {
@@ -1799,10 +1805,12 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 6:
-		//GenerateGapsAndDots(id, panelSize);
 		GenerateDualTypePuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness, Decoration::Dot, DotAndGapSparseness);
 		break;
 	case 7:
+		//TODO: Disconnect
+		//TODO: Small Shapes
+		//TODO: Big Shapes
 		subChoice = Random::rand() % 2;
 		//subChoice = 1;
 		switch (subChoice) {
@@ -1832,9 +1840,14 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 9:
+		//TODO: turn to panelSize+1
 		GenerateSymGapsPuzzle(id, panelSize);
 		break;
 	case 10:
+		//TODO: Disconnect
+		//TODO: Small
+		//TODO: Big
+		//TODO: Full Dots
 		subChoice = Random::rand() % 2;
 		//subChoice = 1;
 		switch (subChoice) {
@@ -1847,6 +1860,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 11:
+		//TODO: Full Dots
 		subChoice = Random::rand() % 4;
 		switch (subChoice) {
 		case 0:
@@ -1864,49 +1878,24 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 12:
+		//TODO: Different color
 		GenerateDualTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness, Decoration::Star | firstColor, mixedStarSparseness);
 		break;
 	case 13:
-		//subChoice = Random::rand() % 2;
-		//subChoice = 1;
+		//TODO: Rotate
+		//TODO: Disconnect
+		//TODO: Small
+		//TODO: Big
 		GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Poly | firstColor, polySparseness);
-		/*switch (subChoice) {
-		case 0:
-			GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Poly | firstColor, polySparseness);
-			break;
-		case 1:
-			GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, 
-				Decoration::Poly | Decoration:: Can_Rotate | firstColor, polySparseness);
-			break;
-		}*/
 		break;
 	case 14:
 		//TODO: Numbered triangles
 		GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Triangle | firstColor, baseSparseness);
-		//subChoice = Random::rand() % 4;
-		//subChoice = 3;
-		//switch (subChoice) {
-		//case 0:
-		//	GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Triangle | firstColor, baseSparseness);
-		//	break;
-		//case 1:
-		//	//issue
-		//	GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Triangle1 | firstColor, baseSparseness);
-		//	break;
-		//case 2:
-		//	//issue
-		//	GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Triangle2 | firstColor, baseSparseness);
-		//	break;
-		//case 3:
-		//	GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Triangle3 | firstColor, baseSparseness);
-		//	break;
-		//}
+		break;
+	case 15:
+		GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness, Decoration::Triangle | firstColor, baseSparseness);
 		break;
 	}
-
-	/*generator->generate(id, symbolList[0] | Decoration::Color::Black, Random::rand() % 4, symbolList[0] | Decoration::Color::White, Random::rand() % 4,
-		symbolList[1] | Decoration::Color::Black, Random::rand() % 4, symbolList[1] | Decoration::Color::White, Random::rand() % 4);*/
-	//GenerateGapsAndDots(id);
 }
 
 void PuzzleList::GenerateRandomSymPuzzle(int id, int size) {
@@ -1917,8 +1906,7 @@ void PuzzleList::GenerateRandomSymPuzzle(int id, int size) {
 		panelSize = (Random::rand() % 9) + 3;
 	}
 	std::string typeList[] = { "Gaps", "Maze" };
-	//int typeChoice = Random::rand() % sizeof(typeList);
-	//int typeChoice = Random::rand() % typeList->length();
+	//int typeChoice = Random::rand() % 2;
 	int typeChoice = 0;
 	switch (typeChoice) {
 	case 0:
@@ -1926,6 +1914,7 @@ void PuzzleList::GenerateRandomSymPuzzle(int id, int size) {
 		GenerateSymGapsPuzzle(id, panelSize);
 		break;
 	case 1:
+		//TODO: fix
 		generator->setGridSize(panelSize, panelSize);
 		Panel::Symmetry symList4[] = { Panel::Symmetry::FlipNegXY, Panel::Symmetry::Horizontal, Panel::Symmetry::Rotational, Panel::Symmetry::Vertical };
 		int symChoice = Random::rand() % 4;
@@ -1956,9 +1945,9 @@ void::PuzzleList::GenerateSpecificSingleCount(int id, int size,  int type, int c
 	}
 }
 
-//Works for Gaps (but I wouldn't recommend it), Dots, Poly, Triangle, and Arrows
+//Works for Gaps (but I wouldn't recommend it), Dots, Poly, Triangle
 //Min sparseness values:
-//Gaps and Dots: 1, Triangles, and Arrows: 2, Poly: 4
+//Gaps and Dots: 1, Triangles: 2, Poly: 4
 void PuzzleList::GenerateSingleTypePuzzle(int id, int type, int sparseness, int size) 
 {
 	generator->resetConfig();
@@ -1992,8 +1981,6 @@ void PuzzleList::GenerateDualTypePuzzle(int id, int size, int firstType, int fir
 	int secondMaxSymbolCount = (panelSize * panelSize) / secondSparseness;
 	generator->generate(id, firstType, (Random::rand() % firstMaxSymbolCount) + 1, secondType, (Random::rand() % secondMaxSymbolCount) + 1);
 }
-
-
 
 void PuzzleList::GenerateSingleMonoColorDisconnect(int id, int type, int sparseness, int size) {
 	generator->setFlagOnce(Generate::Config::DisconnectShapes);
@@ -2276,7 +2263,6 @@ void PuzzleList::GenerateSymmetryP()
 	generator->resetConfig();
 	//Vertical Symmetry
 	GenerateRandomSymPuzzle(0x00086, 4);
-	//generator->generateMaze(0x00086, 1, 1);
 	GenerateRandomSymPuzzle(0x00087, 4);
 	GenerateRandomSymPuzzle(0x00059, 4);
 	GenerateRandomSymPuzzle(0x00062, 4);
@@ -2317,9 +2303,10 @@ void PuzzleList::GenerateSymmetryP()
 	GenerateRandomSymPuzzle(0x00076, 4);
 
 	//Door 1
-	generator->resetConfig();
+	/*generator->resetConfig();
 	generator->setFlagOnce(Generate::Config::FullGaps);
-	generator->generate(0x000B0, Decoration::Gap, 1, Decoration::Dot, 4);
+	generator->generate(0x000B0, Decoration::Gap, 1, Decoration::Dot, 4);*/
+	GenerateRandomPuzzle(0x000B0, 4, Decoration::Color::Black, Decoration::Color::White);
 	
 	//Laser Puzzle
 	generator->resetConfig();
