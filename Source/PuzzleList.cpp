@@ -1725,7 +1725,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stars + Polys", "Stars + Triangles", "Polys + Triangles"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 16;
-	//int typeChoice = 3;
+	//int typeChoice = 4;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1780,8 +1780,9 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 	case 4:
 		//TODO: Small shapes
 		//TODO: Big shapes
+		//TODO: Anti
 		subChoice = Random::rand() % 4;
-		//subChoice = 3;
+		//subChoice = 4;
 		switch (subChoice) {
 		case 0:
 			GenerateSingleTypePuzzle(id, Decoration::Poly | firstColor, polySparseness, panelSize);
@@ -1795,6 +1796,9 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		case 3:
 			GenerateSingleMonoColorDisconnect(id, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness, panelSize);
 			break;
+		case 4:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness, 
+				Decoration::Poly | Decoration::Negative | firstColor, polySparseness);
 		}
 		break;
 	case 5:
