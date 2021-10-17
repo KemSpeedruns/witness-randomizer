@@ -1781,8 +1781,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		//TODO: Small shapes
 		//TODO: Big shapes
 		//TODO: Anti
-		subChoice = Random::rand() % 4;
-		//subChoice = 4;
+		subChoice = Random::rand() % 6;
+		//subChoice = 5;
 		switch (subChoice) {
 		case 0:
 			GenerateSingleTypePuzzle(id, Decoration::Poly | firstColor, polySparseness, panelSize);
@@ -1799,6 +1799,11 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		case 4:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness, 
 				Decoration::Poly | Decoration::Negative | firstColor, polySparseness);
+			break;
+		case 5:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness, 
+				Decoration::Poly | Decoration::Negative | firstColor, polySparseness);
+			break;
 		}
 		break;
 	case 5:
