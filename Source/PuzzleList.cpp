@@ -1764,8 +1764,6 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		GenerateDualTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness, Decoration::Stone | secondColor, baseSparseness);
 		break;
 	case 3:
-		//TODO: Tri
-		//TODO: Figure out color count
 		subChoice = Random::rand() % 2;
 		//subChoice = 1;
 		switch (subChoice) {
@@ -1780,9 +1778,10 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 	case 4:
 		//TODO: Small shapes
 		//TODO: Big shapes
-		//TODO: Anti
+		//TODO: Anti Combos
+		//TODO: Rot Combos
 		subChoice = Random::rand() % 6;
-		//subChoice = 5;
+		//subChoice = 4;
 		switch (subChoice) {
 		case 0:
 			GenerateSingleTypePuzzle(id, Decoration::Poly | firstColor, polySparseness, panelSize);
@@ -1797,10 +1796,14 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			GenerateSingleMonoColorDisconnect(id, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness, panelSize);
 			break;
 		case 4:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness*2, 
+				Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness*2);
+			break;
+		case 5:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness, 
 				Decoration::Poly | Decoration::Negative | firstColor, polySparseness);
 			break;
-		case 5:
+		case 6:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness, 
 				Decoration::Poly | Decoration::Negative | firstColor, polySparseness);
 			break;
@@ -2339,7 +2342,7 @@ void PuzzleList::GenerateSymmetryP()
 	/*generator->resetConfig();
 	generator->setFlagOnce(Generate::Config::FullGaps);
 	generator->generate(0x000B0, Decoration::Gap, 1, Decoration::Dot, 4);*/
-	GenerateRandomPuzzle(0x000B0, 4, Decoration::Color::Black, Decoration::Color::White);
+	/*GenerateRandomPuzzle(0x000B0, 4, Decoration::Color::Black, Decoration::Color::White);*/
 	
 	//Laser Puzzle
 	generator->resetConfig();
