@@ -1725,7 +1725,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stars + Polys", "Stars + Triangles", "Polys + Triangles"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 16;
-	//int typeChoice = 4;
+	//int typeChoice = 6;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1828,7 +1828,16 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 6:
-		GenerateDualTypePuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness, Decoration::Dot, DotAndGapSparseness);
+		subChoice = Random::rand() % 2;
+		//subChoice = 1;
+		switch (subChoice) {
+		case 0:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness, Decoration::Dot, DotAndGapSparseness);
+			break;
+		case 1:
+			GenerateFullDotsDualPuzzle(id, panelSize, Decoration::Gap, 1);
+			break;
+		}
 		break;
 	case 7:
 		//TODO: Disconnect
@@ -1909,7 +1918,17 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		//TODO: Disconnect
 		//TODO: Small
 		//TODO: Big
-		GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Poly | firstColor, polySparseness);
+		//subChoice = Random::rand() % 2;
+		subChoice = 0;
+		switch (subChoice) {
+		case 0:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Poly | firstColor, polySparseness);
+			break;
+		case 1:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, 
+				Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness);
+			break;
+		}
 		break;
 	case 14:
 		//TODO: Numbered triangles
@@ -2046,6 +2065,22 @@ void PuzzleList::GenerateFullDotsPuzzle(int id, int size) {
 	generator->setSymmetry(Panel::Symmetry::None);
 	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
 	generator->generate(id, Decoration::Dot_Intersection, (panelSize + 1) * (panelSize + 1), Decoration::Start, panelSize);
+}
+
+void PuzzleList::GenerateFullDotsDualPuzzle(int id, int size, int type, int sparseness) {
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0)
+	{
+		panelSize = ((Random::rand() % 5) * 2) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	generator->setSymmetry(Panel::Symmetry::None);
+	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
+	int maxSymbolCount = (panelSize * panelSize) / sparseness;
+	generator->generate(id, Decoration::Dot_Intersection, (panelSize + 1) * (panelSize + 1), type, (Random::rand() % maxSymbolCount) + 1);
 }
 
 //Max size: 8
