@@ -1725,7 +1725,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stars + Polys", "Stars + Triangles", "Polys + Triangles"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 16;
-	//int typeChoice = 13;
+	//int typeChoice = 14;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1949,7 +1949,16 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		break;
 	case 14:
 		//TODO: Numbered triangles
-		GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Triangle | firstColor, baseSparseness);
+		subChoice = Random::rand() % 2;
+		//subChoice = 1;
+		switch (subChoice) {
+		case 0:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Triangle | firstColor, baseSparseness);
+			break;
+		case 1:
+			GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Triangle | secondColor, baseSparseness);
+			break;
+		}
 		break;
 	case 15:
 		//TODO: triangle3
