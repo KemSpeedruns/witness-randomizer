@@ -1724,8 +1724,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 	std::string typeList [] = { "Gaps", "Dots", "Stones", "Stars", "Polys", "Triangles", "Gaps + Dots", "Gaps + Polys", "Gaps + Triangles", "Gaps + Sym", 
 		"Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stars + Polys", "Stars + Triangles", "Polys + Triangles"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	int typeChoice = Random::rand() % 16;
-	//int typeChoice = 6;
+	//int typeChoice = Random::rand() % 16;
+	int typeChoice = 11;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1879,9 +1879,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		//TODO: Disconnect
 		//TODO: Small
 		//TODO: Big
-		//TODO: Full Dots
-		subChoice = Random::rand() % 2;
-		//subChoice = 1;
+		subChoice = Random::rand() % 4;
+		//subChoice = 3;
 		switch (subChoice) {
 		case 0:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Dot, DotAndGapSparseness, Decoration::Poly | firstColor, polySparseness);
@@ -1889,11 +1888,18 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		case 1:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Dot, DotAndGapSparseness, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness);
 			break;
+		case 2:
+			GenerateFullDotsDualPuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness);
+			break;
+		case 3:
+			GenerateFullDotsDualPuzzle(id, panelSize, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness);
+			break;
 		}
 		break;
 	case 11:
-		//TODO: Full Dots
-		subChoice = Random::rand() % 4;
+		//TODO: 1 Full Dots
+		subChoice = Random::rand() % 7;
+		//subChoice = 6;
 		switch (subChoice) {
 		case 0:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Triangle | firstColor, baseSparseness, Decoration::Dot, DotAndGapSparseness);
@@ -1906,6 +1912,15 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		case 3:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Triangle3 | firstColor, baseSparseness, Decoration::Dot, DotAndGapSparseness);
+			break;
+		case 4:
+			GenerateFullDotsDualPuzzle(id, panelSize, Decoration::Triangle | firstColor, baseSparseness);
+			break;
+		case 5:
+			GenerateFullDotsDualPuzzle(id, panelSize, Decoration::Triangle2 | firstColor, baseSparseness);
+			break;
+		case 6:
+			GenerateFullDotsDualPuzzle(id, panelSize, Decoration::Triangle3 | firstColor, baseSparseness);
 			break;
 		}
 		break;
