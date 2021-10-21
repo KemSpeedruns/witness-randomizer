@@ -1724,8 +1724,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 	std::string typeList [] = { "Gaps", "Dots", "Stones", "Stars", "Polys", "Triangles", "Gaps + Dots", "Gaps + Polys", "Gaps + Triangles", "Gaps + Sym", 
 		"Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stars + Polys", "Stars + Triangles", "Polys + Triangles"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	int typeChoice = Random::rand() % 16;
-	//int typeChoice = 14;
+	//int typeChoice = Random::rand() % 16;
+	int typeChoice = 14;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1948,8 +1948,9 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 14:
-		//TODO: Numbered triangles
-		subChoice = Random::rand() % 2;
+		//TODO: Numbered triangles normal
+		//TODO: NIT 3
+		subChoice = Random::rand() % 4;
 		//subChoice = 1;
 		switch (subChoice) {
 		case 0:
@@ -1957,6 +1958,12 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		case 1:
 			GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Triangle | secondColor, baseSparseness);
+			break;
+		case 2:
+			GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Triangle1 | secondColor, baseSparseness);
+			break;
+		case 3:
+			GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Triangle2 | secondColor, baseSparseness);
 			break;
 		}
 		break;
