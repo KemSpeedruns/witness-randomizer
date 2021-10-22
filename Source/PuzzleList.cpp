@@ -1725,7 +1725,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stars + Polys", "Stars + Triangles", "Polys + Triangles"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	//int typeChoice = Random::rand() % 16;
-	int typeChoice = 4;
+	int typeChoice = 15;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1739,17 +1739,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 	case 0:
 		//TODO: Multi start puzzle
 		//TODO: Multi exit puzzle
-		subChoice = Random::rand() % 2;
-		//subChoice = 2;
 		generator->setGridSize(panelSize, panelSize);
-		switch (subChoice) {
-		case 0:
-			GenerateSingleTypePuzzle(id, Decoration::Gap, DotAndGapSparseness, panelSize);
-			break;
-		case 1:
-			generator->generateMaze(id, 1, 1);
-			break;
-		}
+		generator->generateMaze(id, 1, 1);
 		break;
 	case 1:
 		subChoice = Random::rand() % 2;
@@ -1781,8 +1772,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		//TODO: Anti Combos
 		//TODO: Rot
 		//TODO: Disconnect
-		//subChoice = Random::rand() % 8;
-		subChoice = 7;
+		subChoice = Random::rand() % 7;
+		//subChoice = 5;
 		switch (subChoice) {
 		case 0:
 			GenerateSingleTypePuzzle(id, Decoration::Poly | firstColor, polySparseness, panelSize);
@@ -1803,33 +1794,17 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 				Decoration::Poly | Decoration::Negative | firstColor, polySparseness);
 			break;
 		case 5:
-			GenerateSingleTypePuzzleWithFlag(id, panelSize, Decoration::Poly | firstColor, 2, Generate::Config::SmallShapes);
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness + 1,
+				Decoration::Poly | Decoration::Negative | Decoration::Can_Rotate | firstColor, polySparseness + 1);
 			break;
 		case 6:
-			GenerateSingleTypePuzzleWithFlag(id, panelSize, Decoration::Poly | firstColor, 5, Generate::Config::BigShapes);
-			break;
-		case 7:
-			GenerateSingleTypePuzzleWithFlag(id, panelSize, Decoration::Poly | Decoration::Can_Rotate | firstColor, 5, Generate::Config::BigShapes);
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness + 1,
+				Decoration::Poly | Decoration::Negative | Decoration::Can_Rotate | firstColor, polySparseness + 1);
 			break;
 		}
 		break;
 	case 5:
-		//GenerateSingleMonoColorTypePuzzle(id, Decoration::Triangle | firstColor, 2, panelSize);
-		subChoice = Random::rand() % 4;
-		switch (subChoice) {
-		case 0:
-			GenerateSingleTypePuzzle(id, Decoration::Triangle | firstColor, baseSparseness, panelSize);
-			break;
-		case 1:
-			GenerateSingleTypePuzzle(id, Decoration::Triangle1 | firstColor, baseSparseness, panelSize);
-			break;
-		case 2:
-			GenerateSingleTypePuzzle(id, Decoration::Triangle2 | firstColor, baseSparseness, panelSize);
-			break;
-		case 3:
-			GenerateSingleTypePuzzle(id, Decoration::Triangle3 | firstColor, baseSparseness, panelSize);
-			break;
-		}
+		GenerateSingleTypePuzzle(id, Decoration::Triangle | firstColor, baseSparseness, panelSize);
 		break;
 	case 6:
 		subChoice = Random::rand() % 2;
@@ -1859,21 +1834,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 8:
-		subChoice = Random::rand() % 4;
-		switch (subChoice) {
-		case 0:
-			GenerateDualTypePuzzle(id, panelSize, Decoration::Triangle | firstColor, baseSparseness, Decoration::Gap, DotAndGapSparseness);
-			break;
-		case 1:
-			GenerateDualTypePuzzle(id, panelSize, Decoration::Triangle1 | firstColor, baseSparseness, Decoration::Gap, DotAndGapSparseness);
-			break;
-		case 2:
-			GenerateDualTypePuzzle(id, panelSize, Decoration::Triangle2 | firstColor, baseSparseness, Decoration::Gap, DotAndGapSparseness);
-			break;
-		case 3:
-			GenerateDualTypePuzzle(id, panelSize, Decoration::Triangle3 | firstColor, baseSparseness, Decoration::Gap, DotAndGapSparseness);
-			break;
-		}
+		GenerateDualTypePuzzle(id, panelSize, Decoration::Triangle | firstColor, baseSparseness, Decoration::Gap, DotAndGapSparseness);
 		break;
 	case 9:
 		//TODO: turn to panelSize+1
@@ -1902,34 +1863,19 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		break;
 	case 11:
 		//TODO: 1 Full Dots
-		subChoice = Random::rand() % 7;
+		subChoice = Random::rand() % 2;
 		//subChoice = 6;
 		switch (subChoice) {
 		case 0:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Triangle | firstColor, baseSparseness, Decoration::Dot, DotAndGapSparseness);
 			break;
 		case 1:
-			GenerateDualTypePuzzle(id, panelSize, Decoration::Triangle1 | firstColor, baseSparseness, Decoration::Dot, DotAndGapSparseness);
-			break;
-		case 2:
-			GenerateDualTypePuzzle(id, panelSize, Decoration::Triangle2 | firstColor, baseSparseness, Decoration::Dot, DotAndGapSparseness);
-			break;
-		case 3:
-			GenerateDualTypePuzzle(id, panelSize, Decoration::Triangle3 | firstColor, baseSparseness, Decoration::Dot, DotAndGapSparseness);
-			break;
-		case 4:
 			GenerateFullDotsDualPuzzle(id, panelSize, Decoration::Triangle | firstColor, baseSparseness);
-			break;
-		case 5:
-			GenerateFullDotsDualPuzzle(id, panelSize, Decoration::Triangle2 | firstColor, baseSparseness);
-			break;
-		case 6:
-			GenerateFullDotsDualPuzzle(id, panelSize, Decoration::Triangle3 | firstColor, baseSparseness);
 			break;
 		}
 		break;
 	case 12:
-		//TODO: Different color
+		//TODO: Different colored stones
 		GenerateDualTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness, Decoration::Star | firstColor, mixedStarSparseness);
 		break;
 	case 13:
@@ -1937,16 +1883,20 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		//TODO: Disconnect
 		//TODO: Small
 		//TODO: Big
-		subChoice = Random::rand() % 3;
-		//subChoice = 2;
+		subChoice = Random::rand() % 4;
+		//subChoice = 1;
 		switch (subChoice) {
 		case 0:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, Decoration::Poly | firstColor, polySparseness);
 			break;
 		case 1:
-			GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Poly | secondColor, polySparseness);
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Star | firstColor, mixedStarSparseness, 
+				Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness + 1);
 			break;
 		case 2:
+			GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Poly | secondColor, polySparseness);
+			break;
+		case 3:
 			GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Poly | Decoration:: Can_Rotate | secondColor, polySparseness);
 			break;
 		}
@@ -1954,7 +1904,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 	case 14:
 		//TODO: Numbered triangles normal
 		//TODO: NIT 3
-		subChoice = Random::rand() % 4;
+		subChoice = Random::rand() % 2;
 		//subChoice = 1;
 		switch (subChoice) {
 		case 0:
@@ -1963,27 +1913,24 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		case 1:
 			GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Triangle | secondColor, baseSparseness);
 			break;
-		case 2:
-			GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Triangle1 | secondColor, baseSparseness);
-			break;
-		case 3:
-			GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Triangle2 | secondColor, baseSparseness);
-			break;
 		}
 		break;
 	case 15:
-		//TODO: triangle3
-		subChoice = Random::rand() % 3;
+		subChoice = Random::rand() % 4;
 		//subChoice = 3;
 		switch (subChoice) {
 		case 0:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness, Decoration::Triangle | firstColor, baseSparseness);
 			break;
 		case 1:
-			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness, Decoration::Triangle1 | firstColor, baseSparseness);
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness, 
+				Decoration::Triangle | firstColor, baseSparseness);
 			break;
 		case 2:
-			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness, Decoration::Triangle2 | firstColor, baseSparseness);
+			GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Poly | secondColor, polySparseness);
+			break;
+		case 3:
+			GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Poly | Decoration::Can_Rotate | secondColor, polySparseness);
 			break;
 		}
 		break;
