@@ -1721,11 +1721,11 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 	{
 		panelSize = (Random::rand() % 9) + 3;
 	}
-	std::string typeList [] = { "Gaps", "Dots", "Stones", "Stars", "Polys", "Triangles", "Gaps + Dots", "Gaps + Polys", "Gaps + Triangles", "Gaps + Sym", 
-		"Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stars + Polys", "Stars + Triangles", "Polys + Triangles"};
+	std::string typeList [] = { "Gaps", "Dots", "Stones", "Stars", "Polys", "Triangles", "Gaps + Dots", "Gaps + Stars", "Gaps + Polys", "Gaps + Triangles", 
+		"Gaps + Sym", "Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stars + Polys", "Stars + Triangles", "Polys + Triangles"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	//int typeChoice = Random::rand() % 16;
-	int typeChoice = 15;
+	int typeChoice = Random::rand() % 16;
+	//int typeChoice = 7;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1814,11 +1814,14 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness, Decoration::Dot, DotAndGapSparseness);
 			break;
 		case 1:
-			GenerateFullDotsDualPuzzle(id, panelSize, Decoration::Gap, 1);
+			GenerateFullDotsDualPuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness);
 			break;
 		}
 		break;
 	case 7:
+		GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Gap, DotAndGapSparseness);
+		break;
+	case 8:
 		//TODO: Disconnect
 		//TODO: Small Shapes
 		//TODO: Big Shapes
@@ -1833,14 +1836,14 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 8:
+	case 9:
 		GenerateDualTypePuzzle(id, panelSize, Decoration::Triangle | firstColor, baseSparseness, Decoration::Gap, DotAndGapSparseness);
 		break;
-	case 9:
+	case 10:
 		//TODO: turn to panelSize+1
 		GenerateSymGapsPuzzle(id, panelSize);
 		break;
-	case 10:
+	case 11:
 		//TODO: Disconnect
 		//TODO: Small
 		//TODO: Big
@@ -1861,7 +1864,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 11:
+	case 12:
 		//TODO: 1 Full Dots
 		subChoice = Random::rand() % 2;
 		//subChoice = 6;
@@ -1874,11 +1877,11 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 12:
+	case 13:
 		//TODO: Different colored stones
 		GenerateDualTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness, Decoration::Star | firstColor, mixedStarSparseness);
 		break;
-	case 13:
+	case 14:
 		//TODO: Rotate
 		//TODO: Disconnect
 		//TODO: Small
@@ -1901,7 +1904,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 14:
+	case 15:
 		//TODO: Numbered triangles normal
 		//TODO: NIT 3
 		subChoice = Random::rand() % 2;
@@ -1915,7 +1918,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 15:
+	case 16:
 		subChoice = Random::rand() % 4;
 		//subChoice = 3;
 		switch (subChoice) {
