@@ -1725,7 +1725,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stars + Polys", "Stars + Triangles", "Polys + Triangles"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	//int typeChoice = Random::rand() % 16;
-	int typeChoice = 14;
+	int typeChoice = 4;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1779,9 +1779,10 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		//TODO: Small shapes
 		//TODO: Big shapes
 		//TODO: Anti Combos
-		//TODO: Rot Combos
+		//TODO: Rot
+		//TODO: Disconnect
 		subChoice = Random::rand() % 6;
-		//subChoice = 4;
+		//subChoice = 6;
 		switch (subChoice) {
 		case 0:
 			GenerateSingleTypePuzzle(id, Decoration::Poly | firstColor, polySparseness, panelSize);
@@ -1790,22 +1791,19 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			GenerateSingleTypePuzzle(id, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness, panelSize);
 			break;
 		case 2:
-			GenerateSingleMonoColorDisconnect(id, Decoration::Poly | firstColor, polySparseness, panelSize);
-			break;
-		case 3:
-			GenerateSingleMonoColorDisconnect(id, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness, panelSize);
-			break;
-		case 4:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness*2, 
 				Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness*2);
 			break;
-		case 5:
+		case 3:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness, 
 				Decoration::Poly | Decoration::Negative | firstColor, polySparseness);
 			break;
-		case 6:
+		case 4:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness, 
 				Decoration::Poly | Decoration::Negative | firstColor, polySparseness);
+			break;
+		case 5:
+			GenerateSingleTypePuzzleWithFlag(id, panelSize, Decoration::Poly | firstColor, 2, Generate::Config::SmallShapes);
 			break;
 		}
 		break;
@@ -2049,6 +2047,23 @@ void PuzzleList::GenerateSingleTypePuzzle(int id, int type, int sparseness, int 
 	generator->setSymmetry(Panel::Symmetry::None);
 	generator->setSymbol(Decoration::Start, 0 , panelSize*2);
 	generator->setSymbol(Decoration::Exit, panelSize*2, 0);
+	int maxSymbolCount = (panelSize * panelSize) / sparseness;
+	generator->generate(id, type, (Random::rand() % maxSymbolCount) + 1);
+}
+
+void PuzzleList::GenerateSingleTypePuzzleWithFlag(int id, int size, int type, int sparseness, Generate::Config flag) {
+	generator->resetConfig();
+	generator->setFlagOnce(flag);
+	int panelSize = size;
+	if (panelSize == 0)
+	{
+		panelSize = (Random::rand() % 9) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	generator->setSymmetry(Panel::Symmetry::None);
+	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
 	int maxSymbolCount = (panelSize * panelSize) / sparseness;
 	generator->generate(id, type, (Random::rand() % maxSymbolCount) + 1);
 }
