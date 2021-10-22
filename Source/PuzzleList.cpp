@@ -1781,8 +1781,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		//TODO: Anti Combos
 		//TODO: Rot
 		//TODO: Disconnect
-		subChoice = Random::rand() % 6;
-		//subChoice = 6;
+		//subChoice = Random::rand() % 8;
+		subChoice = 7;
 		switch (subChoice) {
 		case 0:
 			GenerateSingleTypePuzzle(id, Decoration::Poly | firstColor, polySparseness, panelSize);
@@ -1791,19 +1791,25 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			GenerateSingleTypePuzzle(id, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness, panelSize);
 			break;
 		case 2:
-			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness*2, 
-				Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness*2);
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness * 2,
+				Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness * 2);
 			break;
 		case 3:
-			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness, 
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness,
 				Decoration::Poly | Decoration::Negative | firstColor, polySparseness);
 			break;
 		case 4:
-			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness, 
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness,
 				Decoration::Poly | Decoration::Negative | firstColor, polySparseness);
 			break;
 		case 5:
 			GenerateSingleTypePuzzleWithFlag(id, panelSize, Decoration::Poly | firstColor, 2, Generate::Config::SmallShapes);
+			break;
+		case 6:
+			GenerateSingleTypePuzzleWithFlag(id, panelSize, Decoration::Poly | firstColor, 5, Generate::Config::BigShapes);
+			break;
+		case 7:
+			GenerateSingleTypePuzzleWithFlag(id, panelSize, Decoration::Poly | Decoration::Can_Rotate | firstColor, 5, Generate::Config::BigShapes);
 			break;
 		}
 		break;
