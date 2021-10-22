@@ -1722,7 +1722,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		panelSize = (Random::rand() % 9) + 3;
 	}
 	std::string typeList [] = { "Gaps", "Dots", "Stones", "Stars", "Polys", "Triangles", "Gaps + Dots", "Gaps + Stars", "Gaps + Polys", "Gaps + Triangles", 
-		"Gaps + Sym", "Dots + Stars", "Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stars + Polys", "Stars + Triangles", "Polys + Triangles"};
+		"Gaps + Sym", "Dots + Stars", "Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stars + Polys", "Stars + Triangles", 
+		"Polys + Triangles"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 18;
 	//int typeChoice = 11;
@@ -2323,13 +2324,19 @@ void PuzzleList::GenerateTutorialP()
 	GenerateRandomPuzzle(0x00295, 4, Decoration::Color::Black, Decoration::Color::White);
 	GenerateRandomPuzzle(0x002C2, 4, Decoration::Color::Black, Decoration::Color::White);
 	GenerateRandomPuzzle(0x0A3B2, 4, Decoration::Color::Black, Decoration::Color::White);
+
+	//Optional Doors
 	GenerateRandomPuzzle(0x0A171, 4, Decoration::Color::Black, Decoration::Color::White);
 	GenerateRandomPuzzle(0x04CA4, 4, Decoration::Color::Black, Decoration::Color::White);
+
+	//Dots Tutorial
 	GenerateRandomPuzzle(0x0005D, 4, Decoration::Color::Black, Decoration::Color::White);
 	GenerateRandomPuzzle(0x0005E, 4, Decoration::Color::Black, Decoration::Color::White);
 	GenerateRandomPuzzle(0x0005F, 4, Decoration::Color::Black, Decoration::Color::White);
 	GenerateRandomPuzzle(0x00060, 4, Decoration::Color::Black, Decoration::Color::White);
 	GenerateRandomPuzzle(0x00061, 4, Decoration::Color::Black, Decoration::Color::White);
+
+	//Stones Tutorial
 	GenerateRandomPuzzle(0x018AF, 4, Decoration::Color::Black, Decoration::Color::White);
 	GenerateRandomPuzzle(0x0001B, 4, Decoration::Color::Black, Decoration::Color::White);
 	GenerateRandomPuzzle(0x012C9, 4, Decoration::Color::Black, Decoration::Color::White);
