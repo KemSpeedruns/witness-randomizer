@@ -2397,7 +2397,8 @@ void PuzzleList::GenerateSymmetryP()
 	/*generator->resetConfig();
 	generator->setFlagOnce(Generate::Config::FullGaps);
 	generator->generate(0x000B0, Decoration::Gap, 1, Decoration::Dot, 4);*/
-	/*GenerateRandomPuzzle(0x000B0, 4, Decoration::Color::Black, Decoration::Color::White);*/
+	GenerateRandomPuzzle(0x000B0, 4, Decoration::Color::Black, Decoration::Color::White);
+	//GenerateDualStarPuzzle(0x000B0, 4, Decoration::Color::Black, Decoration::Color::White);
 	
 	//Laser Puzzle
 	generator->resetConfig();
