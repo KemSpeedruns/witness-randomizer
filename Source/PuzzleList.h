@@ -87,6 +87,7 @@ public:
 	void GenerateRandomSymPuzzle(int id, int size);
 	void GenerateSingleTypePuzzle(int id, int type, int sparseness, int size);
 	void GenerateDualTypePuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness);
+	void GenerateTriTypePuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness, int thirdType, int thirdSparseness);
 	void GenerateSpecificSingleCount(int id, int size, int type, int count, bool randSE);
 	void GenerateFullDotsDualPuzzle(int id, int size, int type, int sparseness);
 	void GenerateMonoStarPuzzleWithNIT(int id, int size, int firstColor, int nonInteractingType, int NITsparseness);
