@@ -1725,8 +1725,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Gaps + Triangles", "Gaps + Sym", "Dots + Stars", "Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stars + Polys", "Stars + Triangles", 
 		"Polys + Triangles"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	int typeChoice = Random::rand() % 18;
-	//int typeChoice = 7;
+	//int typeChoice = Random::rand() % 18;
+	int typeChoice = 4;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1753,7 +1753,16 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 2:
-		GenerateDualTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness, Decoration::Stone | secondColor, baseSparseness);
+		//subChoice = Random::rand() % 2;
+		subChoice = 0;
+		switch (subChoice) {
+		case 0:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness, Decoration::Stone | secondColor, baseSparseness);
+			break;
+		case 1:
+			//Tri color stones
+			break;
+		}
 		break;
 	case 3:
 		subChoice = Random::rand() % 2;
@@ -1773,7 +1782,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		//TODO: Anti Combos
 		//TODO: Rot
 		//TODO: Disconnect
-		subChoice = Random::rand() % 3;
+		subChoice = Random::rand() % 7;
 		//subChoice = 5;
 		switch (subChoice) {
 		case 0:
@@ -1785,6 +1794,21 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		case 2:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness * 2,
 				Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness * 2);
+			break;
+		case 3:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness, Decoration::Poly | Decoration::Negative | firstColor, polySparseness);
+			break;
+		case 4:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness, 
+				Decoration::Poly | Decoration::Negative | firstColor, polySparseness);
+			break;
+		case 5:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | firstColor, polySparseness, 
+				Decoration::Poly | Decoration::Can_Rotate | Decoration::Negative | firstColor, polySparseness + 1);
+			break;
+		case 6:
+			GenerateDualTypePuzzle(id, panelSize, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness,
+				Decoration::Poly | Decoration::Can_Rotate | Decoration::Negative | firstColor, polySparseness + 1);
 			break;
 		}
 		break;
