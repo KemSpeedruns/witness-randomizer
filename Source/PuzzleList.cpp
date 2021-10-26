@@ -1726,7 +1726,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Polys + Triangles"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	//int typeChoice = Random::rand() % 18;
-	int typeChoice = 4;
+	int typeChoice = 9;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1838,14 +1838,34 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		//TODO: Disconnect
 		//TODO: Small Shapes
 		//TODO: Big Shapes
-		subChoice = Random::rand() % 2;
-		//subChoice = 1;
+		subChoice = Random::rand() % 7;
+		//subChoice = 2;
 		switch (subChoice) {
 		case 0:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness, Decoration::Poly | firstColor, polySparseness);
 			break;
 		case 1:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness);
+			break;
+		case 2:
+			GenerateTriTypePuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness, Decoration::Poly | firstColor, polySparseness * 2, 
+				Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness * 2);
+			break;
+		case 3:
+			GenerateTriTypePuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness, Decoration::Poly | firstColor, polySparseness,
+				Decoration::Poly | Decoration::Negative | firstColor, polySparseness);
+			break;
+		case 4:
+			GenerateTriTypePuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness,
+				Decoration::Poly | Decoration::Negative | firstColor, polySparseness);
+			break;
+		case 5:
+			GenerateTriTypePuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness, Decoration::Poly | firstColor, polySparseness,
+				Decoration::Poly | Decoration::Can_Rotate | Decoration::Negative | firstColor, polySparseness + 1);
+			break;
+		case 6:
+			GenerateTriTypePuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness, Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness,
+				Decoration::Poly | Decoration::Can_Rotate | Decoration::Negative | firstColor, polySparseness + 1);
 			break;
 		}
 		break;
