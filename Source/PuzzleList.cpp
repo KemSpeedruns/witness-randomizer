@@ -1722,11 +1722,11 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		panelSize = (Random::rand() % 9) + 3;
 	}
 	std::string typeList [] = { "Gaps", "Dots", "Stones", "Stars", "Polys", "Triangles", "Gaps + Dots", "Gaps + Stones", "Gaps + Stars", 
-		"Gaps + Polys", "Gaps + Triangles", "Gaps + Sym", "Dots + Stars", "Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stars + Polys", 
-		"Stars + Triangles",  "Polys + Triangles"};
+		"Gaps + Polys", "Gaps + Triangles", "Gaps + Sym", "Dots + Stones", "Dots + Stars", "Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stones + Polys"
+		"Stars + Polys", "Stars + Triangles",  "Polys + Triangles"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	//int typeChoice = Random::rand() % 18;
-	int typeChoice = 18;
+	int typeChoice = Random::rand() % 21;
+	//int typeChoice = 17;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1877,13 +1877,17 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		GenerateSymGapsPuzzle(id, panelSize);
 		break;
 	case 12:
+		GenerateTriTypePuzzle(id, panelSize, Decoration::Dot, DotAndGapSparseness, Decoration::Stone | firstColor, baseSparseness, 
+			Decoration::Stone | secondColor, baseSparseness);
+		break;
+	case 13:
 		//TODO: Full Dots
 		//TODO: Multi Color
 		//subChoice = Random::rand() % 2;
 		//switch(subChoice)
 		GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Dot, DotAndGapSparseness);
 		break;
-	case 13:
+	case 14:
 		//TODO: Disconnect
 		//TODO: Small
 		//TODO: Big
@@ -1924,7 +1928,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 14:
+	case 15:
 		//TODO: 1 Full Dots
 		subChoice = Random::rand() % 2;
 		//subChoice = 6;
@@ -1937,11 +1941,24 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 15:
+	case 16:
 		//TODO: Different colored stones
 		GenerateDualTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness, Decoration::Star | firstColor, mixedStarSparseness);
 		break;
-	case 16:
+	case 17:
+		subChoice = Random::rand() % 2;
+		switch (subChoice) {
+		case 0:
+			GenerateTriTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness + 1, Decoration::Stone | secondColor, baseSparseness + 1, 
+				Decoration::Poly | firstColor, polySparseness);
+			break;
+		case 1:
+			GenerateTriTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness + 1, Decoration::Stone | secondColor, baseSparseness + 1,
+				Decoration::Poly | Decoration::Can_Rotate | firstColor, polySparseness);
+			break;
+		}
+		break;
+	case 18:
 		//TODO: Rotate
 		//TODO: Disconnect
 		//TODO: Small
@@ -1988,7 +2005,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 17:
+	case 19:
 		subChoice = Random::rand() % 2;
 		//subChoice = 1;
 		switch (subChoice) {
@@ -2000,7 +2017,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 18:
+	case 20:
 		subChoice = Random::rand() % 7;
 		//subChoice = 3;
 		switch (subChoice) {
