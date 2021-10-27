@@ -1722,11 +1722,11 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		panelSize = (Random::rand() % 9) + 3;
 	}
 	std::string typeList [] = { "Gaps", "Dots", "Stones", "Stars", "Polys", "Triangles", "Gaps + Dots", "Gaps + Stones", "Gaps + Stars", 
-		"Gaps + Polys", "Gaps + Triangles", "Gaps + Sym", "Dots + Stones", "Dots + Stars", "Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stones + Polys",
-		"Stones + Triangles", "Stars + Polys", "Stars + Triangles",  "Polys + Triangles"};
+		"Gaps + Polys", "Gaps + Triangles", "Gaps + Sym", "Dots + Stones", "Dots + Stars", "Dots + Polys", "Dots + Triangles", "Dots + Sym",
+		"Stones + Stars", "Stones + Polys", "Stones + Triangles", "Stars + Polys", "Stars + Triangles",  "Polys + Triangles"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	int typeChoice = Random::rand() % 22;
-	//int typeChoice = 11;
+	int typeChoice = Random::rand() % 23;
+	//int typeChoice = 16;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1943,10 +1943,13 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 16:
+		GenerateSingleTypeSymPuzzle(id, panelSize, Decoration::Dot, DotAndGapSparseness + 1);
+		break;
+	case 17:
 		//TODO: Different colored stones
 		GenerateDualTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness, Decoration::Star | firstColor, mixedStarSparseness);
 		break;
-	case 17:
+	case 18:
 		subChoice = Random::rand() % 2;
 		switch (subChoice) {
 		case 0:
@@ -1959,11 +1962,11 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 18:
+	case 19:
 		GenerateTriTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness + 1, Decoration::Stone | secondColor, baseSparseness + 1,
 			Decoration::Triangle | firstColor, baseSparseness + 1);
 		break;
-	case 19:
+	case 20:
 		//TODO: Rotate
 		//TODO: Disconnect
 		//TODO: Small
@@ -2010,7 +2013,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 20:
+	case 21:
 		subChoice = Random::rand() % 2;
 		//subChoice = 1;
 		switch (subChoice) {
@@ -2022,7 +2025,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 21:
+	case 22:
 		subChoice = Random::rand() % 7;
 		//subChoice = 3;
 		switch (subChoice) {
