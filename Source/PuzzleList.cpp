@@ -1725,8 +1725,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Gaps + Polys", "Gaps + Triangles", "Gaps + Sym", "Dots + Stones", "Dots + Stars", "Dots + Polys", "Dots + Triangles", "Stones + Stars", "Stones + Polys",
 		"Stones + Triangles", "Stars + Polys", "Stars + Triangles",  "Polys + Triangles"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	//int typeChoice = Random::rand() % 21;
-	int typeChoice = 18;
+	int typeChoice = Random::rand() % 22;
+	//int typeChoice = 11;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1874,7 +1874,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		break;
 	case 11:
 		//TODO: turn to panelSize+1
-		GenerateSymGapsPuzzle(id, panelSize);
+		//GenerateSymGapsPuzzle(id, panelSize);
+		GenerateSingleTypeSymPuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness + 1);
 		break;
 	case 12:
 		GenerateTriTypePuzzle(id, panelSize, Decoration::Dot, DotAndGapSparseness, Decoration::Stone | firstColor, baseSparseness,
@@ -2176,6 +2177,27 @@ void PuzzleList::GenerateTriTypePuzzle(int id, int size, int firstType, int firs
 	int thirdMaxSymbolCount = (panelSize * panelSize) / thirdSparseness;
 	generator->generate(id, firstType, (Random::rand() % firstMaxSymbolCount) + 1, secondType, (Random::rand() % secondMaxSymbolCount) + 1, 
 		thirdType, (Random::rand() % thirdMaxSymbolCount) + 1);
+}
+
+//Only set up for size 4.
+void PuzzleList::GenerateSingleTypeSymPuzzle(int id, int size, int type, int sparseness) {
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0)
+	{
+		panelSize = (Random::rand() % 9) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	generator->setSymmetry(Panel::Symmetry::None);
+	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
+	int maxSymbolCount = (panelSize * panelSize) / sparseness;
+	Panel::Symmetry symList4[] = { Panel::Symmetry::FlipNegXY, Panel::Symmetry::Horizontal, Panel::Symmetry::Rotational, Panel::Symmetry::Vertical };
+	int symChoice = Random::rand() % 4;
+	generator->setSymmetry(symList4[symChoice]);
+	generator->generate(id, type, (Random::rand() % maxSymbolCount) + 1, Decoration::Start, 1, Decoration::Exit, 1);
+	//generator->generate(id, Decoration::Gap, (Random::rand() % ((panelSize * panelSize) / 2)) + 1, Decoration::Start, 1, Decoration::Exit, 1);
 }
 
 void PuzzleList::GenerateSingleMonoColorDisconnect(int id, int type, int sparseness, int size) {
