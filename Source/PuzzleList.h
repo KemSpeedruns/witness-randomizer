@@ -83,7 +83,7 @@ public:
 
 	//-------------------------Puzzle Pack difficulty--------------------------
 
-	void GenerateRandomPuzzle(int id, int size, int firstColor, int secondColor);
+	void GenerateRandomPuzzle(int id, int size, int firstColor, int secondColor, int thirdColor);
 	void GenerateRandomSymPuzzle(int id, int size, int color);
 	void GenerateSingleTypePuzzle(int id, int type, int sparseness, int size);
 	void GenerateDualTypePuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness);
