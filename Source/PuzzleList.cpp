@@ -2844,11 +2844,11 @@ void PuzzleList::GenerateTownP()
 	GenerateRandomPuzzle(0x03C08, 4, Decoration::Color::Black, Decoration::Color::White);
 
 	//Town Blues
-	GenerateSymGapsPuzzle(0x28AC7, 4);
-	GenerateSymGapsPuzzle(0x28AC8, 4);
-	GenerateSymGapsPuzzle(0x28ACA, 4);
-	GenerateSymGapsPuzzle(0x28ACB, 4);
-	GenerateSymGapsPuzzle(0x28ACC, 4);
+	GenerateRandomSymPuzzle(0x28AC7, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x28AC8, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x28ACA, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x28ACB, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x28ACC, 4, Decoration::Color::Black);
 
 	//Cinema
 	GenerateRandomPuzzle(0x17F89, 4, Decoration::Color::Black, Decoration::Color::White);
