@@ -1723,10 +1723,10 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 	}
 	std::string typeList [] = { "Gaps", "Dots", "Stones", "Stars", "Polys", "Triangles", "Gaps + Dots", "Gaps + Stones", "Gaps + Stars", 
 		"Gaps + Polys", "Gaps + Triangles", "Gaps + Sym", "Dots + Stones", "Dots + Stars", "Dots + Polys", "Dots + Triangles", "Dots + Sym",
-		"Stones + Stars", "Stones + Polys", "Stones + Triangles", "Stars + Polys", "Stars + Triangles",  "Polys + Triangles"};
+		"Stones + Stars", "Stones + Polys", "Stones + Triangles", "Stars + Polys", "Stars + Triangles",  "Polys + Triangles", "Triangles + Sym"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	int typeChoice = Random::rand() % 23;
-	//int typeChoice = 16;
+	int typeChoice = Random::rand() % 24;
+	//int typeChoice = 23;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -2058,6 +2058,9 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 				Decoration::Poly | Decoration::Can_Rotate | Decoration::Negative | firstColor, polySparseness + 1, Decoration::Triangle | firstColor, baseSparseness);
 			break;
 		}
+		break;
+	case 23:
+		GenerateSingleTypeSymPuzzle(id, panelSize, Decoration::Triangle | firstColor, baseSparseness + 1);
 		break;
 	}
 }
