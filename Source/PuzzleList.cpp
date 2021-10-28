@@ -3092,8 +3092,8 @@ void PuzzleList::GenerateCavesP()
 
 	//Blue Area
 	// Symmetry
-	GenerateSymGapsPuzzle(0x01A0D, 4);
-	GenerateSymGapsPuzzle(0x018A0, 4);
+	GenerateRandomSymPuzzle(0x01A0D, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x018A0, 4, Decoration::Color::Black);
 
 	//Left
 	GenerateRandomPuzzle(0x008B8, 4, Decoration::Color::White, Decoration::Color::Red);
@@ -3165,9 +3165,9 @@ void PuzzleList::GenerateCavesP()
 	GenerateRandomPuzzle(0x0006C, 4, Decoration::Color::Black, Decoration::Color::White);
 
 	//Invis Sym
-	GenerateSymGapsPuzzle(0x00027, 4);
-	GenerateSymGapsPuzzle(0x00028, 4);
-	GenerateSymGapsPuzzle(0x00029, 4);
+	GenerateRandomSymPuzzle(0x00027, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00028, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00029, 4, Decoration::Color::Black);
 
 	//Mountainside Shortcuts
 	GenerateRandomPuzzle(0x021D7, 4, Decoration::Color::Black, Decoration::Color::White);
@@ -3191,7 +3191,7 @@ void PuzzleList::GenerateVaultsP()
 	generator->resetConfig();
 	GenerateRandomPuzzle(0x033D4, 4, Decoration::Color::Black, Decoration::Color::White);
 	GenerateRandomPuzzle(0x0CC7B, 4, Decoration::Color::Black, Decoration::Color::White);
-	GenerateSymGapsPuzzle(0x002A6, 4);
+	GenerateRandomSymPuzzle(0x002A6, 4, Decoration::Color::Black);
 	generator->resetConfig();
 	specialCase->generateSoundDotReflectionPuzzle(0x00AFB, { 6, 6 }, { DOT_MEDIUM, DOT_LARGE, DOT_MEDIUM, DOT_SMALL }, { DOT_LARGE, DOT_SMALL, DOT_MEDIUM }, 5, false);
 	generator->resetConfig();
