@@ -84,18 +84,19 @@ public:
 	//-------------------------Puzzle Pack difficulty--------------------------
 
 	void GenerateRandomPuzzle(int id, int size, int firstColor, int secondColor);
-	void GenerateRandomSymPuzzle(int id, int size);
+	void GenerateRandomSymPuzzle(int id, int size, int color);
 	void GenerateSingleTypePuzzle(int id, int type, int sparseness, int size);
 	void GenerateDualTypePuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness);
 	void GenerateTriTypePuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness, int thirdType, int thirdSparseness);
 	void GenerateSingleTypeSymPuzzle(int id, int size, int type, int sparseness);
+	void GenerateDoubleTypeSymPuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness);
 	void GenerateSpecificSingleCount(int id, int size, int type, int count, bool randSE);
 	void GenerateFullDotsDualPuzzle(int id, int size, int type, int sparseness);
 	void GenerateMonoStarPuzzleWithNIT(int id, int size, int firstColor, int nonInteractingType, int NITsparseness);
 	void GenerateSingleTypePuzzleWithFlag(int id, int type, int sparseness, int size, Generate::Config flag);
 	void GenerateFullDotsPuzzle(int id, int size);
 	void GenerateGapsAndDots(int id, int size);
-	void GenerateMonoStarPuzzle(int id, int size, int color);
+	void GenerateMonoStarPuzzle(int id, int size, int color, bool sym);
 	void GenerateDualStarPuzzle(int id, int size, int firstColor, int secondColor);
 	void GenerateSingleMonoColorDisconnect(int id, int type, int sparseness, int size);
 	void GenerateEraserPanel(int id, int size, int sparseness);

@@ -1723,10 +1723,10 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 	}
 	std::string typeList [] = { "Gaps", "Dots", "Stones", "Stars", "Polys", "Triangles", "Gaps + Dots", "Gaps + Stones", "Gaps + Stars", 
 		"Gaps + Polys", "Gaps + Triangles", "Gaps + Sym", "Dots + Stones", "Dots + Stars", "Dots + Polys", "Dots + Triangles", "Dots + Sym",
-		"Stones + Stars", "Stones + Polys", "Stones + Triangles", "Stars + Polys", "Stars + Triangles",  "Polys + Triangles", "Triangles + Sym"};
+		"Stones + Stars", "Stones + Polys", "Stones + Triangles", "Stars + Polys", "Stars + Triangles", "Stars + Sym", "Polys + Triangles", "Triangles + Sym"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	int typeChoice = Random::rand() % 24;
-	//int typeChoice = 23;
+	int typeChoice = Random::rand() % 25;
+	//int typeChoice = 22;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1769,7 +1769,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		//subChoice = 1;
 		switch (subChoice) {
 		case 0:
-			GenerateMonoStarPuzzle(id, panelSize, firstColor);
+			GenerateMonoStarPuzzle(id, panelSize, firstColor, false);
 			break;
 		case 1:
 			GenerateDualStarPuzzle(id, panelSize, firstColor, secondColor);
@@ -2026,6 +2026,9 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 22:
+		GenerateMonoStarPuzzle(id, panelSize, firstColor, true);
+		break;
+	case 23:
 		subChoice = Random::rand() % 7;
 		//subChoice = 3;
 		switch (subChoice) {
@@ -2059,34 +2062,34 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 23:
+	case 24:
 		GenerateSingleTypeSymPuzzle(id, panelSize, Decoration::Triangle | firstColor, baseSparseness + 1);
 		break;
 	}
 }
 
-void PuzzleList::GenerateRandomSymPuzzle(int id, int size) {
+void PuzzleList::GenerateRandomSymPuzzle(int id, int size, int color) {
 	generator->resetConfig();
 	int panelSize = size;
 	if (panelSize == 0)
 	{
 		panelSize = (Random::rand() % 9) + 3;
 	}
-	std::string typeList[] = { "Gaps", "Maze" };
-	//int typeChoice = Random::rand() % 2;
-	int typeChoice = 0;
+	std::string typeList[] = { "Gaps", "Dots", "Stars", "Triangles" };
+	int typeChoice = Random::rand() % 4;
+	//int typeChoice = 0;
 	switch (typeChoice) {
 	case 0:
-		generator->setGridSize(panelSize, panelSize);
-		GenerateSymGapsPuzzle(id, panelSize);
+		GenerateSingleTypeSymPuzzle(id, panelSize, Decoration::Gap, 2);
 		break;
 	case 1:
-		//TODO: fix
-		generator->setGridSize(panelSize, panelSize);
-		Panel::Symmetry symList4[] = { Panel::Symmetry::FlipNegXY, Panel::Symmetry::Horizontal, Panel::Symmetry::Rotational, Panel::Symmetry::Vertical };
-		int symChoice = Random::rand() % 4;
-		generator->setSymmetry(symList4[symChoice]);
-		generator->generateMaze(id, 1, 1);
+		GenerateSingleTypeSymPuzzle(id, panelSize, Decoration::Dot, 2);
+		break;
+	case 2:
+		GenerateMonoStarPuzzle(id, panelSize, color, true);
+		break;
+	case 3:
+		GenerateSingleTypeSymPuzzle(id, panelSize, Decoration::Triangle | color, 3);
 		break;
 	}
 }
@@ -2206,6 +2209,27 @@ void PuzzleList::GenerateSingleTypeSymPuzzle(int id, int size, int type, int spa
 	//generator->generate(id, Decoration::Gap, (Random::rand() % ((panelSize * panelSize) / 2)) + 1, Decoration::Start, 1, Decoration::Exit, 1);
 }
 
+void PuzzleList::GenerateDoubleTypeSymPuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness) {
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0)
+	{
+		panelSize = (Random::rand() % 9) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	generator->setSymmetry(Panel::Symmetry::None);
+	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
+	int firstMaxSymbolCount = (panelSize * panelSize) / firstSparseness;
+	int secondMaxSymbolCount = (panelSize * panelSize) / secondSparseness;
+	Panel::Symmetry symList4[] = { Panel::Symmetry::FlipNegXY, Panel::Symmetry::Horizontal, Panel::Symmetry::Rotational, Panel::Symmetry::Vertical };
+	int symChoice = Random::rand() % 4;
+	generator->setSymmetry(symList4[symChoice]);
+	generator->generate(id, firstType, (Random::rand() % firstMaxSymbolCount) + 1, secondType, (Random::rand() % secondMaxSymbolCount) + 1, 
+		Decoration::Start, 1, Decoration::Exit, 1);
+}
+
 void PuzzleList::GenerateSingleMonoColorDisconnect(int id, int type, int sparseness, int size) {
 	generator->setFlagOnce(Generate::Config::DisconnectShapes);
 	int panelSize = size;
@@ -2253,7 +2277,7 @@ void PuzzleList::GenerateFullDotsDualPuzzle(int id, int size, int type, int spar
 }
 
 //Max size: 8
-void PuzzleList::GenerateMonoStarPuzzle(int id, int size, int color)
+void PuzzleList::GenerateMonoStarPuzzle(int id, int size, int color, bool sym)
 {
 	generator->resetConfig();
 	int panelSize = size;
@@ -2264,10 +2288,19 @@ void PuzzleList::GenerateMonoStarPuzzle(int id, int size, int color)
 	generator->pathWidth = 1.0f - (0.05f * panelSize);
 	generator->setGridSize(panelSize, panelSize);
 	int countList [] = { 4, 8, 12, 14, 16, 18 };
-	generator->setSymmetry(Panel::Symmetry::None);
-	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
-	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
-	generator->generate(id, Decoration::Star | color, ((Random::rand() % ((countList[panelSize-3]/2) - 1)) + 1) * 2);
+	if (!sym) {
+		generator->setSymmetry(Panel::Symmetry::None);
+		generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+		generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
+		generator->generate(id, Decoration::Star | color, ((Random::rand() % ((countList[panelSize-3]/2) - 1)) + 1) * 2);
+	}
+	else {
+		Panel::Symmetry symList4[] = { Panel::Symmetry::FlipNegXY, Panel::Symmetry::Horizontal, Panel::Symmetry::Rotational, Panel::Symmetry::Vertical };
+		int symChoice = Random::rand() % 4;
+		generator->setSymmetry(symList4[symChoice]);
+		generator->generate(id, Decoration::Start, 1, Decoration::Exit, 1, 
+			Decoration::Star | color, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2);
+	}
 }
 
 void PuzzleList::GenerateMonoStarPuzzleWithNIT(int id, int size, int firstColor, int nonInteractingType, int NITsparseness) {
@@ -2527,45 +2560,45 @@ void PuzzleList::GenerateSymmetryP()
 	generator->setLoadingData(L"Symmetry", 30);
 	generator->resetConfig();
 	//Vertical Symmetry
-	GenerateRandomSymPuzzle(0x00086, 4);
-	GenerateRandomSymPuzzle(0x00087, 4);
-	GenerateRandomSymPuzzle(0x00059, 4);
-	GenerateRandomSymPuzzle(0x00062, 4);
-	GenerateRandomSymPuzzle(0x0005C, 4);
+	GenerateRandomSymPuzzle(0x00086, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00087, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00059, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00062, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x0005C, 4, Decoration::Color::Black);
 	
 	//Rotational Symmetry
-	GenerateRandomSymPuzzle(0x0008D, 4);
-	GenerateRandomSymPuzzle(0x00081, 4);
-	GenerateRandomSymPuzzle(0x00083, 4);
+	GenerateRandomSymPuzzle(0x0008D, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00081, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00083, 4, Decoration::Color::Black);
 
 	//Melting Set
-	GenerateRandomSymPuzzle(0x00084, 4);
-	GenerateRandomSymPuzzle(0x00082, 4);
-	GenerateRandomSymPuzzle(0x0343A, 4);
+	GenerateRandomSymPuzzle(0x00084, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00082, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x0343A, 4, Decoration::Color::Black);
 
 	//Black Dots
-	GenerateRandomSymPuzzle(0x00022, 4);
-	GenerateRandomSymPuzzle(0x00023, 4);
-	GenerateRandomSymPuzzle(0x00024, 4);
-	GenerateRandomSymPuzzle(0x00025, 4);
-	GenerateRandomSymPuzzle(0x00026, 4);
+	GenerateRandomSymPuzzle(0x00022, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00023, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00024, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00025, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00026, 4, Decoration::Color::Black);
 	
 	//Colored Dots
-	GenerateRandomSymPuzzle(0x0007C, 4);
-	GenerateRandomSymPuzzle(0x0007E, 4);
-	GenerateRandomSymPuzzle(0x00075, 4);
-	GenerateRandomSymPuzzle(0x00073, 4);
-	GenerateRandomSymPuzzle(0x00077, 4);
-	GenerateRandomSymPuzzle(0x00079, 4);
+	GenerateRandomSymPuzzle(0x0007C, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x0007E, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00075, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00073, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00077, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00079, 4, Decoration::Color::Black);
 	
 	//Fading Lines
-	GenerateRandomSymPuzzle(0x00065, 4);
-	GenerateRandomSymPuzzle(0x0006D, 4);
-	GenerateRandomSymPuzzle(0x00072, 4);
-	GenerateRandomSymPuzzle(0x0006F, 4);
-	GenerateRandomSymPuzzle(0x00070, 4);
-	GenerateRandomSymPuzzle(0x00071, 4);
-	GenerateRandomSymPuzzle(0x00076, 4);
+	GenerateRandomSymPuzzle(0x00065, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x0006D, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00072, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x0006F, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00070, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00071, 4, Decoration::Color::Black);
+	GenerateRandomSymPuzzle(0x00076, 4, Decoration::Color::Black);
 
 	//Door 1
 	/*generator->resetConfig();
