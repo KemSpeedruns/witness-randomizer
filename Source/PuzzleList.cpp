@@ -1725,8 +1725,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Gaps + Polys", "Gaps + Triangles", "Gaps + Sym", "Dots + Stones", "Dots + Stars", "Dots + Polys", "Dots + Triangles", "Dots + Sym",
 		"Stones + Stars", "Stones + Polys", "Stones + Triangles", "Stars + Polys", "Stars + Triangles", "Stars + Sym", "Polys + Triangles", "Triangles + Sym"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	//int typeChoice = Random::rand() % 25;
-	int typeChoice = 2;
+	int typeChoice = Random::rand() % 25;
+	//int typeChoice = 3;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1767,13 +1767,16 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		break;
 	case 3:
 		subChoice = Random::rand() % 2;
-		//subChoice = 1;
+		//subChoice = 2;
 		switch (subChoice) {
 		case 0:
 			GenerateMonoStarPuzzle(id, panelSize, firstColor, false);
 			break;
 		case 1:
 			GenerateDualStarPuzzle(id, panelSize, firstColor, secondColor);
+			break;
+		case 2:
+			GenerateTriStarPuzzle(id, panelSize, firstColor, secondColor, thirdColor);
 			break;
 		}
 		break;
