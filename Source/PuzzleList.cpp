@@ -2192,6 +2192,27 @@ void PuzzleList::GenerateTriTypePuzzle(int id, int size, int firstType, int firs
 		thirdType, (Random::rand() % thirdMaxSymbolCount) + 1);
 }
 
+void PuzzleList::GenerateQuadTypePuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness, int thirdType, int thirdSparseness,
+	int fourthType, int fourthSparseness) {
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0)
+	{
+		panelSize = (Random::rand() % 9) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	generator->setSymmetry(Panel::Symmetry::None);
+	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
+	int firstMaxSymbolCount = (panelSize * panelSize) / firstSparseness;
+	int secondMaxSymbolCount = (panelSize * panelSize) / secondSparseness;
+	int thirdMaxSymbolCount = (panelSize * panelSize) / thirdSparseness;
+	int fourthMaxSymbolCount = (panelSize * panelSize) / fourthSparseness;
+	generator->generate(id, firstType, (Random::rand() % firstMaxSymbolCount) + 1, secondType, (Random::rand() % secondMaxSymbolCount) + 1,
+		thirdType, (Random::rand() % thirdMaxSymbolCount) + 1, fourthType, (Random::rand() % fourthMaxSymbolCount) + 1);
+}
+
 //Only set up for size 4.
 void PuzzleList::GenerateSingleTypeSymPuzzle(int id, int size, int type, int sparseness) {
 	generator->resetConfig();
