@@ -1726,7 +1726,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Stones + Stars", "Stones + Polys", "Stones + Triangles", "Stars + Polys", "Stars + Triangles", "Stars + Sym", "Polys + Triangles", "Triangles + Sym"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 25;
-	//int typeChoice = 7;
+	//int typeChoice = 12;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1892,8 +1892,18 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		GenerateSingleTypeSymPuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness + 1);
 		break;
 	case 12:
-		GenerateTriTypePuzzle(id, panelSize, Decoration::Dot, DotAndGapSparseness, Decoration::Stone | firstColor, baseSparseness,
-			Decoration::Stone | secondColor, baseSparseness);
+		subChoice = Random::rand() % 2;
+		//subChoice = 1;
+		switch (subChoice) {
+		case 0:
+			GenerateTriTypePuzzle(id, panelSize, Decoration::Dot, DotAndGapSparseness, Decoration::Stone | firstColor, baseSparseness,
+				Decoration::Stone | secondColor, baseSparseness);
+			break;
+		case 1:
+			GenerateQuadTypePuzzle(id, panelSize, Decoration::Dot, DotAndGapSparseness, Decoration::Stone | firstColor, baseSparseness + 1,
+				Decoration::Stone | secondColor, baseSparseness + 1, Decoration::Stone | thirdColor, baseSparseness + 1);
+			break;
+		}
 		break;
 	case 13:
 		//TODO: Full Dots
