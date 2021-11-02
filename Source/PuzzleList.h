@@ -98,6 +98,7 @@ public:
 	void GenerateGapsAndDots(int id, int size);
 	void GenerateMonoStarPuzzle(int id, int size, int color, bool sym);
 	void GenerateDualStarPuzzle(int id, int size, int firstColor, int secondColor);
+	void GenerateTriStarPuzzle(int id, int size, int firstColor, int secondColor, int thirdColor);
 	void GenerateSingleMonoColorDisconnect(int id, int type, int sparseness, int size);
 	void GenerateEraserPanel(int id, int size, int sparseness);
 	void GenerateEverythingMinusSymPanel(int id, int size, int multiplier, int color);
