@@ -1723,10 +1723,11 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 	}
 	std::string typeList [] = { "Gaps", "Dots", "Stones", "Stars", "Polys", "Triangles", "Gaps + Dots", "Gaps + Stones", "Gaps + Stars", 
 		"Gaps + Polys", "Gaps + Triangles", "Gaps + Sym", "Dots + Stones", "Dots + Stars", "Dots + Polys", "Dots + Triangles", "Dots + Sym",
-		"Stones + Stars", "Stones + Polys", "Stones + Triangles", "Stars + Polys", "Stars + Triangles", "Stars + Sym", "Polys + Triangles", "Triangles + Sym"};
+		"Stones + Stars", "Stones + Polys", "Stones + Triangles", "Stones + Sym", "Stars + Polys", "Stars + Triangles", "Stars + Sym", "Polys + Triangles", 
+		"Triangles + Sym"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	int typeChoice = Random::rand() % 25;
-	//int typeChoice = 19;
+	int typeChoice = Random::rand() % 26;
+	//int typeChoice = 20;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -2019,6 +2020,9 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 20:
+		GenerateDoubleTypeSymPuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness + 2, Decoration::Stone | secondColor, baseSparseness + 2);
+		break;
+	case 21:
 		//TODO: Rotate
 		//TODO: Disconnect
 		//TODO: Small
@@ -2065,7 +2069,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 21:
+	case 22:
 		subChoice = Random::rand() % 2;
 		//subChoice = 1;
 		switch (subChoice) {
@@ -2077,10 +2081,10 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 22:
+	case 23:
 		GenerateMonoStarPuzzle(id, panelSize, firstColor, true);
 		break;
-	case 23:
+	case 24:
 		subChoice = Random::rand() % 7;
 		//subChoice = 3;
 		switch (subChoice) {
@@ -2114,7 +2118,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 24:
+	case 25:
 		GenerateSingleTypeSymPuzzle(id, panelSize, Decoration::Triangle | firstColor, baseSparseness + 1);
 		break;
 	}
