@@ -1726,7 +1726,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Stones + Stars", "Stones + Polys", "Stones + Triangles", "Stars + Polys", "Stars + Triangles", "Stars + Sym", "Polys + Triangles", "Triangles + Sym"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 25;
-	//int typeChoice = 18;
+	//int typeChoice = 19;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -2005,8 +2005,18 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 19:
-		GenerateTriTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness + 1, Decoration::Stone | secondColor, baseSparseness + 1,
-			Decoration::Triangle | firstColor, baseSparseness + 1);
+		subChoice = Random::rand() % 2;
+		//subChoice = 1;
+		switch (subChoice) {
+		case 0:
+			GenerateTriTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness + 1, Decoration::Stone | secondColor, baseSparseness + 1,
+				Decoration::Triangle | firstColor, baseSparseness + 1);
+			break;
+		case 1:
+			GenerateQuadTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness + 2, Decoration::Stone | secondColor, baseSparseness + 2,
+				Decoration::Stone | thirdColor, baseSparseness + 2, Decoration::Triangle | firstColor, baseSparseness + 2);
+			break;
+		}
 		break;
 	case 20:
 		//TODO: Rotate
