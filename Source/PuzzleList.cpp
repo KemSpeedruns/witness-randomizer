@@ -1727,7 +1727,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Triangles + Sym"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 26;
-	//int typeChoice = 12;
+	//int typeChoice = 8;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1847,7 +1847,16 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 8:
-		GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Gap, DotAndGapSparseness);
+		//subChoice = Random::rand() % 2;
+		subChoice = 1;
+		switch (subChoice) {
+		case 0:
+			GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Gap, DotAndGapSparseness);
+			break;
+		case 1:
+			GenerateDualStarPuzzleWithNIT(id, panelSize, firstColor, secondColor, Decoration::Gap, DotAndGapSparseness);
+			break;
+		}
 		break;
 	case 9:
 		//TODO: Disconnect
@@ -2435,6 +2444,25 @@ void PuzzleList::GenerateDualStarPuzzle(int id, int size, int firstColor, int se
 	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
 	generator->generate(id, Decoration::Star | firstColor, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2, 
 		Decoration::Star | secondColor, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2);
+}
+
+void PuzzleList::GenerateDualStarPuzzleWithNIT(int id, int size, int firstColor, int secondColor, int nonInteractingType, int NITsparseness) {
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0)
+	{
+		panelSize = (Random::rand() % 6) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	int countList[] = { 4, 8, 12, 14, 16, 18 };
+	generator->setSymmetry(Panel::Symmetry::None);
+	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
+	int maxSymbolCount = (panelSize * panelSize) / NITsparseness;
+	generator->generate(id, Decoration::Star | firstColor, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2,
+		Decoration::Star | secondColor, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2,
+		nonInteractingType, (Random::rand() % maxSymbolCount) + 1);
 }
 
 void PuzzleList::GenerateTriStarPuzzle(int id, int size, int firstColor, int secondColor, int thirdColor) {
