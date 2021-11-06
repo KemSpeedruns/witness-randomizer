@@ -1727,7 +1727,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Triangles + Sym"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 26;
-	//int typeChoice = 20;
+	//int typeChoice = 12;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1893,8 +1893,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		GenerateSingleTypeSymPuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness + 1);
 		break;
 	case 12:
-		subChoice = Random::rand() % 2;
-		//subChoice = 1;
+		subChoice = Random::rand() % 3;
+		//subChoice = 2;
 		switch (subChoice) {
 		case 0:
 			GenerateTriTypePuzzle(id, panelSize, Decoration::Dot, DotAndGapSparseness, Decoration::Stone | firstColor, baseSparseness,
@@ -1903,6 +1903,9 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		case 1:
 			GenerateQuadTypePuzzle(id, panelSize, Decoration::Dot, DotAndGapSparseness, Decoration::Stone | firstColor, baseSparseness + 1,
 				Decoration::Stone | secondColor, baseSparseness + 1, Decoration::Stone | thirdColor, baseSparseness + 1);
+			break;
+		case 2:
+			GenerateFullDotsTriPuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness, Decoration::Stone | secondColor, baseSparseness);
 			break;
 		}
 		break;
@@ -2351,6 +2354,24 @@ void PuzzleList::GenerateFullDotsDualPuzzle(int id, int size, int type, int spar
 	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
 	int maxSymbolCount = (panelSize * panelSize) / sparseness;
 	generator->generate(id, Decoration::Dot_Intersection, (panelSize + 1) * (panelSize + 1), type, (Random::rand() % maxSymbolCount) + 1);
+}
+
+void PuzzleList::GenerateFullDotsTriPuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness) {
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0)
+	{
+		panelSize = ((Random::rand() % 5) * 2) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	generator->setSymmetry(Panel::Symmetry::None);
+	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
+	int firstMaxSymbolCount = (panelSize * panelSize) / firstSparseness;
+	int secondMaxSymbolCount = (panelSize * panelSize) / secondSparseness;
+	generator->generate(id, Decoration::Dot_Intersection, (panelSize + 1) * (panelSize + 1), firstType, (Random::rand() % firstMaxSymbolCount) + 1, 
+		secondType, (Random::rand() % secondMaxSymbolCount) + 1);
 }
 
 //Max size: 8
