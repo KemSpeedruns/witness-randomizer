@@ -1847,14 +1847,17 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 8:
-		//subChoice = Random::rand() % 2;
-		subChoice = 1;
+		subChoice = Random::rand() % 3;
+		//subChoice = 2;
 		switch (subChoice) {
 		case 0:
 			GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Gap, DotAndGapSparseness);
 			break;
 		case 1:
 			GenerateDualStarPuzzleWithNIT(id, panelSize, firstColor, secondColor, Decoration::Gap, DotAndGapSparseness);
+			break;
+		case 2:
+			GenerateTriStarPuzzleWithNIT(id, panelSize, firstColor, secondColor, thirdColor, Decoration::Gap, DotAndGapSparseness);
 			break;
 		}
 		break;
@@ -2481,6 +2484,27 @@ void PuzzleList::GenerateTriStarPuzzle(int id, int size, int firstColor, int sec
 	generator->generate(id, Decoration::Star | firstColor, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2,
 		Decoration::Star | secondColor, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2, 
 		Decoration::Star | thirdColor, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2);
+}
+
+void PuzzleList::GenerateTriStarPuzzleWithNIT(int id, int size, int firstColor, int secondColor, int thirdColor, int nonInteractingType, 
+	int NITsparseness) {
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0)
+	{
+		panelSize = (Random::rand() % 6) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	int countList[] = { 2, 4, 8, 12, 16, 18 };
+	generator->setSymmetry(Panel::Symmetry::None);
+	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
+	int maxSymbolCount = (panelSize * panelSize) / NITsparseness;
+	generator->generate(id, Decoration::Star | firstColor, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2,
+		Decoration::Star | secondColor, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2,
+		Decoration::Star | thirdColor, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2,
+		nonInteractingType, (Random::rand() % maxSymbolCount) + 1);
 }
 	
 void PuzzleList::GenerateGapsAndDots(int id, int size)
