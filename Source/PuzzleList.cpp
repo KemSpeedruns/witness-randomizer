@@ -1995,9 +1995,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		GenerateSingleTypeSymPuzzle(id, panelSize, Decoration::Dot, DotAndGapSparseness + 1);
 		break;
 	case 17:
-		//TODO: Different colored stones
-		subChoice = Random::rand() % 3;
-		//subChoice = 2;
+		subChoice = Random::rand() % 4;
+		//subChoice = 3;
 		switch (subChoice) {
 		case 0:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness, Decoration::Star | firstColor, mixedStarSparseness);
@@ -2009,6 +2008,10 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		case 2:
 			GenerateMonoStarPuzzleWithDualNITs(id, panelSize, firstColor, Decoration::Stone | secondColor, baseSparseness + 1, 
 				Decoration::Stone | thirdColor, baseSparseness + 1);
+			break;
+		case 3:
+			GenerateQuadTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness + 2, Decoration::Stone | secondColor, baseSparseness + 2,
+				Decoration::Star | firstColor, mixedStarSparseness + 1, Decoration::Star | secondColor, mixedStarSparseness + 1);
 			break;
 		}
 		break;
