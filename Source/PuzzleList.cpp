@@ -1920,8 +1920,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 	case 13:
 		//TODO: Full Dots
 		//TODO: Multi Color
-		//subChoice = Random::rand() % 2;
-		subChoice = 2;
+		subChoice = Random::rand() % 4;
+		//subChoice = 3;
 		switch (subChoice) {
 		case 0:
 			GenerateMonoStarPuzzleWithNIT(id, panelSize, firstColor, Decoration::Dot, DotAndGapSparseness);
@@ -1932,12 +1932,12 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		case 2:
 			GenerateTriStarPuzzleWithNIT(id, panelSize, firstColor, secondColor, thirdColor, Decoration::Dot, DotAndGapSparseness);
 			break;
+		case 3:
+			GenerateMonoStarFullDotsPuzzle(id, panelSize, firstColor);
+			break;
 		}
 		break;
 	case 14:
-		//TODO: Disconnect
-		//TODO: Small
-		//TODO: Big
 		subChoice = Random::rand() % 9;
 		//subChoice = 3;
 		switch (subChoice) {
@@ -2044,10 +2044,6 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		GenerateDoubleTypeSymPuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness + 2, Decoration::Stone | secondColor, baseSparseness + 2);
 		break;
 	case 21:
-		//TODO: Rotate
-		//TODO: Disconnect
-		//TODO: Small
-		//TODO: Big
 		subChoice = Random::rand() % 10;
 		//subChoice = 7;
 		switch (subChoice) {
@@ -2531,6 +2527,22 @@ void PuzzleList::GenerateTriStarPuzzleWithNIT(int id, int size, int firstColor, 
 		Decoration::Star | secondColor, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2,
 		Decoration::Star | thirdColor, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2,
 		nonInteractingType, (Random::rand() % maxSymbolCount) + 1);
+}
+
+void PuzzleList::GenerateMonoStarFullDotsPuzzle(int id, int size, int color) {
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0) {
+		panelSize = (Random::rand() % 6) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	int countList[] = { 4, 8, 12, 14, 16, 18 };
+	generator->setSymmetry(Panel::Symmetry::None);
+	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
+	generator->generate(id, Decoration::Star | color, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2, 
+		Decoration::Dot_Intersection, (panelSize + 1) * (panelSize + 1));
 }
 	
 void PuzzleList::GenerateGapsAndDots(int id, int size)
