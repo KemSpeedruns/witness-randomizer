@@ -100,6 +100,8 @@ public:
 	void GenerateFullDotsPuzzle(int id, int size);
 	void GenerateFullDotsDualPuzzle(int id, int size, int type, int sparseness);
 	void GenerateFullDotsTriPuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness);
+	void GenerateFullDotsQuadPuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness,
+		int thirdType, int thirdSparseness);
 	void GenerateGapsAndDots(int id, int size);
 	void GenerateMonoStarPuzzle(int id, int size, int color, bool sym);
 	void GenerateDualStarPuzzle(int id, int size, int firstColor, int secondColor);

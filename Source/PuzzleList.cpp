@@ -1727,7 +1727,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Triangles + Sym"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 26;
-	//int typeChoice = 8;
+	//int typeChoice = 12;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1782,11 +1782,6 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 4:
-		//TODO: Small shapes
-		//TODO: Big shapes
-		//TODO: Anti Combos
-		//TODO: Rot
-		//TODO: Disconnect
 		subChoice = Random::rand() % 7;
 		//subChoice = 5;
 		switch (subChoice) {
@@ -1862,9 +1857,6 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 9:
-		//TODO: Disconnect
-		//TODO: Small Shapes
-		//TODO: Big Shapes
 		subChoice = Random::rand() % 7;
 		//subChoice = 2;
 		switch (subChoice) {
@@ -1905,8 +1897,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		GenerateSingleTypeSymPuzzle(id, panelSize, Decoration::Gap, DotAndGapSparseness + 1);
 		break;
 	case 12:
-		subChoice = Random::rand() % 3;
-		//subChoice = 2;
+		subChoice = Random::rand() % 4;
+		//subChoice = 3;
 		switch (subChoice) {
 		case 0:
 			GenerateTriTypePuzzle(id, panelSize, Decoration::Dot, DotAndGapSparseness, Decoration::Stone | firstColor, baseSparseness,
@@ -1918,6 +1910,10 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		case 2:
 			GenerateFullDotsTriPuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness, Decoration::Stone | secondColor, baseSparseness);
+			break;
+		case 3:
+			GenerateFullDotsQuadPuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness + 2, Decoration::Stone | secondColor, baseSparseness + 2, 
+				Decoration::Stone | thirdColor, baseSparseness + 2);
 			break;
 		}
 		break;
@@ -2384,6 +2380,26 @@ void PuzzleList::GenerateFullDotsTriPuzzle(int id, int size, int firstType, int 
 	int secondMaxSymbolCount = (panelSize * panelSize) / secondSparseness;
 	generator->generate(id, Decoration::Dot_Intersection, (panelSize + 1) * (panelSize + 1), firstType, (Random::rand() % firstMaxSymbolCount) + 1, 
 		secondType, (Random::rand() % secondMaxSymbolCount) + 1);
+}
+
+void PuzzleList::GenerateFullDotsQuadPuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness, 
+	int thirdType, int thirdSparseness) {
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0)
+	{
+		panelSize = ((Random::rand() % 5) * 2) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	generator->setSymmetry(Panel::Symmetry::None);
+	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
+	int firstMaxSymbolCount = (panelSize * panelSize) / firstSparseness;
+	int secondMaxSymbolCount = (panelSize * panelSize) / secondSparseness;
+	int thirdMaxSymbolCount = (panelSize * panelSize) / thirdSparseness;
+	generator->generate(id, Decoration::Dot_Intersection, (panelSize + 1) * (panelSize + 1), firstType, (Random::rand() % firstMaxSymbolCount) + 1,
+		secondType, (Random::rand() % secondMaxSymbolCount) + 1, thirdType, (Random::rand() % thirdMaxSymbolCount) + 1);
 }
 
 //Max size: 8
