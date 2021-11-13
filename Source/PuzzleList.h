@@ -103,6 +103,7 @@ public:
 
 	void GenerateMonoStarFullDotsPuzzle(int id, int size, int color);
 	void GenerateDualStarFullDotsPuzzle(int id, int size, int firstColor, int secondColor);
+	void GenerateTriStarFullDotsPuzzle(int id, int size, int firstColor, int secondColor, int thirdColor);
 
 	void GenerateSingleTypePuzzleWithFlag(int id, int type, int sparseness, int size, Generate::Config flag);
 
