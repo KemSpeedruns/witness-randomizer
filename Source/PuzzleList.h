@@ -85,33 +85,48 @@ public:
 
 	void GenerateRandomPuzzle(int id, int size, int firstColor, int secondColor, int thirdColor);
 	void GenerateRandomSymPuzzle(int id, int size, int color);
+
 	void GenerateSingleTypePuzzle(int id, int type, int sparseness, int size);
 	void GenerateDualTypePuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness);
 	void GenerateTriTypePuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness, int thirdType, int thirdSparseness);
 	void GenerateQuadTypePuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness, int thirdType, int thirdSparseness,
 		int fourthType, int fourthSparseness);
+
 	void GenerateSingleTypeSymPuzzle(int id, int size, int type, int sparseness);
 	void GenerateDoubleTypeSymPuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness);
+
 	void GenerateSpecificSingleCount(int id, int size, int type, int count, bool randSE);
+
 	void GenerateMonoStarPuzzleWithNIT(int id, int size, int firstColor, int nonInteractingType, int NITsparseness);
 	void GenerateDualStarPuzzleWithNIT(int id, int size, int firstColor, int secondColor, int nonInteractingType, int NITsparseness);
 	void GenerateTriStarPuzzleWithNIT(int id, int size, int firstColor, int secondColor, int thirdColor, int nonInteractingType, int NITsparseness);
+
 	void GenerateMonoStarFullDotsPuzzle(int id, int size, int color);
+	void GenerateDualStarFullDotsPuzzle(int id, int size, int firstColor, int secondColor);
+
 	void GenerateSingleTypePuzzleWithFlag(int id, int type, int sparseness, int size, Generate::Config flag);
+
 	void GenerateFullDotsPuzzle(int id, int size);
 	void GenerateFullDotsDualPuzzle(int id, int size, int type, int sparseness);
 	void GenerateFullDotsTriPuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness);
 	void GenerateFullDotsQuadPuzzle(int id, int size, int firstType, int firstSparseness, int secondType, int secondSparseness,
 		int thirdType, int thirdSparseness);
+
 	void GenerateGapsAndDots(int id, int size);
+
 	void GenerateMonoStarPuzzle(int id, int size, int color, bool sym);
 	void GenerateDualStarPuzzle(int id, int size, int firstColor, int secondColor);
 	void GenerateTriStarPuzzle(int id, int size, int firstColor, int secondColor, int thirdColor);
+
 	void GenerateSingleMonoColorDisconnect(int id, int type, int sparseness, int size);
+
 	void GenerateEraserPanel(int id, int size, int sparseness);
+
 	void GenerateEverythingMinusSymPanel(int id, int size, int multiplier, int color);
 	void GenerateEverythingPanel(int id, int size, int multiplier);
+
 	void GenerateSymGapsPuzzle(int id, int size);
+
 	void GenerateTutorialP();
 	void GenerateSymmetryP();
 	void GenerateQuarryP();
