@@ -101,6 +101,9 @@ public:
 	void GenerateDualStarPuzzleWithNIT(int id, int size, int firstColor, int secondColor, int nonInteractingType, int NITsparseness);
 	void GenerateTriStarPuzzleWithNIT(int id, int size, int firstColor, int secondColor, int thirdColor, int nonInteractingType, int NITsparseness);
 
+	void GenerateMonoStarPuzzleWithDualNITs(int id, int size, int starColor, int firstNonInteractingType, int firstNITSparseness,
+		int secondNonInteractingType, int secondNITsparseness);
+
 	void GenerateMonoStarFullDotsPuzzle(int id, int size, int color);
 	void GenerateDualStarFullDotsPuzzle(int id, int size, int firstColor, int secondColor);
 	void GenerateTriStarFullDotsPuzzle(int id, int size, int firstColor, int secondColor, int thirdColor);

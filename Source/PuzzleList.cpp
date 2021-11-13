@@ -1727,7 +1727,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Triangles + Sym"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 26;
-	//int typeChoice = 13;
+	//int typeChoice = 17;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1996,8 +1996,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		break;
 	case 17:
 		//TODO: Different colored stones
-		subChoice = Random::rand() % 2;
-		//subChoice = 1;
+		subChoice = Random::rand() % 3;
+		//subChoice = 2;
 		switch (subChoice) {
 		case 0:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness, Decoration::Star | firstColor, mixedStarSparseness);
@@ -2005,6 +2005,10 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		case 1:
 			GenerateTriTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness + 1, Decoration::Stone | secondColor, baseSparseness + 1,
 				Decoration::Star | firstColor, mixedStarSparseness);
+			break;
+		case 2:
+			GenerateMonoStarPuzzleWithDualNITs(id, panelSize, firstColor, Decoration::Stone | secondColor, baseSparseness + 1, 
+				Decoration::Stone | thirdColor, baseSparseness + 1);
 			break;
 		}
 		break;
@@ -2439,7 +2443,7 @@ void PuzzleList::GenerateMonoStarPuzzle(int id, int size, int color, bool sym)
 	}
 }
 
-void PuzzleList::GenerateMonoStarPuzzleWithNIT(int id, int size, int firstColor, int nonInteractingType, int NITsparseness) {
+void PuzzleList::GenerateMonoStarPuzzleWithNIT(int id, int size, int starColor, int nonInteractingType, int NITsparseness) {
 	generator->resetConfig();
 	int panelSize = size;
 	if (panelSize == 0)
@@ -2453,8 +2457,28 @@ void PuzzleList::GenerateMonoStarPuzzleWithNIT(int id, int size, int firstColor,
 	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
 	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
 	int maxSymbolCount = (panelSize * panelSize) / NITsparseness;
-	generator->generate(id, Decoration::Star | firstColor, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2, 
+	generator->generate(id, Decoration::Star | starColor, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2,
 		nonInteractingType, (Random::rand() % maxSymbolCount) + 1);
+}
+
+void PuzzleList::GenerateMonoStarPuzzleWithDualNITs(int id, int size, int starColor, int firstNonInteractingType, int firstNITSparseness,
+	int secondNonInteractingType, int secondNITsparseness) {
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0)
+	{
+		panelSize = (Random::rand() % 6) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	int countList[] = { 4, 8, 12, 14, 16, 18 };
+	generator->setSymmetry(Panel::Symmetry::None);
+	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
+	int firstMaxSymbolCount = (panelSize * panelSize) / firstNITSparseness;
+	int secondMaxSymbolCount = (panelSize * panelSize) / secondNITsparseness;
+	generator->generate(id, Decoration::Star | starColor, ((Random::rand() % ((countList[panelSize - 3] / 2) - 1)) + 1) * 2,
+		firstNonInteractingType, (Random::rand() % firstMaxSymbolCount) + 1, secondNonInteractingType, (Random::rand() % secondMaxSymbolCount) + 1);
 }
 
 void PuzzleList::GenerateDualStarPuzzle(int id, int size, int firstColor, int secondColor) {
