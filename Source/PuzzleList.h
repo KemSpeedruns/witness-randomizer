@@ -127,6 +127,9 @@ public:
 	void GenerateDualStarPuzzle(int id, int size, int firstColor, int secondColor);
 	void GenerateTriStarPuzzle(int id, int size, int firstColor, int secondColor, int thirdColor);
 
+	void GenerateDualTypeEraserPuzzle(int id, int size, int firstColor, int secondType, int secondSparseness);
+	void GenerateTriTypeEraserPuzzle(int id, int size, int firstColor, int secondType, int secondSparseness, int thirdType, int thirdSparseness);
+
 	void GenerateSingleMonoColorDisconnect(int id, int type, int sparseness, int size);
 
 	void GenerateEraserPanel(int id, int size, int sparseness);

@@ -1722,12 +1722,12 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		panelSize = (Random::rand() % 9) + 3;
 	}
 	std::string typeList [] = { "Gaps", "Dots", "Stones", "Stars", "Polys", "Triangles", "Gaps + Dots", "Gaps + Stones", "Gaps + Stars", 
-		"Gaps + Polys", "Gaps + Triangles", "Gaps + Sym", "Dots + Stones", "Dots + Stars", "Dots + Polys", "Dots + Triangles", "Dots + Sym",
-		"Stones + Stars", "Stones + Polys", "Stones + Triangles", "Stones + Sym", "Stars + Polys", "Stars + Triangles", "Stars + Sym", "Polys + Triangles", 
-		"Triangles + Sym"};
+		"Gaps + Polys", "Gaps + Triangles", "Gaps + Sym", "Dots + Stones", "Dots + Erasers", "Dots + Stars", "Dots + Polys", "Dots + Triangles", "Dots + Sym",
+		"Stones + Stars", "Stones + Polys", "Stones + Triangles", "Stones + Sym", "Erasers + Polys", "Stars + Polys", "Stars + Triangles", "Stars + Sym", 
+		"Polys + Triangles", "Triangles + Sym"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	int typeChoice = Random::rand() % 26;
-	//int typeChoice = 22;
+	int typeChoice = Random::rand() % 29;
+	//int typeChoice = 23;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1918,6 +1918,9 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 13:
+		GenerateDualTypeEraserPuzzle(id, panelSize, firstColor, Decoration::Dot, DotAndGapSparseness + 2);
+		break;
+	case 14:
 		subChoice = Random::rand() % 6;
 		//subChoice = 5;
 		switch (subChoice) {
@@ -1941,7 +1944,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 14:
+	case 15:
 		subChoice = Random::rand() % 9;
 		//subChoice = 3;
 		switch (subChoice) {
@@ -1979,7 +1982,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 15:
+	case 16:
 		subChoice = Random::rand() % 2;
 		//subChoice = 6;
 		switch (subChoice) {
@@ -1991,10 +1994,10 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 16:
+	case 17:
 		GenerateSingleTypeSymPuzzle(id, panelSize, Decoration::Dot, DotAndGapSparseness + 1);
 		break;
-	case 17:
+	case 18:
 		subChoice = Random::rand() % 4;
 		//subChoice = 3;
 		switch (subChoice) {
@@ -2015,7 +2018,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 18:
+	case 19:
 		subChoice = Random::rand() % 4;
 		//subChoice = 3;
 		switch (subChoice) {
@@ -2037,7 +2040,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 19:
+	case 20:
 		subChoice = Random::rand() % 2;
 		//subChoice = 1;
 		switch (subChoice) {
@@ -2051,10 +2054,16 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 20:
+	case 21:
 		GenerateDoubleTypeSymPuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness + 2, Decoration::Stone | secondColor, baseSparseness + 2);
 		break;
-	case 21:
+	case 22:
+		GenerateDualTypeEraserPuzzle(id, panelSize, firstColor, Decoration::Poly | firstColor, polySparseness);
+		break;
+	case 23:
+		GenerateDualTypeEraserPuzzle(id, panelSize, firstColor, Decoration::Triangle | firstColor, baseSparseness + 2);
+		break;
+	case 24:
 		subChoice = Random::rand() % 12;
 		//subChoice = 11;
 		switch (subChoice) {
@@ -2105,7 +2114,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 22:
+	case 25:
 		subChoice = Random::rand() % 3;
 		//subChoice = 3;
 		switch (subChoice) {
@@ -2121,10 +2130,10 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 23:
+	case 26:
 		GenerateMonoStarPuzzle(id, panelSize, firstColor, true);
 		break;
-	case 24:
+	case 27:
 		subChoice = Random::rand() % 7;
 		//subChoice = 3;
 		switch (subChoice) {
@@ -2158,7 +2167,7 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 			break;
 		}
 		break;
-	case 25:
+	case 28:
 		GenerateSingleTypeSymPuzzle(id, panelSize, Decoration::Triangle | firstColor, baseSparseness + 1);
 		break;
 	}
@@ -2666,6 +2675,39 @@ void PuzzleList::GenerateTriStarFullDotsPuzzle(int id, int size, int firstColor,
 		Decoration::Dot_Intersection, (panelSize + 1) * (panelSize + 1));
 }
 
+void PuzzleList::GenerateDualTypeEraserPuzzle(int id, int size, int firstColor, int secondType, int secondSparseness) {
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0) {
+		panelSize = (Random::rand() % 6) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	generator->setSymmetry(Panel::Symmetry::None);
+	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
+	generator->setFlagOnce(Generate::Config::CombineErasers);
+	int secondCount = (Random::rand() % ((panelSize * panelSize) / secondSparseness)) + 1;
+	generator->generate(id, secondType, secondCount, Decoration::Eraser | firstColor, (Random::rand() % secondCount) + 1);
+}
+
+void PuzzleList::GenerateTriTypeEraserPuzzle(int id, int size, int firstColor, int secondType, int secondSparseness, int thirdType, int thirdSparseness) {
+	generator->resetConfig();
+	int panelSize = size;
+	if (panelSize == 0) {
+		panelSize = (Random::rand() % 6) + 3;
+	}
+	generator->pathWidth = 1.0f - (0.05f * panelSize);
+	generator->setGridSize(panelSize, panelSize);
+	generator->setSymmetry(Panel::Symmetry::None);
+	generator->setSymbol(Decoration::Start, 0, panelSize * 2);
+	generator->setSymbol(Decoration::Exit, panelSize * 2, 0);
+	generator->setFlagOnce(Generate::Config::CombineErasers);
+	int secondCount = (Random::rand() % ((panelSize * panelSize) / secondSparseness)) + 1;
+	int thirdCount = (Random::rand() % ((panelSize * panelSize) / thirdSparseness)) + 1;
+	generator->generate(id, secondType, secondCount, thirdType, thirdCount, Decoration::Eraser | firstColor, (Random::rand() % secondCount) + 1);
+}
+
 void PuzzleList::GenerateGapsAndDots(int id, int size)
 {
 	generator->resetConfig();
@@ -2822,11 +2864,14 @@ void PuzzleList::GenerateEraserPanel(int id, int size, int sparseness) {
 	generator->setSymbol(Decoration::Start, 0, size * 2);
 	generator->setSymbol(Decoration::Exit, size * 2, 0);
 	generator->generate(id);
-	int numErasers = Random::rand() % ( ((size*size) / sparseness ) - 1) + 2;
+	//int numErasers = Random::rand() % ( ((size*size) / sparseness ) - 1) + 2;
 	//int numErasers = (size * size) / sparseness;
-	//int numErasers = 1;
+	int numErasers = 8;
 	int x = 0;
 	int y = 0;
+
+	//Keeps tracks of placed erasers
+	//int erasers[] = { 0 0 0 0 0 };
 	for (int i = 0; i < numErasers; i++) {
 		x = Random::rand() % 4;
 		y = Random::rand() % 4;
