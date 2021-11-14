@@ -2911,22 +2911,22 @@ void PuzzleList::GenerateTutorialP()
 	GenerateRandomPuzzle(0x04CA4, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
 
 	//Dots Tutorial
-	GenerateRandomPuzzle(0x0005D, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x0005E, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x0005F, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x00060, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x00061, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
+	GenerateRandomPuzzle(0x0005D, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x0005E, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x0005F, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x00060, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x00061, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
 
 	//Stones Tutorial
-	GenerateRandomPuzzle(0x018AF, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x0001B, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x012C9, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x0001C, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x0001D, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x0001E, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x0001F, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x00020, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x00021, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
+	GenerateRandomPuzzle(0x018AF, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x0001B, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x012C9, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x0001C, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x0001D, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x0001E, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x0001F, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x00020, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x00021, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
 }
 
 void PuzzleList::GenerateSymmetryP()
