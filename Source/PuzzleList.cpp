@@ -1723,8 +1723,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 	}
 	std::string typeList [] = { "Gaps", "Dots", "Stones", "Stars", "Polys", "Triangles", "Gaps + Dots", "Gaps + Stones", "Gaps + Stars", 
 		"Gaps + Polys", "Gaps + Triangles", "Gaps + Sym", "Dots + Stones", "Dots + Erasers", "Dots + Stars", "Dots + Polys", "Dots + Triangles", "Dots + Sym",
-		"Stones + Stars", "Stones + Polys", "Stones + Triangles", "Stones + Sym", "Erasers + Polys", "Stars + Polys", "Stars + Triangles", "Stars + Sym", 
-		"Polys + Triangles", "Triangles + Sym"};
+		"Stones + Stars", "Stones + Polys", "Stones + Triangles", "Stones + Sym", "Erasers + Polys", "Erasers + Triangles", "Stars + Polys", "Stars + Triangles", 
+		"Stars + Sym", "Polys + Triangles", "Triangles + Sym"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
 	int typeChoice = Random::rand() % 29;
 	//int typeChoice = 23;
