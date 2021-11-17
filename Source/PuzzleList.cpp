@@ -3320,31 +3320,31 @@ void PuzzleList::GenerateSwampP()
 	GenerateRandomPuzzle(0x00E3A, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
 	
 	//Purple Underwater
-	GenerateRandomPuzzle(0x009A6, 4, Decoration::Color::White, Decoration::Color::Red, Decoration::Color::Purple);
+	GenerateRandomPuzzle(0x009A6, 4, Decoration::Color::White, Decoration::Color::Cyan, Decoration::Color::Purple);
 
 	//Blue Underwater
-	GenerateRandomPuzzle(0x009AB, 4, Decoration::Color::White, Decoration::Color::Red, Decoration::Color::Purple);
-	GenerateRandomPuzzle(0x009AD, 4, Decoration::Color::White, Decoration::Color::Red, Decoration::Color::Purple);
-	GenerateRandomPuzzle(0x009AE, 4, Decoration::Color::White, Decoration::Color::Red, Decoration::Color::Purple);
-	GenerateRandomPuzzle(0x009AF, 4, Decoration::Color::White, Decoration::Color::Red, Decoration::Color::Purple);
-	GenerateRandomPuzzle(0x00006, 4, Decoration::Color::White, Decoration::Color::Red, Decoration::Color::Purple);
+	GenerateRandomPuzzle(0x009AB, 4, Decoration::Color::White, Decoration::Color::Cyan, Decoration::Color::Purple);
+	GenerateRandomPuzzle(0x009AD, 4, Decoration::Color::White, Decoration::Color::Cyan, Decoration::Color::Purple);
+	GenerateRandomPuzzle(0x009AE, 4, Decoration::Color::White, Decoration::Color::Cyan, Decoration::Color::Purple);
+	GenerateRandomPuzzle(0x009AF, 4, Decoration::Color::White, Decoration::Color::Cyan, Decoration::Color::Purple);
+	GenerateRandomPuzzle(0x00006, 4, Decoration::Color::White, Decoration::Color::Cyan, Decoration::Color::Purple);
 
 	//Teal Underwater
-	GenerateRandomPuzzle(0x00002, 4, Decoration::Color::White, Decoration::Color::Red, Decoration::Color::Purple);
-	GenerateRandomPuzzle(0x00004, 4, Decoration::Color::White, Decoration::Color::Red, Decoration::Color::Purple);
-	GenerateRandomPuzzle(0x00005, 4, Decoration::Color::White, Decoration::Color::Red, Decoration::Color::Purple);
-	GenerateRandomPuzzle(0x013E6, 4, Decoration::Color::White, Decoration::Color::Red, Decoration::Color::Purple);
-	GenerateRandomPuzzle(0x00596, 4, Decoration::Color::White, Decoration::Color::Red, Decoration::Color::Purple);
+	GenerateRandomPuzzle(0x00002, 4, Decoration::Color::White, Decoration::Color::Cyan, Decoration::Color::Purple);
+	GenerateRandomPuzzle(0x00004, 4, Decoration::Color::White, Decoration::Color::Cyan, Decoration::Color::Purple);
+	GenerateRandomPuzzle(0x00005, 4, Decoration::Color::White, Decoration::Color::Cyan, Decoration::Color::Purple);
+	GenerateRandomPuzzle(0x013E6, 4, Decoration::Color::White, Decoration::Color::Cyan, Decoration::Color::Purple);
+	GenerateRandomPuzzle(0x00596, 4, Decoration::Color::White, Decoration::Color::Cyan, Decoration::Color::Purple);
 
 	//Red Underwater
-	GenerateRandomPuzzle(0x00001, 4, Decoration::Color::White, Decoration::Color::Red, Decoration::Color::Purple);
-	GenerateRandomPuzzle(0x014D2, 4, Decoration::Color::White, Decoration::Color::Red, Decoration::Color::Purple);
-	GenerateRandomPuzzle(0x014D4, 4, Decoration::Color::White, Decoration::Color::Red, Decoration::Color::Purple);
-	GenerateRandomPuzzle(0x014D1, 4, Decoration::Color::White, Decoration::Color::Red, Decoration::Color::Purple);
+	GenerateRandomPuzzle(0x00001, 4, Decoration::Color::White, Decoration::Color::Cyan, Decoration::Color::Purple);
+	GenerateRandomPuzzle(0x014D2, 4, Decoration::Color::White, Decoration::Color::Cyan, Decoration::Color::Purple);
+	GenerateRandomPuzzle(0x014D4, 4, Decoration::Color::White, Decoration::Color::Cyan, Decoration::Color::Purple);
+	GenerateRandomPuzzle(0x014D1, 4, Decoration::Color::White, Decoration::Color::Cyan, Decoration::Color::Purple);
 
 	//Laser Shortcut
 	GenerateRandomPuzzle(0x17C05, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x17C02, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
+	GenerateRandomPuzzle(0x17C02, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
 }
 
 void PuzzleList::GenerateMountainP()
