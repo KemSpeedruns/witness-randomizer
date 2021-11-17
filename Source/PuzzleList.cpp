@@ -3042,10 +3042,10 @@ void PuzzleList::GenerateQuarryP()
 
 	//Mill Control Room
 	GenerateRandomPuzzle(0x0367C, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x3C125, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
+	GenerateRandomPuzzle(0x3C125, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
 
 	//Mill Stairs
-	GenerateRandomPuzzle(0x03677, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
+	GenerateRandomPuzzle(0x03677, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
 
 	//Boathouse Ramp Activation
 	GenerateRandomPuzzle(0x034D4, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
