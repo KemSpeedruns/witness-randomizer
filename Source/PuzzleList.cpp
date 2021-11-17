@@ -3460,7 +3460,7 @@ void PuzzleList::GenerateCavesP()
 	generator->setLoadingData(L"Caves", 51);
 	generator->resetConfig();
 	//UTM Entrance Panels
-	GenerateRandomPuzzle(0x17FA2, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
+	GenerateRandomPuzzle(0x17FA2, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
 	GenerateRandomPuzzle(0x00FF8, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
 
 	//Blue Area
@@ -3554,8 +3554,8 @@ void PuzzleList::GenerateCavesP()
 	GenerateRandomPuzzle(0x0A16E, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
 
 	//Town Area Shortcuts
-	GenerateRandomPuzzle(0x039B4, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x09E85, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
+	GenerateRandomPuzzle(0x039B4, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x09E85, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
 }
 
 void PuzzleList::GenerateVaultsP()
