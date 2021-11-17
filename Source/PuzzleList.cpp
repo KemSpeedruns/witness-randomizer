@@ -3201,7 +3201,7 @@ void PuzzleList::GenerateTownP()
 	GenerateRandomPuzzle(0x28ABF, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
 	GenerateRandomPuzzle(0x28AC0, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
 	GenerateRandomPuzzle(0x28AC1, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x28AD9, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
+	GenerateRandomPuzzle(0x28AD9, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
 
 	//Church Stars
 	GenerateRandomPuzzle(0x28A0D, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
