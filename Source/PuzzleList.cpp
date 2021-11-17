@@ -1726,8 +1726,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Stones + Stars", "Stones + Polys", "Stones + Triangles", "Stones + Sym", "Erasers + Polys", "Erasers + Triangles", "Stars + Polys", "Stars + Triangles", 
 		"Stars + Sym", "Polys + Triangles", "Triangles + Sym"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	int typeChoice = Random::rand() % 29;
-	//int typeChoice = 23;
+	//int typeChoice = Random::rand() % 29;
+	int typeChoice = 2;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -1754,8 +1754,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		}
 		break;
 	case 2:
-		subChoice = Random::rand() % 2;
-		//subChoice = 1;
+		//subChoice = Random::rand() % 2;
+		subChoice = 1;
 		switch (subChoice) {
 		case 0:
 			GenerateDualTypePuzzle(id, panelSize, Decoration::Stone | firstColor, baseSparseness, Decoration::Stone | secondColor, baseSparseness);
@@ -2887,7 +2887,6 @@ void PuzzleList::GenerateTutorialP()
 	generator->setLoadingData(L"Tutorial", 20);
 	generator->resetConfig();
 	Special::drawSeedAndDifficulty(0x00064, seedIsRNG ? -1 : seed, false);
-	Special::drawGoodLuckPanel(0x33638);
 	//generator->generate(0x00182, Decoration::Gap, 1);
 	/*GenerateGapsAndDots(0x00293, 4);*/
 	/*generator->resetConfig();
@@ -2901,14 +2900,14 @@ void PuzzleList::GenerateTutorialP()
 	//GenerateEverythingMinusSymPanel(0x00293, 7, 6, Decoration::Color::Black);
 	//GenerateMonoStarPuzzleWithNIT(0x00293, 4, Decoration::Color::Black, Decoration::Stone | Decoration::Color::White, 2);
 	//GenerateTriTypePuzzle(0x00293, 4, Decoration::Gap, 1, Decoration::Stone | Decoration::Color::Black, 2, Decoration::Stone | Decoration::Color::White, 2);
-	GenerateRandomPuzzle(0x00293, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x00295, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x002C2, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x0A3B2, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
+	GenerateRandomPuzzle(0x00293, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x00295, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x002C2, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x0A3B2, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
 
 	//Optional Doors
-	GenerateRandomPuzzle(0x0A171, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x04CA4, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
+	GenerateRandomPuzzle(0x0A171, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x04CA4, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
 
 	//Dots Tutorial
 	GenerateRandomPuzzle(0x0005D, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
