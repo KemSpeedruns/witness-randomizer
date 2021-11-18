@@ -1726,8 +1726,8 @@ void PuzzleList::GenerateRandomPuzzle(int id, int size, int firstColor, int seco
 		"Stones + Stars", "Stones + Polys", "Stones + Triangles", "Stones + Sym", "Erasers + Polys", "Erasers + Triangles", "Stars + Polys", "Stars + Triangles", 
 		"Stars + Sym", "Polys + Triangles", "Triangles + Sym"};
 	//int typeChoice = Random::rand() % sizeof(typeList);
-	//int typeChoice = Random::rand() % 29;
-	int typeChoice = 2;
+	int typeChoice = Random::rand() % 29;
+	//int typeChoice = 2;
 	int subChoice = 0;
 
 	// Used for most mechanics
@@ -3575,20 +3575,20 @@ void PuzzleList::GenerateTrianglePanelsP()
 {
 	generator->setLoadingData(L"Triangles", 12);
 	generator->resetConfig();
-	GenerateRandomPuzzle(0x17CFB, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x3C12B, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x17CE7, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x17CF0, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x17FA0, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x17FA9, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x17F9B, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x17C71, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x17D01, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x17CF7, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x17C42, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x17F93, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x17D28, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x17D27, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
+	GenerateRandomPuzzle(0x17CFB, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x3C12B, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x17CE7, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x17CF0, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x17FA0, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x17FA9, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x17F9B, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x17C71, 4, Decoration::Color::Black, Decoration::Color::Purple, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x17D01, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x17CF7, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x17C42, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x17F93, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x17D28, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x17D27, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
 }
 
 void PuzzleList::GenerateShadowsP()
