@@ -3562,8 +3562,8 @@ void PuzzleList::GenerateVaultsP()
 {
 	generator->setLoadingData(L"Vaults", 5);
 	generator->resetConfig();
-	GenerateRandomPuzzle(0x033D4, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
-	GenerateRandomPuzzle(0x0CC7B, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Red);
+	GenerateRandomPuzzle(0x033D4, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
+	GenerateRandomPuzzle(0x0CC7B, 4, Decoration::Color::Black, Decoration::Color::White, Decoration::Color::Cyan);
 	GenerateRandomSymPuzzle(0x002A6, 4, Decoration::Color::Black);
 	generator->resetConfig();
 	specialCase->generateSoundDotReflectionPuzzle(0x00AFB, { 6, 6 }, { DOT_MEDIUM, DOT_LARGE, DOT_MEDIUM, DOT_SMALL }, { DOT_LARGE, DOT_SMALL, DOT_MEDIUM }, 5, false);
