@@ -807,6 +807,10 @@ void PuzzleList::GenerateMountainN()
 	generator->setLoadingData(L"Mountain", 39);
 	generator->resetConfig();
 
+	//Painting
+	//TODO: fix
+	//Special::drawRandomEP(0x0042D);
+
 	//Purple Bridge //TODO: Custom gen to allow for tetris piece
 	generator->setFlagOnce(Generate::Config::PreserveStructure);
 	generator->setFlagOnce(Generate::Config::DecorationsOnly);

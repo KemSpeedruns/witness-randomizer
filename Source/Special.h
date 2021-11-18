@@ -60,6 +60,8 @@ public:
 	void generateCenterPerspective(int id, const std::vector<std::pair<int, int>>& symbolVec, int symbolType);
 	static void drawSeedAndDifficulty(int id, int seed, int difficulty);
 	static void drawGoodLuckPanel(int id);
+	static void drawEP(int id, const std::vector<float>& finalLine);
+	static void drawRandomEP(int id);
 
 	void makeFullStonesPuzzle(int id, int width, int height, int black_stones, int white_stones);
 
