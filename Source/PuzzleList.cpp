@@ -177,7 +177,8 @@ void PuzzleList::GenerateTutorialN()
 {
 	generator->setLoadingData(L"Tutorial", 23);
 	generator->resetConfig();
-	Special::drawSeedAndDifficulty(0x00064, seedIsRNG ? -1 : seed, false);
+	//Special::drawSeedAndDifficulty(0x00064, seedIsRNG ? -1 : seed, false);
+	Special::drawSeedAndDifficultyTwo(0x00064, seed, 0, false, false);
 	//Special::drawGoodLuckPanel(0x00182);
 	//generator->generate(0x00182, Decoration::Gap, 1);
 
@@ -1133,7 +1134,8 @@ void PuzzleList::GenerateTutorialH()
 {
 	generator->setLoadingData(L"Tutorial", 21);
 	generator->resetConfig();
-	Special::drawSeedAndDifficulty(0x00064, seedIsRNG ? -1 : seed, true);
+	//Special::drawSeedAndDifficulty(0x00064, seedIsRNG ? -1 : seed, true);
+	Special::drawSeedAndDifficultyTwo(0x00064, seed, 1, false, false);
 	//Special::drawGoodLuckPanel(0x00182);
 	//Mazes
 	generator->generate(0x00293);
@@ -2891,7 +2893,8 @@ void PuzzleList::GenerateTutorialP()
 {
 	generator->setLoadingData(L"Tutorial", 20);
 	generator->resetConfig();
-	Special::drawSeedAndDifficulty(0x00064, seedIsRNG ? -1 : seed, false);
+	//Special::drawSeedAndDifficulty(0x00064, seedIsRNG ? -1 : seed, false);
+	Special::drawSeedAndDifficultyTwo(0x00064, seed, 2, false, false);
 	//generator->generate(0x00182, Decoration::Gap, 1);
 	/*GenerateGapsAndDots(0x00293, 4);*/
 	/*generator->resetConfig();

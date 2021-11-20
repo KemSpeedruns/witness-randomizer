@@ -1570,6 +1570,43 @@ void Special::drawSeedAndDifficulty(int id, int seed, int difficulty)
 	panel._memory->WritePanelData<int>(id, NEEDS_REDRAW, { 1 });
 }
 
+void Special::drawSeedAndDifficultyTwo(int id, int seed, int difficulty, bool setSeed, bool options)
+{
+	std::vector<float> intersections;
+	std::vector<int> connectionsA;
+	std::vector<int> connectionsB;
+	switch (difficulty) {
+	case 0:
+		createText(id, "shuffle", intersections, connectionsA, connectionsB, 0.1f, 0.9f, 0.25f, 0.4f);
+		break;
+	case 1:
+		createText(id, "---------", intersections, connectionsA, connectionsB, 0.1f, 0.9f, 0.25f, 0.4f);
+		break;
+	case 2:
+		createText(id, "puzzle pack", intersections, connectionsA, connectionsB, 0.05f, 0.95f, 0.25f, 0.4f);
+		break;
+	} 
+	//createText(id, "normal", intersections, connectionsA, connectionsB, 0.1f, 0.9f, 0.25f, 0.4f);
+	/*if (difficulty == 1) {
+		createText(id, "who cares", intersections, connectionsA, connectionsB, 0.1f, 0.9f, 0.7f, 0.85f);
+	}*/
+	/*
+	else if (setSeed) {
+		createText(id, "set seed", intersections, connectionsA, connectionsB, 0.1f, 0.9f, 0.7f, 0.85f);
+	}
+	else {
+		createText(id, "random", intersections, connectionsA, connectionsB, 0.1f, 0.9f, 0.7f, 0.85f);
+	}*/
+	/*std::string seedStr = std::to_string(seed);
+	createText(id, seedStr, intersections, connectionsA, connectionsB, 0.5f - seedStr.size() * 0.06f, 0.5f + seedStr.size() * 0.06f, setSeed ? 0.6f : 0.65f, setSeed ? 0.75f : 0.8f);
+	if (setSeed) createText(id, "set seed", intersections, connectionsA, connectionsB, 0.1f, 0.9f, 0.86f, 0.96f);
+	
+	createText(id, version, intersections, connectionsA, connectionsB, 0.98f - version.size() * 0.06f, 0.98f, 0.02f, 0.10f);
+	if (options) createText(id, "option", intersections, connectionsA, connectionsB, 0.02f, 0.5f, 0.02f, 0.10f);*/
+
+	drawText(id, intersections, connectionsA, connectionsB, { 0.1f, 0.5f, 0.9f, 0.5f });
+}
+
 void Special::drawGoodLuckPanel(int id)
 {
 	std::vector<float> intersections = { /*G*/ 32, 7, 22, 7, 22, 22, 32, 22, 32, 15, 29, 15, /*O*/ 39, 7, 39, 22, 47, 22, 47, 7,
@@ -1628,6 +1665,68 @@ void Special::drawEP(int id, const std::vector<float>& finalLine)
 	std::vector<float> intersections;
 	std::vector<int> connectionsA;
 	std::vector<int> connectionsB;
+
+	std::vector<int> intersectionFlags;
+	for (int i = 0; i < intersections.size() / 2; i++) {
+		intersectionFlags.emplace_back(0);
+	}
+	intersections.emplace_back(finalLine[0]);
+	intersectionFlags.emplace_back(Decoration::Start);
+
+	for (int i = 1; i < finalLine.size(); i++) {
+		intersections.emplace_back(finalLine[i]);
+		if (i % 2 == 0) {
+			intersectionFlags.emplace_back(i == finalLine.size() - 2 ? Decoration::Exit : 0);
+			connectionsA.emplace_back(static_cast<int>(intersectionFlags.size()) - 2); connectionsB.emplace_back(static_cast<int>(intersectionFlags.size()) - 1);
+		}
+	}
+
+	Panel panel;
+	panel._memory->WritePanelData<float>(id, PATH_WIDTH_SCALE, { 0.6f });
+	panel._memory->WritePanelData<int>(id, NUM_DOTS, { static_cast<int>(intersectionFlags.size()) });
+	panel._memory->WriteArray<float>(id, DOT_POSITIONS, intersections);
+	panel._memory->WriteArray<int>(id, DOT_FLAGS, intersectionFlags);
+	panel._memory->WritePanelData<int>(id, NUM_CONNECTIONS, { static_cast<int>(connectionsA.size()) });
+	panel._memory->WriteArray<int>(id, DOT_CONNECTION_A, connectionsA);
+	panel._memory->WriteArray<int>(id, DOT_CONNECTION_B, connectionsB);
+	panel._memory->WritePanelData<int>(id, NEEDS_REDRAW, { 1 });
+}
+
+void Special::createText(int id, std::string text, std::vector<float>& intersections, std::vector<int>& connectionsA, std::vector<int>& connectionsB,
+	float left, float right, float top, float bottom) {
+	//012
+	//345
+	//678
+	std::map<char, std::vector<int>> coords = {
+		{ 'a',{ 6,0,2,8,5,3 } },{ 'b',{ 6,8,4,2,0,6,3,4 } },{ 'c',{ 2,0,6,8 } },{ 'd',{ 0,1,5,7,6,0 } },{ 'e',{ 2,0,3,4,3,6,8 } },
+		{ 'f',{ 2,0,3,4,3,6 } },{ 'g',{ 2,0,6,8,5,4 } },{ 'h',{ 0,6,3,5,2,8 } },{ 'i',{ 0,2,1,7,6,8 } },{ 'j',{ 0,2,8,6,3 } },
+		{ 'k',{ 0,6,3,2,3,8 } },{ 'l',{ 0,6,8 } },{ 'm',{ 6,0,4,2,8 } },{ 'n',{ 6,0,8,2 } },{ 'o',{ 0,2,8,6,0 } },
+		{ 'p',{ 6,0,2,5,3 } },{ 'q',{ 8,4,7,6,0,2,5,7 } },{ 'r',{ 6,0,2,5,3,8 } },{ 's',{ 2,0,3,5,8,6 } },{ 't',{ 0,2,1,7 } },
+		{ 'u',{ 0,6,8,2 } },{ 'v',{ 0,7,2 } },{ 'w',{ 0,6,4,8,2 } },{ 'x',{ 0,8,4,2,6 } },{ 'y',{ 0,4,2,4,7 } },
+		{ 'z',{ 0,2,6,8 } },{ '0',{ 0,2,8,6,0 } },{ '1',{ 0,1,7,6,8 } },{ '2',{ 0,2,5,3,6,8 } },{ '3',{ 0,2,5,3,5,8,6 } },
+		{ '4',{ 0,3,5,2,8 } },{ '5',{ 2,0,3,5,8,6 } },{ '6',{ 2,0,6,8,5,3 } },{ '7',{ 0,2,7 } },{ '8',{ 0,2,8,6,0,3,5 } },
+		{ '9',{ 6,8,2,0,3,5 } },{ '!',{ 1,4,7 } },{ '?',{ 7,4,5,2,0 } },{ ' ',{ } },{ '.',{ 7 } },
+		{ '-',{ 3,5 } },{ '*',{ 0,8,4,1,7,4,2,6,4,5,3,4 } },{ '@',{ 4,5,2,0,6,8 } }, {'#',{ 1,4,6,4,8 } } // '#' is the deleter symbol
+	};
+
+	float spacingX = (right - left) / (text.size() * 3 - 1);
+	float spacingY = (top - bottom) / 2;
+
+	for (int i = 0; i < text.size(); i++) {
+		char c = text[i];
+		for (int j = 0; j < coords[c].size(); j++) {
+			int n = coords[c][j];
+			intersections.emplace_back((n % 3 + i * 3) * spacingX + left);
+			intersections.emplace_back(1 - ((2 - n / 3) * spacingY + bottom));
+			if (j > 0 && !(c == '!' && j == 2)) {
+				connectionsA.emplace_back(static_cast<int>(intersections.size()) / 2 - 2);
+				connectionsB.emplace_back(static_cast<int>(intersections.size()) / 2 - 1);
+			}
+		}
+	}
+}
+
+void Special::drawText(int id, std::vector<float>& intersections, std::vector<int>& connectionsA, std::vector<int>& connectionsB, const std::vector<float>& finalLine) {
 
 	std::vector<int> intersectionFlags;
 	for (int i = 0; i < intersections.size() / 2; i++) {

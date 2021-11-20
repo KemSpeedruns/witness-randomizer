@@ -62,6 +62,11 @@ public:
 	static void drawGoodLuckPanel(int id);
 	static void drawEP(int id, const std::vector<float>& finalLine);
 	static void drawRandomEP(int id);
+	static void createText(int id, std::string text, std::vector<float>& intersections, std::vector<int>& connectionsA, std::vector<int>& connectionsB,
+		float left, float right, float top, float bottom);
+	static void drawSeedAndDifficultyTwo(int id, int seed, int difficulty, bool setSeed, bool options);
+	static void drawText(int id, std::vector<float>& intersections, std::vector<int>& connectionsA, std::vector<int>& connectionsB, 
+		const std::vector<float>& finalLine);
 
 	void makeFullStonesPuzzle(int id, int width, int height, int black_stones, int white_stones);
 
