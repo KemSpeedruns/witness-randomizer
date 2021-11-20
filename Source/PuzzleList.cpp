@@ -181,6 +181,9 @@ void PuzzleList::GenerateTutorialN()
 	Special::drawSeedAndDifficultyTwo(0x00064, seed, 0, false, false);
 	//Special::drawGoodLuckPanel(0x00182);
 	//generator->generate(0x00182, Decoration::Gap, 1);
+	//generator->generate(0x33638);
+	//Special::drawCreditsPanel(0x33638, 0);
+	Special::drawCreditsPanel(0x00182, 0);
 
 	//Mazes
 	generator->generate(0x00293, Decoration::Gap, 15);

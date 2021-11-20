@@ -1702,6 +1702,17 @@ void Special::drawEP(int id, const std::vector<float>& finalLine)
 	panel._memory->WritePanelData<int>(id, NEEDS_REDRAW, { 1 });
 }
 
+void Special::drawCreditsPanel(int id, int difficulty) {
+	std::vector<float> intersections;
+	std::vector<int> connectionsA;
+	std::vector<int> connectionsB;
+	createText(id, "treehouse", intersections, connectionsA, connectionsB, 0.05f, 0.95f, 0.1f, 0.25f);
+	createText(id, "parker", intersections, connectionsA, connectionsB, 0.05f, 0.95f, 0.3f, 0.45f);
+	createText(id, "drawings", intersections, connectionsA, connectionsB, 0.05f, 0.95f, 0.5f, 0.65f);
+	createText(id, "kf", intersections, connectionsA, connectionsB, 0.05f, 0.25f, 0.7f, 0.85f);
+	drawText(id, intersections, connectionsA, connectionsB, { 0.1f, 0.1f, 0.9f, 0.1f });
+}
+
 void Special::createText(int id, std::string text, std::vector<float>& intersections, std::vector<int>& connectionsA, std::vector<int>& connectionsB,
 	float left, float right, float top, float bottom) {
 	//012

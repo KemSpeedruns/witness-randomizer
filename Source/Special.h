@@ -67,6 +67,7 @@ public:
 	static void drawSeedAndDifficultyTwo(int id, int seed, int difficulty, bool setSeed, bool options);
 	static void drawText(int id, std::vector<float>& intersections, std::vector<int>& connectionsA, std::vector<int>& connectionsB, 
 		const std::vector<float>& finalLine);
+	static void drawCreditsPanel(int id, int difficulty);
 
 	void makeFullStonesPuzzle(int id, int width, int height, int black_stones, int white_stones);
 
